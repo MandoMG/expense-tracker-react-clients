@@ -3,10 +3,17 @@
   "version": "1.0.0",
   "description": "Monorepo for expense tracker web and native.",
   "workspaces": {
-	  "packages": [
-		  "packages/*"
-	  ],
-	  "nohoist": ["**/react-native", "**/react-native/**"]
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/react-native",
+      "**/react-native/**",
+      "**/react-native-codegen"
+    ]
+  },
+  "scripts": {
+    "reset": "find . -type d -name node_modules | xargs rm -rf && rm -rf yarn.lock"
   },
   "main": "index.js",
   "author": "Armando Meza",
