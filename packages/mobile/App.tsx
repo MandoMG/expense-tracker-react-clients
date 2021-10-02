@@ -27,6 +27,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import { useTestHook } from "mandomg-expensetracker-common/src/hooks";
+import TestReactNative from "mandomg-expensetracker-common/src/components/testReactNative";
+
 const Section: React.FC<{
   title: string;
 }> = ({ children, title }) => {
@@ -57,6 +60,7 @@ const Section: React.FC<{
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
+  const { memoWelcomeString } = useTestHook();
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
@@ -74,7 +78,10 @@ const App = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="Step One">
-            <Text>Some Text</Text>
+            <Text>{memoWelcomeString}</Text>
+          </Section>
+          <Section title="Shared">
+            <TestReactNative />
           </Section>
         </View>
       </ScrollView>
