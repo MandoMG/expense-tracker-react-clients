@@ -1,9 +1,12 @@
 {
   "name": "mandomg-expensetracker-common",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src",
   "dependencies": {
-    "react": "^17.0.2"
+    "react-native": "0.65.1"
+  },
+  "peerDependencies": {
+    "react": "*"
   },
   "devDependencies": {
     "@types/react": "^17.0.0"
