@@ -7,6 +7,10 @@
       "packages/*"
     ],
     "nohoist": [
+      "**/bootstrap",
+      "**/bootstrap/**",
+      "**/react-bootstrap",
+      "**/react-bootstrap/**",
       "**/react-native",
       "**/react-native/**",
       "**/react-native-codegen"
