@@ -16,7 +16,12 @@ const CategoryList = () => {
    ];
 
    return (
-      <View style={{ backgroundColor: 'white', marginHorizontal: 25, marginTop: 30, borderRadius: 15 }}>
+      <View style={{
+         backgroundColor: 'white',
+         marginHorizontal: 25,
+         marginTop: 30,
+         borderRadius: 15
+      }}>
          <View style={{ padding: 20 }}>
             <FlatList
                data={mockData}
@@ -33,7 +38,7 @@ const CategoryList = () => {
                )}
             />
          </View>
-      </View>
+      </View >
    )
 
 }
