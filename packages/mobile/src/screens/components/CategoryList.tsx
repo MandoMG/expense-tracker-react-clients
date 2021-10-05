@@ -12,7 +12,12 @@ const CategoryList = () => {
       { id: 7, name: 'Bills', amount: 302.52, budgetDifference: 12.45, isUnderBudget: true },
       { id: 8, name: 'Groceries', amount: 411.19, budgetDifference: 11.19, isUnderBudget: false },
       { id: 9, name: 'Streaming Services', amount: 108.66, budgetDifference: 41.34, isUnderBudget: false },
-      { id: 10, name: 'Groceries', amount: 411.19, budgetDifference: 11.19, isUnderBudget: false }
+      { id: 10, name: 'Groceries', amount: 411.19, budgetDifference: 11.19, isUnderBudget: false },
+      { id: 11, name: 'Restaurants', amount: 119.52, budgetDifference: 80.48, isUnderBudget: true },
+      { id: 12, name: 'Bills', amount: 302.52, budgetDifference: 12.45, isUnderBudget: true },
+      { id: 13, name: 'Groceries', amount: 411.19, budgetDifference: 11.19, isUnderBudget: false },
+      { id: 14, name: 'Streaming Services', amount: 108.66, budgetDifference: 41.34, isUnderBudget: false },
+      { id: 15, name: 'Groceries', amount: 411.19, budgetDifference: 11.19, isUnderBudget: false }
    ];
 
    return (
@@ -20,9 +25,10 @@ const CategoryList = () => {
          backgroundColor: 'white',
          marginHorizontal: 25,
          marginTop: 30,
+         marginBottom: 50,
          borderRadius: 15
       }}>
-         <View style={{ padding: 20 }}>
+         <View style={{ paddingVertical: 10, paddingHorizontal: 20 }}>
             <FlatList
                data={mockData}
                renderItem={({ item }) => (
