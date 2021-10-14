@@ -1,17 +1,14 @@
-import React from 'react';
-import { ListGroup } from 'react-bootstrap';
-import '../styles/NavigationMenu.css';
+import { Text, View } from 'react-native-web';
 
 const NavigationMenu = () => {
+   const menuItems = ['Dashboard', 'Records', 'Categories', 'Budget'];
+
    return (
-      <div className="MenuWrapper">
-         <ListGroup>
-            <ListGroup.Item active={true}>Dashboard</ListGroup.Item>
-            <ListGroup.Item active={false}>Records</ListGroup.Item>
-            <ListGroup.Item active={false}>Categories</ListGroup.Item>
-            <ListGroup.Item active={false}>Budgets</ListGroup.Item>
-         </ListGroup>
-      </div>
+      <View style={{ margin: 20, borderColor: '#000', borderWidth: 1, borderRadius: 10, padding: 15 }}>
+         {menuItems && menuItems.map(item => (
+            <Text style={{ marginVertical: 10 }} key={`${item.toLowerCase()}-item`}>{item}</Text>
+         ))}
+      </View>
    )
 }
 
