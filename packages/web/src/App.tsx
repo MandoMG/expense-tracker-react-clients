@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
-import { Button, Image, Text, View } from 'react-native-web';
+import { View } from 'react-native-web';
 import NavBar from './components/NavBar';
 import NavigationMenu from './components/NavigationMenu';
+import CurrentBalanceInfo from './components/CurrentBalanceInfo';
+import CurrentBudgetInfo from './components/CurrentBudgetInfo';
 
 function App() {
   return (
@@ -13,7 +15,8 @@ function App() {
           <NavigationMenu />
         </View>
         <View style={{ flex: 3 }}>
-          <NavigationMenu />
+          <CurrentBalanceInfo />
+          <CurrentBudgetInfo />
         </View>
       </View>
     </View>
