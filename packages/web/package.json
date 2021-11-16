@@ -1,5 +1,5 @@
 {
-  "name": "expense-tracker-web",
+  "name": "expense-tracker-native-web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,11 +10,10 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "bootstrap": "5.1.1",
     "mandomg-expensetracker-common": "1.0.0",
     "react": "^17.0.2",
-    "react-bootstrap": "^2.0.0-rc.0",
     "react-dom": "^17.0.2",
+    "react-native-web": "^0.17.5",
     "react-scripts": "4.0.3",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
@@ -42,5 +41,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-native-web": "npm:@types/react-native",
+    "url-loader": "^4.1.1"
   }
 }

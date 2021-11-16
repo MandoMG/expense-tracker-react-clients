@@ -1,9 +1,11 @@
 import React from 'react';
 import { ImageBackground, Text, useWindowDimensions, View } from 'react-native';
+import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import CategoryList from './CategoryList';
 
 const HomeHeader = () => {
    const { height } = useWindowDimensions();
+
    return (
       <View style={{ width: '100%', height: height * .65 }}>
          <ImageBackground
@@ -28,7 +30,7 @@ const HomeHeader = () => {
                justifyContent: 'flex-start',
             }}>
                <Text style={{ color: 'white', fontSize: 14 }}> Current Balance </Text>
-               <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}> $1420.69 </Text>
+               <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(1420.69)}</Text>
             </View>
             <View style={{
                paddingTop: 10,
@@ -43,7 +45,7 @@ const HomeHeader = () => {
                   justifyContent: 'flex-start',
                }}>
                   <Text style={{ color: 'white', fontSize: 14 }}> Income </Text>
-                  <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}> $2000.00 </Text>
+                  <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(2000.00)}</Text>
                </View>
                <View style={{
                   flex: 1,
@@ -51,7 +53,7 @@ const HomeHeader = () => {
                   justifyContent: 'flex-end',
                }}>
                   <Text style={{ color: 'white', fontSize: 14 }}> Income </Text>
-                  <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}> $579.31 </Text>
+                  <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(579.31)}</Text>
                </View>
             </View>
             <CategoryList />

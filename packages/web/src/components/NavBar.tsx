@@ -1,22 +1,17 @@
-import React from 'react';
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
+import { Image, Text, View } from 'react-native-web';
 import profilePicture from '../assets/test_profile_picture.jpg';
-import '../styles/NavBar.css';
 
 const NavBar = () => {
    return (
-      <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-         <Container>
-            <Navbar.Brand href="#home">
-               <h2 className="NavBarTitle">Export Tracker (foglio)</h2>
-            </Navbar.Brand>
-            <Navbar.Brand href="#home">
-               <img src={profilePicture} className="NavBarProfilePicture" alt="logo" />
-            </Navbar.Brand>
-         </Container>
-      </Navbar>
-   );
+      <View style={{ flex: 1, marginVertical: 20, marginHorizontal: 25, flexDirection: 'row' }}>
+         <View style={{ flex: 1, alignContent: 'flex-start' }}>
+            <Text>Expense Tracker (Spese)</Text>
+         </View>
+         <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            <Image source={{ uri: profilePicture }} style={{ height: 32, width: 32, borderRadius: 10 }} />
+         </View>
+      </View>
+   )
 }
 
 export default NavBar;
