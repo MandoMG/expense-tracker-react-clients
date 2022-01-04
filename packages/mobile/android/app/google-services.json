@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "135182207290",
+    "project_id": "monorepo-exp-tracker",
+    "storage_bucket": "monorepo-exp-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135182207290:android:8925763e77f4e4fde96803",
+        "android_client_info": {
+          "package_name": "com.mgjag_expensetracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135182207290-gqhin03ntbmuc0b3m7fuknmqbfkif0kd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mgjag_expensetracker",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "135182207290-rf1tgps7a9ildf1pm0822fir0q7ct119.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTLSv2XUmSUJyG1hCZxUmj-pfR-SvHG1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135182207290-rf1tgps7a9ildf1pm0822fir0q7ct119.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -17,7 +17,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import Home from './screens/Home';
+import Home from './screens/Home/Home';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +44,6 @@ const App = () => {
         }
       })}>
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Records" component={Home} />
         <Tab.Screen name="Categories" component={Home} />
         <Tab.Screen name="Budgets" component={Home} />
       </Tab.Navigator>

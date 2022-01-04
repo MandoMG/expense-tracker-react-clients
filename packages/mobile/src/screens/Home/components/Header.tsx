@@ -9,7 +9,7 @@ const HomeHeader = () => {
    return (
       <View style={{ width: '100%', height: height * .65 }}>
          <ImageBackground
-            source={require('../../assets/header-background.png')}
+            source={require('../../../assets/header-background.png')}
             resizeMode="cover"
             imageStyle={{ borderBottomRightRadius: 25, borderBottomLeftRadius: 25 }}
             style={{

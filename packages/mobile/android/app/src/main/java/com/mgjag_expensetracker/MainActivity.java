@@ -1,4 +1,4 @@
-package com.expensetracker;
+package com.mgjag_expensetracker;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
