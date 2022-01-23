@@ -1,7 +1,7 @@
 import React from 'react';
 import { ImageBackground, Text, useWindowDimensions, View } from 'react-native';
-import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import CategoryList from './CategoryList';
+import BalanceSummaryComponent from '../../../components/balance/BalanceSummary';
 
 const HomeHeader = () => {
    const { height } = useWindowDimensions();
@@ -23,38 +23,8 @@ const HomeHeader = () => {
             }}>
                <Text style={{ color: 'white', fontSize: 18 }}> Dashboard </Text>
             </View>
-            <View style={{
-               paddingTop: 10,
-               paddingLeft: 20,
-               alignItems: 'flex-start',
-               justifyContent: 'flex-start',
-            }}>
-               <Text style={{ color: 'white', fontSize: 14 }}> Current Balance </Text>
-               <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(1420.69)}</Text>
-            </View>
-            <View style={{
-               paddingTop: 10,
-               paddingHorizontal: 20,
-               alignItems: 'flex-start',
-               justifyContent: 'flex-start',
-               flexDirection: 'row'
-            }}>
-               <View style={{
-                  flex: 1,
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-start',
-               }}>
-                  <Text style={{ color: 'white', fontSize: 14 }}> Income </Text>
-                  <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(2000.00)}</Text>
-               </View>
-               <View style={{
-                  flex: 1,
-                  alignItems: 'flex-end',
-                  justifyContent: 'flex-end',
-               }}>
-                  <Text style={{ color: 'white', fontSize: 14 }}> Income </Text>
-                  <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(579.31)}</Text>
-               </View>
+            <View>
+               <BalanceSummaryComponent currentBalance={1420.69} income={2000} expenses={579.31} />
             </View>
             <CategoryList />
          </ImageBackground>
