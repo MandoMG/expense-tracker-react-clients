@@ -42,7 +42,6 @@ const GraphBarComponent = (props: GraphBarProps) => {
          <Text style={{ color: 'white', fontSize: 14 }}> {categoryName} </Text>
       </View>
    )
-
 }
 
 export default GraphBarComponent;

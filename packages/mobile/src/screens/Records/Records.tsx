@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import BalanceSummaryComponent from '../../components/balance/BalanceSummary';
 import GraphBarComponent from '../../components/graphBar/GraphBar';
 import RecordList from './components/RecordList';
@@ -24,10 +24,15 @@ const Records = () => {
          <View>
             <BalanceSummaryComponent currentBalance={1420.69} income={2000} expenses={579.31} />
          </View>
-         <View style={{ flexDirection: 'row', paddingHorizontal: 15, paddingTop: 30 }}>
-            {mockData.map(item => (
-               <GraphBarComponent percentage={item.percentage} categoryName={item.categoryName} />
-            ))}
+         <View>
+            <FlatList
+               horizontal
+               data={mockData}
+               contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 30 }}
+               renderItem={({ item }) => (
+                  <GraphBarComponent percentage={item.percentage} categoryName={item.categoryName} />
+               )}
+            />
          </View>
          <View style={{
             flex: 1,
