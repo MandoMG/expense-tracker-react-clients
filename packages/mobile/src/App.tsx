@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import Home from './screens/Home/Home';
 import Records from './screens/Records/Records';
+import Categories from './screens/Categories/Categories';
 
 const Tab = createBottomTabNavigator();
 
@@ -40,7 +41,8 @@ const App = () => {
       })}>
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Records" component={Records} />
-        <Tab.Screen name="Categories" component={Home} />
+        <Tab.Screen name="Categories" component={Categories} />
+        <Tab.Screen name="CategoryDetail" component={Categories} />
       </Tab.Navigator>
     </NavigationContainer>
   );
