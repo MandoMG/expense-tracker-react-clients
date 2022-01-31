@@ -26,8 +26,6 @@ const getNavigatorIcon = (routeName: string) => {
       return <Icon name="file-alt" size={20} />
     case 'Categories':
       return <Icon name="list" size={20} />
-    case 'Budgets':
-      return <Icon name="wallet" size={20} />
   }
 }
 
@@ -43,7 +41,6 @@ const App = () => {
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Records" component={Records} />
         <Tab.Screen name="Categories" component={Home} />
-        <Tab.Screen name="Budgets" component={Home} />
       </Tab.Navigator>
     </NavigationContainer>
   );
