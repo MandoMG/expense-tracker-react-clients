@@ -19,7 +19,7 @@ const BalanceSummaryComponent = (props: BalanceSummaryProps) => {
             justifyContent: 'flex-start',
          }}>
             <Text style={{ color: 'white', fontSize: 14 }}> Current Balance </Text>
-            <Text style={{ color: 'white', fontSize: 36, fontWeight: 'bold' }}>{TextUtil.formatCurrency(currentBalance)}</Text>
+            <Text style={{ color: 'white', fontSize: 36, fontWeight: 'bold' }}>{TextUtil.formatCurrency(currentBalance, 0)}</Text>
          </View>
          <View style={{
             paddingTop: 15,
@@ -34,7 +34,7 @@ const BalanceSummaryComponent = (props: BalanceSummaryProps) => {
                justifyContent: 'flex-start',
             }}>
                <Text style={{ color: 'white', fontSize: 14 }}> Income </Text>
-               <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(income)}</Text>
+               <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(income, 0)}</Text>
             </View>
             <View style={{
                flex: 1,
@@ -42,7 +42,7 @@ const BalanceSummaryComponent = (props: BalanceSummaryProps) => {
                justifyContent: 'flex-end',
             }}>
                <Text style={{ color: 'white', fontSize: 14 }}> Expenses </Text>
-               <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(expenses)}</Text>
+               <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(expenses, 0)}</Text>
             </View>
          </View>
       </View>
