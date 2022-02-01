@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
 import GraphBarComponent from '../../components/graphBar/GraphBar';
+import HeaderComponent from '../../components/header/Header';
 import CategoriesList from './components/CategoriesList';
 
 const Categories = () => {
@@ -13,13 +14,7 @@ const Categories = () => {
 
    return (
       <View style={{ flex: 1, backgroundColor: '#4285F4' }}>
-         <View style={{
-            paddingTop: 20,
-            alignItems: 'center',
-            justifyContent: 'center',
-         }}>
-            <Text style={{ color: 'white', fontSize: 18 }}> Categories </Text>
-         </View>
+         <HeaderComponent title='Categories' />
          <View>
             <FlatList
                horizontal

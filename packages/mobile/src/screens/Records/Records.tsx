@@ -2,6 +2,7 @@ import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import BalanceSummaryComponent from '../../components/balance/BalanceSummary';
 import GraphBarComponent from '../../components/graphBar/GraphBar';
+import HeaderComponent from '../../components/header/Header';
 import RecordList from './components/RecordList';
 
 const Records = () => {
@@ -14,13 +15,7 @@ const Records = () => {
 
    return (
       <View style={{ flex: 1, backgroundColor: '#4285F4' }}>
-         <View style={{
-            paddingTop: 20,
-            alignItems: 'center',
-            justifyContent: 'center',
-         }}>
-            <Text style={{ color: 'white', fontSize: 18 }}> Records </Text>
-         </View>
+         <HeaderComponent title='Records' />
          <View>
             <BalanceSummaryComponent currentBalance={1420.69} income={2000} expenses={579.31} />
          </View>
