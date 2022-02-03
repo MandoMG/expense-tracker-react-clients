@@ -9,7 +9,11 @@ type CategoryListNavigationProp = BottomTabNavigationProp<
   TabNavigationScreensParams
 >
 
-const CategoriesList = () => {
+interface CategoriesListProps {
+  handleOnPress: (selectedItem: Category) => void;
+}
+
+const CategoriesList = ({ handleOnPress }: CategoriesListProps) => {
   const navigation = useNavigation<CategoryListNavigationProp>();
 
   const mockData: Category[] = [
@@ -24,10 +28,6 @@ const CategoriesList = () => {
     { id: 9, name: 'Savings', budget: 460.00, hasBudget: true, isExpense: true },
     { id: 10, name: 'Services', budget: 460.00, hasBudget: true, isExpense: true },
   ];
-
-  const handleOnPress = (item: Category) => {
-    navigation.jumpTo('CategoryDetail', { category: item });
-  };
 
   return (
     <View>

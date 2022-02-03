@@ -8,7 +8,7 @@ interface HeaderProps {
   rightHeaderItem?: any;
 }
 
-const HeaderComponent = (props: HeaderProps) => {
+const ScreenHeaderComponent = (props: HeaderProps) => {
   const { leftHeaderAction, title, rightHeaderItem } = props;
   return (
     <View style={{ flexDirection: 'row' }}>
@@ -46,4 +46,4 @@ const HeaderComponent = (props: HeaderProps) => {
   )
 }
 
-export default HeaderComponent;
+export default ScreenHeaderComponent;

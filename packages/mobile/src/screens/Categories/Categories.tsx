@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
 import GraphBarComponent from '../../components/graphBar/GraphBar';
-import HeaderComponent from '../../components/header/Header';
+import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
+import { Category } from '../../types';
+import CategoryDetailModal from './CategoryDetailModal';
 import CategoriesList from './components/CategoriesList';
 
 const Categories = () => {
+   const [shouldOpenModal, setShouldOpenModal] = useState(false);
+   const [selectedCategory, setSelectedCategory] = useState<Category>();
+
    const mockData = [
       { categoryName: 'Restaurants', percentage: 40 },
       { categoryName: 'Bills', percentage: 70 },
@@ -12,9 +17,14 @@ const Categories = () => {
       { categoryName: 'Streaming', percentage: 50 },
    ];
 
+   const handleCategoryItemOnPress = (selectedItem: Category) => {
+      setShouldOpenModal(true);
+      setSelectedCategory(selectedItem);
+   };
+
    return (
       <View style={{ flex: 1, backgroundColor: '#4285F4' }}>
-         <HeaderComponent title='Categories' />
+         <ScreenHeaderComponent title='Categories' />
          <View>
             <FlatList
                horizontal
@@ -29,8 +39,11 @@ const Categories = () => {
             flex: 1,
             marginTop: 10,
          }}>
-            <CategoriesList />
+            <CategoriesList handleOnPress={handleCategoryItemOnPress} />
          </View>
+         {shouldOpenModal && selectedCategory && (
+            <CategoryDetailModal category={selectedCategory} handleClose={() => setShouldOpenModal(false)} />
+         )}
       </View>
    )
 };
