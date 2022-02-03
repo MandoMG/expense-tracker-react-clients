@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Text, TextInput, View } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
@@ -12,11 +12,11 @@ interface CategoryDetailProps {
 
 const CategoryDetail = ({ navigation, route }: CategoryDetailProps) => {
   const { category } = route.params;
-  const [isExpense, setIsExpense] = useState(category.isExpense);
-  const [hasBudget, setHasBudget] = useState(category.hasBudget);
+  const [isExpense, setIsExpense] = useState<boolean>(category.isExpense);
+  const [hasBudget, setHasBudget] = useState<boolean>(category.hasBudget);
 
   const navigateBack = () => {
-    navigation.navigate('Categories');
+    navigation.jumpTo('Categories');
   }
 
   const handleExpenseSwitchChange = (value: boolean) => {
@@ -26,6 +26,11 @@ const CategoryDetail = ({ navigation, route }: CategoryDetailProps) => {
   const handleBudgetSwitchChange = (value: boolean) => {
     setHasBudget(value);
   };
+
+  useEffect(() => {
+    setHasBudget(category.hasBudget);
+    setIsExpense(category.isExpense);
+  }, [route]);
 
   return (
     <View style={{ flex: 1, backgroundColor: '#4285F4' }}>

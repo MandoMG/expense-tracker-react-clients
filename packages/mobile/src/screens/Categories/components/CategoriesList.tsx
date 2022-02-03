@@ -26,7 +26,7 @@ const CategoriesList = () => {
   ];
 
   const handleOnPress = (item: Category) => {
-    navigation.navigate('CategoryDetail', { category: item });
+    navigation.jumpTo('CategoryDetail', { category: item });
   };
 
   return (
