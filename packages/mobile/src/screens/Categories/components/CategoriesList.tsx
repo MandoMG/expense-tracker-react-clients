@@ -1,46 +1,40 @@
-import { useNavigation } from '@react-navigation/native';
-import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
-import { FlatList, TouchableOpacity, Text, View } from 'react-native';
+import { FlatList, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import { Category, TabNavigationScreensParams } from '../../../types';
+import CategoryListItem from './CategoryListItem';
+
+type CategoryListNavigationProp = BottomTabNavigationProp<
+  TabNavigationScreensParams
+>
 
 const CategoriesList = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<CategoryListNavigationProp>();
 
-  const mockData = [
-    { id: 1, description: 'Bills', budget: 1400.00, hasBudget: true, isExpense: true },
-    { id: 2, description: 'Car', budget: 460.00, hasBudget: true, isExpense: true },
-    { id: 3, description: 'Credit', budget: 460.00, hasBudget: true, isExpense: true },
-    { id: 4, description: 'Gas', budget: 460.00, hasBudget: true, isExpense: true },
-    { id: 5, description: 'Groceries', budget: 460.00, hasBudget: true, isExpense: true },
-    { id: 6, description: 'Holly', budget: 0.00, hasBudget: false, isExpense: true },
-    { id: 7, description: 'Miscellaneous', budget: 460.00, hasBudget: true, isExpense: true },
-    { id: 8, description: 'Restaurants', budget: 460.00, hasBudget: true, isExpense: true },
-    { id: 9, description: 'Savings', budget: 460.00, hasBudget: true, isExpense: true },
-    { id: 10, description: 'Services', budget: 460.00, hasBudget: true, isExpense: true },
+  const mockData: Category[] = [
+    { id: 1, name: 'Bills', budget: 1400.00, hasBudget: true, isExpense: true },
+    { id: 2, name: 'Car', budget: 460.00, hasBudget: true, isExpense: true },
+    { id: 3, name: 'Credit', budget: 460.00, hasBudget: true, isExpense: true },
+    { id: 4, name: 'Gas', budget: 460.00, hasBudget: true, isExpense: true },
+    { id: 5, name: 'Groceries', budget: 460.00, hasBudget: true, isExpense: true },
+    { id: 6, name: 'Holly', budget: 0.00, hasBudget: false, isExpense: true },
+    { id: 7, name: 'Miscellaneous', budget: 460.00, hasBudget: true, isExpense: true },
+    { id: 8, name: 'Restaurants', budget: 460.00, hasBudget: true, isExpense: true },
+    { id: 9, name: 'Savings', budget: 460.00, hasBudget: true, isExpense: true },
+    { id: 10, name: 'Services', budget: 460.00, hasBudget: true, isExpense: true },
   ];
 
-  const handleOnPress = () => {
-    // Handle navigation here
-    // navigation.navigate('CategoryDetail');
+  const handleOnPress = (item: Category) => {
+    navigation.navigate('CategoryDetail', { category: item });
   };
 
   return (
     <View>
       <FlatList
         data={mockData}
-        renderItem={({ item }) => (
-          <TouchableOpacity onPress={handleOnPress}>
-            <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 8, paddingHorizontal: 20 }}>
-              <View style={{ flex: 1, paddingVertical: 10 }}>
-                <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.description}</Text>
-              </View>
-              {item.hasBudget && (
-                <View style={{ flex: 1, alignItems: 'flex-end', paddingVertical: 10 }}>
-                  <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{TextUtil.formatCurrency(item.budget)}</Text>
-                </View>
-              )}
-            </View>
-          </TouchableOpacity>
+        renderItem={({ item }: { item: Category }) => (
+          <CategoryListItem item={item} handleOnPress={handleOnPress} />
         )}
       />
     </View >
