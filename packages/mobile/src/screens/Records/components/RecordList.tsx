@@ -1,3 +1,4 @@
+import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 
@@ -23,7 +24,7 @@ const RecordList = () => {
                         <Text style={{ color: '#FFFFFF' }}>{item.date}</Text>
                      </View>
                      <View style={{ alignItems: 'flex-end' }}>
-                        <Text style={{ fontWeight: 'bold' }}>{item.amount}</Text>
+                        <Text style={{ fontWeight: 'bold' }}>{TextUtil.formatCurrency(item.amount)}</Text>
                         <Text style={{ color: '#FFFFFF' }}>{item.categoryName}</Text>
                      </View>
                   </View>

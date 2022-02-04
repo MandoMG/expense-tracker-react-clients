@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import Home from './screens/Home/Home';
 import Records from './screens/Records/Records';
+import Categories from './screens/Categories/Categories';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,8 +27,6 @@ const getNavigatorIcon = (routeName: string) => {
       return <Icon name="file-alt" size={20} />
     case 'Categories':
       return <Icon name="list" size={20} />
-    case 'Budgets':
-      return <Icon name="wallet" size={20} />
   }
 }
 
@@ -42,8 +41,7 @@ const App = () => {
       })}>
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Records" component={Records} />
-        <Tab.Screen name="Categories" component={Home} />
-        <Tab.Screen name="Budgets" component={Home} />
+        <Tab.Screen name="Categories" component={Categories} />
       </Tab.Navigator>
     </NavigationContainer>
   );

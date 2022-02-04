@@ -1,11 +1,15 @@
-import React from 'react';
-import { FlatList, Text, View } from 'react-native';
-import BalanceSummaryComponent from '../../components/balance/BalanceSummary';
+import React, { useState } from 'react';
+import { FlatList, View } from 'react-native';
 import GraphBarComponent from '../../components/graphBar/GraphBar';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
-import RecordList from './components/RecordList';
+import { Category } from '../../types';
+import CategoryDetailModal from './CategoryDetailModal';
+import CategoriesList from './components/CategoriesList';
 
-const Records = () => {
+const Categories = () => {
+   const [shouldOpenModal, setShouldOpenModal] = useState(false);
+   const [selectedCategory, setSelectedCategory] = useState<Category>();
+
    const mockData = [
       { categoryName: 'Restaurants', percentage: 40 },
       { categoryName: 'Bills', percentage: 70 },
@@ -13,12 +17,14 @@ const Records = () => {
       { categoryName: 'Streaming', percentage: 50 },
    ];
 
+   const handleCategoryItemOnPress = (selectedItem: Category) => {
+      setShouldOpenModal(true);
+      setSelectedCategory(selectedItem);
+   };
+
    return (
       <View style={{ flex: 1, backgroundColor: '#4285F4' }}>
-         <ScreenHeaderComponent title='Records' />
-         <View>
-            <BalanceSummaryComponent currentBalance={1420.69} income={2000} expenses={579.31} />
-         </View>
+         <ScreenHeaderComponent title='Categories' />
          <View>
             <FlatList
                horizontal
@@ -32,12 +38,14 @@ const Records = () => {
          <View style={{
             flex: 1,
             marginTop: 10,
-            borderRadius: 15
          }}>
-            <RecordList />
+            <CategoriesList handleOnPress={handleCategoryItemOnPress} />
          </View>
+         {shouldOpenModal && selectedCategory && (
+            <CategoryDetailModal category={selectedCategory} handleClose={() => setShouldOpenModal(false)} />
+         )}
       </View>
    )
 };
 
-export default Records;
+export default Categories;
