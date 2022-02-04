@@ -42,7 +42,6 @@ const App = () => {
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Records" component={Records} />
         <Tab.Screen name="Categories" component={Categories} />
-        <Tab.Screen name="CategoryDetail" component={Categories} />
       </Tab.Navigator>
     </NavigationContainer>
   );
