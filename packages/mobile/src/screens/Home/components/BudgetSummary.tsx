@@ -1,6 +1,7 @@
 import React from 'react';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import { FlatList, Text, View } from 'react-native';
+import commonStyles from '../../../styles/CommonStyles';
 
 const BudgetSummary = () => {
   const mockData = [
@@ -23,19 +24,11 @@ const BudgetSummary = () => {
 
   const BudgetSummaryItem = ({ item }: any) => {
     return (
-      <View style={{
-        flex: 1,
-        flexDirection: 'row',
-        backgroundColor: '#dadada',
-        borderRadius: 20,
-        marginTop: 10,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-      }}>
-        <View style={{ flex: 1, paddingVertical: 10 }}>
+      <View style={commonStyles.listItemWrapper}>
+        <View style={commonStyles.listItemLeftColumn}>
           <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.name}</Text>
         </View>
-        <View style={{ alignItems: 'flex-end' }}>
+        <View style={commonStyles.listItemRightColumn}>
           <Text style={{ fontWeight: 'bold' }}>{TextUtil.formatCurrency(item.amount)}</Text>
           <Text style={{ color: '#707070' }}>{`${TextUtil.formatCurrency(item.budgetDifference)} ${item.isUnderBudget ? 'under' : 'over'} budget`}</Text>
         </View>
@@ -50,7 +43,7 @@ const BudgetSummary = () => {
       height: '95%'
     }}>
       <View>
-        <Text style={{ color: 'black', fontSize: 18, flexWrap: 'wrap', fontWeight: 'bold' }}> Budget Summary </Text>
+        <Text style={commonStyles.sectionTitle}> Budget Summary </Text>
       </View>
       <View style={{ marginTop: 5, flex: 1 }}>
         <FlatList

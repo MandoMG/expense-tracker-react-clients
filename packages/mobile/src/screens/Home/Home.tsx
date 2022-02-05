@@ -1,17 +1,8 @@
 import React from 'react';
-import HomeHeader from "./components/Header";
 import { Text, View } from 'react-native';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import BudgetSummary from './components/BudgetSummary';
-
-const OldHome = () => {
-   return (
-      <View>
-         <HomeHeader />
-      </View>
-   )
-};
 
 const currentBalance = 1420.69;
 const income = 2000.00;
