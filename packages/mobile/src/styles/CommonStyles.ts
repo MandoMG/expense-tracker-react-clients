@@ -10,9 +10,12 @@ const commonStyles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
-  listItemLeftColumn: {
+  listItemSingleLineLeftColumn: {
     flex: 1,
     paddingVertical: 10
+  },
+  listItemLeftColumn: {
+    flex: 1,
   },
   listItemRightColumn: {
     alignItems: 'flex-end'

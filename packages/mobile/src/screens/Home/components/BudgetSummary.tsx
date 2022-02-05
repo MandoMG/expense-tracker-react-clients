@@ -25,7 +25,7 @@ const BudgetSummary = () => {
   const BudgetSummaryItem = ({ item }: any) => {
     return (
       <View style={commonStyles.listItemWrapper}>
-        <View style={commonStyles.listItemLeftColumn}>
+        <View style={commonStyles.listItemSingleLineLeftColumn}>
           <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.name}</Text>
         </View>
         <View style={commonStyles.listItemRightColumn}>

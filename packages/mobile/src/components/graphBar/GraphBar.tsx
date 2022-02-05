@@ -39,7 +39,7 @@ const GraphBarComponent = (props: GraphBarProps) => {
                </View>
             </View>
          </View>
-         <Text style={{ color: 'white', fontSize: 14 }}> {categoryName} </Text>
+         <Text style={{ color: 'black', fontSize: 14 }}> {categoryName} </Text>
       </View>
    )
 }

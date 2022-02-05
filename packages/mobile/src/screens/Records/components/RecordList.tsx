@@ -1,6 +1,7 @@
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
+import commonStyles from '../../../styles/CommonStyles';
 
 const RecordList = () => {
    const mockData = [
@@ -12,22 +13,33 @@ const RecordList = () => {
       { id: 6, description: 'Grande', categoryName: 'Bills', date: '01/03/2022', amount: 58.29, isExpense: true },
    ];
 
+   const RecordItem = ({ item }: any) => {
+      return (
+         <View style={commonStyles.listItemWrapper}>
+            <View style={commonStyles.listItemLeftColumn}>
+               <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.description}</Text>
+               <Text style={{ color: '#FFFFFF' }}>{item.date}</Text>
+            </View>
+            <View style={commonStyles.listItemRightColumn}>
+               <Text style={{ fontWeight: 'bold' }}>{TextUtil.formatCurrency(item.amount)}</Text>
+               <Text style={{ color: '#FFFFFF' }}>{item.categoryName}</Text>
+            </View>
+         </View>
+      );
+   }
+
+
    return (
-      <View>
-         <View style={{ paddingVertical: 10 }}>
+      <View style={{ marginHorizontal: 20 }}>
+         <View>
+            <Text style={commonStyles.sectionTitle}> Activity </Text>
+         </View>
+         <View style={{ paddingBottom: 10 }}>
             <FlatList
                data={mockData}
+               scrollEnabled={false}
                renderItem={({ item }) => (
-                  <View style={{ flex: 1, flexDirection: 'row', paddingVertical: 8, paddingHorizontal: 20 }}>
-                     <View style={{ flex: 1, paddingVertical: 10 }}>
-                        <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.description}</Text>
-                        <Text style={{ color: '#FFFFFF' }}>{item.date}</Text>
-                     </View>
-                     <View style={{ alignItems: 'flex-end' }}>
-                        <Text style={{ fontWeight: 'bold' }}>{TextUtil.formatCurrency(item.amount)}</Text>
-                        <Text style={{ color: '#FFFFFF' }}>{item.categoryName}</Text>
-                     </View>
-                  </View>
+                  <RecordItem item={item} />
                )}
             />
          </View>
