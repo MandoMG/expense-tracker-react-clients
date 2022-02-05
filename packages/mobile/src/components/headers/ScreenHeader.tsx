@@ -20,7 +20,7 @@ const ScreenHeaderComponent = (props: HeaderProps) => {
         justifyContent: 'center',
       }}>
         {!!leftHeaderAction && (
-          <Icon name="chevron-left" size={18} style={{ color: 'white' }} onPress={leftHeaderAction} />
+          <Icon name="chevron-left" size={18} style={{ color: 'black' }} onPress={leftHeaderAction} />
         )}
       </View>
       <View style={{
@@ -29,7 +29,7 @@ const ScreenHeaderComponent = (props: HeaderProps) => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <Text style={{ color: 'white', fontSize: 18, flexWrap: 'wrap' }}> {title} </Text>
+        <Text style={{ color: 'black', fontSize: 18, flexWrap: 'wrap', fontWeight: 'bold' }}> {title} </Text>
       </View>
       <View style={{
         flex: 1,
@@ -39,7 +39,7 @@ const ScreenHeaderComponent = (props: HeaderProps) => {
         justifyContent: 'center',
       }}>
         {!!rightHeaderItem && (
-          <Icon name="chevron-left" size={18} style={{ color: 'white' }} />
+          <Icon name="chevron-left" size={18} style={{ color: 'black' }} />
         )}
       </View>
     </View>

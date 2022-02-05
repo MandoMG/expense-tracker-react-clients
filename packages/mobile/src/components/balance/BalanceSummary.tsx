@@ -12,7 +12,7 @@ const BalanceSummaryComponent = (props: BalanceSummaryProps) => {
    const { currentBalance, income, expenses } = props;
 
    return (
-      <View>
+      <View style={{ backgroundColor: '#323246' }}>
          <View style={{
             paddingTop: 10,
             alignItems: 'center',
