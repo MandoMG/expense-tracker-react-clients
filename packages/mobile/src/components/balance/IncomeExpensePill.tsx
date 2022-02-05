@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
+import Colors from '../../common/Colors';
 
 interface IncomeExpensePillProps {
   value: number;
@@ -28,7 +29,7 @@ const IncomeExpensePill = ({ value, isExpense }: IncomeExpensePillProps) => {
 const style = StyleSheet.create({
   expensePillWrapper: {
     flex: 1,
-    backgroundColor: '#ff6937',
+    backgroundColor: Colors.expenseOrange,
     marginLeft: 10,
     marginTop: 20,
     borderRadius: 25,
@@ -36,7 +37,7 @@ const style = StyleSheet.create({
   },
   incomePillWrapper: {
     flex: 1,
-    backgroundColor: '#8132ff',
+    backgroundColor: Colors.incomePurple,
     marginRight: 10,
     marginTop: 20,
     borderRadius: 25,
