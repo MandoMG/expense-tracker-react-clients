@@ -10,7 +10,7 @@ const Records = () => {
    return (
       <View style={{ flex: 1 }}>
          <ScreenHeaderComponent title='Records' />
-         <ScrollView>
+         <ScrollView contentInsetAdjustmentBehavior='automatic'>
             <View>
                <BalanceSummaryComponent currentBalance={1420.69} income={2000} expenses={579.31} />
             </View>
