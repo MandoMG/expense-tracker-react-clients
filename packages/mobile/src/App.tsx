@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Home from './screens/Home/Home';
 import Records from './screens/Records/Records';
 import Categories from './screens/Categories/Categories';
+import Colors from './common/Colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,6 +36,7 @@ const App = () => {
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
         headerShown: false,
+        tabBarActiveTintColor: Colors.expenseOrange,
         tabBarIcon: () => {
           return getNavigatorIcon(route.name);
         }

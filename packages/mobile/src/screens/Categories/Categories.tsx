@@ -23,7 +23,7 @@ const Categories = () => {
    };
 
    return (
-      <View style={{ flex: 1, backgroundColor: '#4285F4' }}>
+      <View style={{ flex: 1 }}>
          <ScreenHeaderComponent title='Categories' />
          <View>
             <FlatList
@@ -38,6 +38,7 @@ const Categories = () => {
          <View style={{
             flex: 1,
             marginTop: 10,
+            marginHorizontal: 15
          }}>
             <CategoriesList handleOnPress={handleCategoryItemOnPress} />
          </View>

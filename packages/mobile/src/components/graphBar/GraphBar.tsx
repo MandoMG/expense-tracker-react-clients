@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import Colors from '../../common/Colors';
 
 interface GraphBarProps {
    percentage: number;
@@ -27,19 +28,19 @@ const GraphBarComponent = (props: GraphBarProps) => {
                width: 20,
                flexDirection: 'column-reverse',
                alignSelf: "center",
-               backgroundColor: '#AAAAAA',
+               backgroundColor: Colors.backgroundGray,
                borderRadius: 20,
                overflow: "hidden",
             }}>
                <View style={{
                   borderRadius: 20,
-                  backgroundColor: '#a01432',
+                  backgroundColor: Colors.expenseOrange,
                   height: getHeight() * (percentage / 100)
                }}>
                </View>
             </View>
          </View>
-         <Text style={{ color: 'white', fontSize: 14 }}> {categoryName} </Text>
+         <Text style={{ color: 'black', fontSize: 14 }}> {categoryName} </Text>
       </View>
    )
 }
