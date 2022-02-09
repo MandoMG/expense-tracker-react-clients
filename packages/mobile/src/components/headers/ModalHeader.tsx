@@ -19,7 +19,7 @@ const ModalHeaderComponent = (props: ModalHeaderProps) => {
         justifyContent: 'center',
       }}>
         <TouchableOpacity onPress={handleClose}>
-          <Text style={{ color: 'white', fontSize: 16, flexWrap: 'wrap' }}> Close </Text>
+          <Text style={{ color: 'black', fontSize: 16, flexWrap: 'wrap' }}> Close </Text>
         </TouchableOpacity>
       </View>
       <View style={{
@@ -28,7 +28,7 @@ const ModalHeaderComponent = (props: ModalHeaderProps) => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
-        <Text style={{ color: 'white', fontSize: 16, flexWrap: 'wrap' }}> {title} </Text>
+        <Text style={{ color: 'black', fontSize: 18, flexWrap: 'wrap', fontWeight: 'bold' }}> {title} </Text>
       </View>
       <View style={{
         flex: 1,
@@ -39,7 +39,7 @@ const ModalHeaderComponent = (props: ModalHeaderProps) => {
       }}>
         {!!handleSave && (
           <TouchableOpacity onPress={handleSave}>
-            <Text style={{ color: 'white', fontSize: 16, flexWrap: 'wrap' }}> Save </Text>
+            <Text style={{ color: 'black', fontSize: 16, flexWrap: 'wrap' }}> Save </Text>
           </TouchableOpacity>
         )}
       </View>

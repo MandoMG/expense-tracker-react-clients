@@ -23,12 +23,12 @@ const CategoryDetailModal = ({ category, handleClose }: CategoryDetailModalProps
 
   return (
     <Modal animationType='slide'>
-      <View style={{ flex: 1, backgroundColor: '#4285F4' }}>
+      <View style={{ flex: 1 }}>
         <ModalHeaderComponent title="Edit Category" handleClose={() => handleClose()} />
         <View style={{ marginTop: 8 }}>
           <Text style={{ fontWeight: 'bold', marginLeft: 20, marginTop: 10 }}>Name</Text>
-          <View style={{ marginTop: 8, marginHorizontal: 10, backgroundColor: 'white', height: 40, borderRadius: 15, paddingHorizontal: 15 }}>
-            <TextInput value={category.name} />
+          <View style={{ marginTop: 8, backgroundColor: 'white', height: 40, borderRadius: 15, paddingHorizontal: 15 }}>
+            <TextInput style={{ borderColor: '#505050', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10 }} defaultValue={category.name} />
           </View>
         </View>
         <View style={{ flexDirection: 'row', marginTop: 10, marginRight: 10 }}>
@@ -50,8 +50,13 @@ const CategoryDetailModal = ({ category, handleClose }: CategoryDetailModalProps
         </View>
         <View>
           <Text style={{ fontWeight: 'bold', marginLeft: 20, marginTop: 10 }}>Budget</Text>
-          <View style={{ marginTop: 8, marginHorizontal: 10, backgroundColor: 'white', height: 40, borderRadius: 15, paddingHorizontal: 15 }}>
-            <TextInput editable={hasBudget} keyboardType='decimal-pad' defaultValue={String(category.budget)} />
+          <View style={{ marginTop: 8, backgroundColor: 'white', height: 40, borderRadius: 15, paddingHorizontal: 15 }}>
+            <TextInput
+              style={{ borderColor: '#505050', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10 }}
+              editable={hasBudget}
+              keyboardType='decimal-pad'
+              defaultValue={String(category.budget)}
+            />
           </View>
         </View>
       </View>
