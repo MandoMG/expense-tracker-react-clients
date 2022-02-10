@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
-import { Modal, Switch, Text, TextInput, View } from 'react-native';
+import { ColorPropType, Modal, Switch, Text, TextInput, View } from 'react-native';
+import Colors from '../../common/Colors';
+import commonStyles from '../../common/CommonStyles';
 import ModalHeaderComponent from '../../components/headers/ModalHeader';
+import LineSeparator from '../../components/lineSeparator/LineSeparator';
 import { Category } from '../../types';
+import CategoryDetailStyles from './styles/CategoryDetailModal.styles';
 
 interface CategoryDetailModalProps {
   category: Category;
@@ -23,36 +27,44 @@ const CategoryDetailModal = ({ category, handleClose }: CategoryDetailModalProps
 
   return (
     <Modal animationType='slide'>
-      <View style={{ flex: 1 }}>
+      <View style={commonStyles.flexOne}>
         <ModalHeaderComponent title="Edit Category" handleClose={() => handleClose()} />
-        <View style={{ marginTop: 8 }}>
-          <Text style={{ fontWeight: 'bold', marginLeft: 20, marginTop: 10 }}>Name</Text>
-          <View style={{ marginTop: 8, backgroundColor: 'white', height: 40, borderRadius: 15, paddingHorizontal: 15 }}>
-            <TextInput style={{ borderColor: '#505050', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10 }} defaultValue={category.name} />
+        <View>
+          <Text style={CategoryDetailStyles.inputTitle}>Name</Text>
+          <View style={CategoryDetailStyles.inputFieldWrapper}>
+            <TextInput style={CategoryDetailStyles.inputField} defaultValue={category.name} />
           </View>
         </View>
-        <View style={{ flexDirection: 'row', marginTop: 10, marginRight: 10 }}>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontWeight: 'bold', marginLeft: 20, marginTop: 5 }}>Is Expense</Text>
+        <View style={CategoryDetailStyles.sliderWrapper}>
+          <View style={commonStyles.flexOne}>
+            <Text style={CategoryDetailStyles.sliderText}>Is Expense</Text>
           </View>
-          <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <Switch style={{ marginTop: 3 }} trackColor={{ false: "#DDDDDD", true: "#DDDDDD" }} value={isExpense} onValueChange={handleExpenseSwitchChange} />
+          <View style={CategoryDetailStyles.sliderItemWrapper}>
+            <Switch
+              style={CategoryDetailStyles.sliderItem}
+              trackColor={{ false: Colors.backgroundGray, true: Colors.backgroundGray }}
+              onValueChange={handleExpenseSwitchChange}
+              value={isExpense} />
           </View>
         </View>
-        <View style={{ borderWidth: 0.3, marginTop: 10, marginHorizontal: 10, borderColor: '#DDDDDD' }} />
-        <View style={{ flexDirection: 'row', marginTop: 8, marginRight: 10 }}>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontWeight: 'bold', marginLeft: 20, marginTop: 5 }}>Has Budget</Text>
+        <LineSeparator />
+        <View style={CategoryDetailStyles.sliderWrapper}>
+          <View style={commonStyles.flexOne}>
+            <Text style={CategoryDetailStyles.sliderText}>Has Budget</Text>
           </View>
-          <View style={{ flex: 1, alignItems: 'flex-end' }}>
-            <Switch style={{ marginTop: 3 }} trackColor={{ false: "#DDDDDD", true: "#DDDDDD" }} value={hasBudget} onValueChange={handleBudgetSwitchChange} />
+          <View style={CategoryDetailStyles.sliderItemWrapper}>
+            <Switch
+              style={CategoryDetailStyles.sliderItem}
+              trackColor={{ false: Colors.backgroundGray, true: Colors.backgroundGray }}
+              onValueChange={handleExpenseSwitchChange}
+              value={hasBudget} />
           </View>
         </View>
         <View>
-          <Text style={{ fontWeight: 'bold', marginLeft: 20, marginTop: 10 }}>Budget</Text>
-          <View style={{ marginTop: 8, backgroundColor: 'white', height: 40, borderRadius: 15, paddingHorizontal: 15 }}>
+          <Text style={CategoryDetailStyles.inputTitle}>Budget</Text>
+          <View style={CategoryDetailStyles.inputFieldWrapper}>
             <TextInput
-              style={{ borderColor: '#505050', borderWidth: 1, borderRadius: 10, paddingHorizontal: 10 }}
+              style={CategoryDetailStyles.inputField}
               editable={hasBudget}
               keyboardType='decimal-pad'
               defaultValue={String(category.budget)}
