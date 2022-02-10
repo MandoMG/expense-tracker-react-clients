@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import GraphBarComponent from '../../../components/graphBar/GraphBar';
-import commonStyles from '../../../styles/CommonStyles';
+import commonStyles from '../../../common/CommonStyles';
 
 const mockData = [
   { categoryName: 'Restaurants', percentage: 40 },

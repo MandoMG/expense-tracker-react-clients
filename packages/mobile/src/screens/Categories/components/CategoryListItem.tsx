@@ -2,7 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import { Category } from '../../../types';
-import commonStyles from '../../../styles/CommonStyles';
+import commonStyles from '../../../common/CommonStyles';
 
 interface CategoryItemProps {
   item: Category;

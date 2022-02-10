@@ -1,7 +1,7 @@
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
-import commonStyles from '../../../styles/CommonStyles';
+import commonStyles from '../../../common/CommonStyles';
 
 const RecordList = () => {
    const mockData = [
