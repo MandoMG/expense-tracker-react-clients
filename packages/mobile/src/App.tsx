@@ -20,14 +20,14 @@ import Colors from './common/Colors';
 
 const Tab = createBottomTabNavigator();
 
-const getNavigatorIcon = (routeName: string) => {
+const getNavigatorIcon = (routeName: string, isActive: boolean) => {
   switch (routeName) {
     case 'Home':
-      return <Icon name="home" size={20} />
+      return <Icon name="home" size={20} color={isActive ? Colors.expenseOrange : Colors.black} />
     case 'Records':
-      return <Icon name="file-alt" size={20} />
+      return <Icon name="file-alt" size={20} color={isActive ? Colors.expenseOrange : Colors.black} />
     case 'Categories':
-      return <Icon name="list" size={20} />
+      return <Icon name="list" size={20} color={isActive ? Colors.expenseOrange : Colors.black} />
   }
 }
 
@@ -37,8 +37,8 @@ const App = () => {
       <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: Colors.expenseOrange,
-        tabBarIcon: () => {
-          return getNavigatorIcon(route.name);
+        tabBarIcon: ({ focused }) => {
+          return getNavigatorIcon(route.name, focused);
         }
       })}>
         <Tab.Screen name="Home" component={Home} />
