@@ -28,13 +28,12 @@ const RecordList = () => {
       );
    }
 
-
    return (
-      <View style={{ marginHorizontal: 20 }}>
+      <View >
          <View>
             <Text style={commonStyles.sectionTitle}> Activity </Text>
          </View>
-         <View style={{ paddingBottom: 10 }}>
+         <View style={commonStyles.listBottomPadding}>
             <FlatList
                data={mockData}
                scrollEnabled={false}
