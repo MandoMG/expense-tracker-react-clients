@@ -10,7 +10,7 @@ interface ModalHeaderProps {
 const ModalHeaderComponent = (props: ModalHeaderProps) => {
   const { handleClose, title, handleSave } = props;
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <View style={{ flexDirection: 'row', marginBottom: 8 }}>
       <View style={{
         flex: 1,
         paddingLeft: 10,
