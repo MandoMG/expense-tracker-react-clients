@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FlatList, View } from 'react-native';
+import commonStyles from '../../common/CommonStyles';
 import GraphBarComponent from '../../components/graphBar/GraphBar';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import { Category } from '../../types';
@@ -23,7 +24,7 @@ const Categories = () => {
    };
 
    return (
-      <View style={{ flex: 1 }}>
+      <View style={commonStyles.flexOne}>
          <ScreenHeaderComponent title='Categories' />
          <View>
             <FlatList
@@ -35,11 +36,7 @@ const Categories = () => {
                )}
             />
          </View>
-         <View style={{
-            flex: 1,
-            marginTop: 10,
-            marginHorizontal: 15
-         }}>
+         <View style={commonStyles.listWrapper}>
             <CategoriesList handleOnPress={handleCategoryItemOnPress} />
          </View>
          {shouldOpenModal && selectedCategory && (

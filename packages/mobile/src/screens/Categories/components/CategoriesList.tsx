@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import { Category, TabNavigationScreensParams } from '../../../types';
 import CategoryListItem from './CategoryListItem';
+import commonStyles from '../../../common/CommonStyles';
 
 type CategoryListNavigationProp = BottomTabNavigationProp<
   TabNavigationScreensParams
@@ -30,7 +31,7 @@ const CategoriesList = ({ handleOnPress }: CategoriesListProps) => {
   ];
 
   return (
-    <View>
+    <View style={commonStyles.listBottomPadding}>
       <FlatList
         data={mockData}
         renderItem={({ item }: { item: Category }) => (

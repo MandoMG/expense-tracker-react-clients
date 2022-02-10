@@ -1,7 +1,7 @@
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
-import commonStyles from '../../../styles/CommonStyles';
+import commonStyles from '../../../common/CommonStyles';
 
 const RecordList = () => {
    const mockData = [
@@ -28,13 +28,12 @@ const RecordList = () => {
       );
    }
 
-
    return (
-      <View style={{ marginHorizontal: 20 }}>
+      <View >
          <View>
             <Text style={commonStyles.sectionTitle}> Activity </Text>
          </View>
-         <View style={{ paddingBottom: 10 }}>
+         <View style={commonStyles.listBottomPadding}>
             <FlatList
                data={mockData}
                scrollEnabled={false}
