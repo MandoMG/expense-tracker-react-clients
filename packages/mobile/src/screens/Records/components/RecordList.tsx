@@ -17,12 +17,12 @@ const RecordList = () => {
       return (
          <View style={commonStyles.listItemWrapper}>
             <View style={commonStyles.listItemLeftColumn}>
-               <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.description}</Text>
-               <Text style={{ color: '#FFFFFF' }}>{item.date}</Text>
+               <Text style={commonStyles.listItemMainText}>{item.description}</Text>
+               <Text style={commonStyles.listItemSubText}>{item.date}</Text>
             </View>
             <View style={commonStyles.listItemRightColumn}>
-               <Text style={{ fontWeight: 'bold' }}>{TextUtil.formatCurrency(item.amount)}</Text>
-               <Text style={{ color: '#FFFFFF' }}>{item.categoryName}</Text>
+               <Text style={commonStyles.listItemMainText}>{TextUtil.formatCurrency(item.amount)}</Text>
+               <Text style={commonStyles.listItemSubText}>{item.categoryName}</Text>
             </View>
          </View>
       );

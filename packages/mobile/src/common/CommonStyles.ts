@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "./Colors";
 
 const commonStyles = StyleSheet.create({
   flexOne: { flex: 1 },
@@ -33,8 +34,10 @@ const commonStyles = StyleSheet.create({
     marginTop: 10,
     marginHorizontal: 15
   },
+  listItemMainText: { color: Colors.black, fontWeight: 'bold', fontSize: 14 },
+  listItemSubText: { color: Colors.subTextGray },
   sectionTitle: {
-    color: 'black',
+    color: Colors.black,
     fontSize: 18,
     flexWrap: 'wrap',
     fontWeight: 'bold'

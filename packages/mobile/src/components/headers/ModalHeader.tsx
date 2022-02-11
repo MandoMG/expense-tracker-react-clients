@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { ModalHeaderStyles } from './styles/HeaderStyles';
 
 interface ModalHeaderProps {
   handleClose: () => void;
@@ -10,36 +11,19 @@ interface ModalHeaderProps {
 const ModalHeaderComponent = (props: ModalHeaderProps) => {
   const { handleClose, title, handleSave } = props;
   return (
-    <View style={{ flexDirection: 'row', marginBottom: 8 }}>
-      <View style={{
-        flex: 1,
-        paddingLeft: 10,
-        paddingTop: 20,
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-      }}>
+    <View style={ModalHeaderStyles.headerWrapper}>
+      <View style={ModalHeaderStyles.leftItemWrapper}>
         <TouchableOpacity onPress={handleClose}>
-          <Text style={{ color: 'black', fontSize: 16, flexWrap: 'wrap' }}> Close </Text>
+          <Text style={ModalHeaderStyles.sideItems}> Close </Text>
         </TouchableOpacity>
       </View>
-      <View style={{
-        flex: 1,
-        paddingTop: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-        <Text style={{ color: 'black', fontSize: 18, flexWrap: 'wrap', fontWeight: 'bold' }}> {title} </Text>
+      <View style={ModalHeaderStyles.centerItemWrapper}>
+        <Text style={ModalHeaderStyles.centerItem}> {title} </Text>
       </View>
-      <View style={{
-        flex: 1,
-        paddingTop: 20,
-        paddingRight: 10,
-        alignItems: 'flex-end',
-        justifyContent: 'center',
-      }}>
+      <View style={ModalHeaderStyles.rightItemWrapper}>
         {!!handleSave && (
           <TouchableOpacity onPress={handleSave}>
-            <Text style={{ color: 'black', fontSize: 16, flexWrap: 'wrap' }}> Save </Text>
+            <Text style={ModalHeaderStyles.sideItems}> Save </Text>
           </TouchableOpacity>
         )}
       </View>

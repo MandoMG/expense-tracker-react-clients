@@ -14,11 +14,11 @@ const CategoryListItem = ({ item, handleOnPress }: CategoryItemProps) => {
     <TouchableOpacity onPress={() => handleOnPress(item)}>
       <View style={commonStyles.listItemWrapper}>
         <View style={commonStyles.listItemSingleLineLeftColumn}>
-          <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.name}</Text>
+          <Text style={commonStyles.listItemMainText}>{item.name}</Text>
         </View>
         {item.hasBudget && (
           <View style={commonStyles.listItemSingleLineRightColumn}>
-            <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{TextUtil.formatCurrency(item.budget)}</Text>
+            <Text style={commonStyles.listItemMainText}>{TextUtil.formatCurrency(item.budget)}</Text>
           </View>
         )}
       </View>

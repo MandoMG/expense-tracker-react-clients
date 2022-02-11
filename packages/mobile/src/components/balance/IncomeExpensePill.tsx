@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import Colors from '../../common/Colors';
+import { IncomeExpenseSummaryStyles } from './styles/BalancePillsStyles';
 
 interface IncomeExpensePillProps {
   value: number;
@@ -13,14 +14,9 @@ const IncomeExpensePill = ({ value, isExpense }: IncomeExpensePillProps) => {
 
   return (
     <View style={isExpense ? style.expensePillWrapper : style.incomePillWrapper}>
-      <View style={{
-        paddingVertical: 15,
-        paddingHorizontal: 15,
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-      }}>
-        <Text style={{ color: 'white', fontSize: 14 }}> {title} </Text>
-        <Text style={{ color: 'white', fontSize: 28, fontWeight: 'bold' }}>{TextUtil.formatCurrency(value, 0)}</Text>
+      <View style={IncomeExpenseSummaryStyles.textWrapper}>
+        <Text style={IncomeExpenseSummaryStyles.labelText}> {title} </Text>
+        <Text style={IncomeExpenseSummaryStyles.valueText}>{TextUtil.formatCurrency(value, 0)}</Text>
       </View>
     </View>
   );

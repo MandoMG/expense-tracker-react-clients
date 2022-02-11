@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ColorPropType, Modal, Switch, Text, TextInput, View } from 'react-native';
+import { Modal, Switch, Text, TextInput, View } from 'react-native';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
 import ModalHeaderComponent from '../../components/headers/ModalHeader';

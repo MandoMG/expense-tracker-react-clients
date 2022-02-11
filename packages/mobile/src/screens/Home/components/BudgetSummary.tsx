@@ -2,6 +2,7 @@ import React from 'react';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import { FlatList, Text, View } from 'react-native';
 import commonStyles from '../../../common/CommonStyles';
+import { BudgetSummaryStyles } from '../styles/HomeStyles';
 
 const BudgetSummary = () => {
   const mockData = [
@@ -26,29 +27,25 @@ const BudgetSummary = () => {
     return (
       <View style={commonStyles.listItemWrapper}>
         <View style={commonStyles.listItemSingleLineLeftColumn}>
-          <Text style={{ fontWeight: 'bold', fontSize: 14 }}>{item.name}</Text>
+          <Text style={commonStyles.listItemMainText}>{item.name}</Text>
         </View>
         <View style={commonStyles.listItemRightColumn}>
-          <Text style={{ fontWeight: 'bold' }}>{TextUtil.formatCurrency(item.amount)}</Text>
-          <Text style={{ color: '#707070' }}>{`${TextUtil.formatCurrency(item.budgetDifference)} ${item.isUnderBudget ? 'under' : 'over'} budget`}</Text>
+          <Text style={commonStyles.listItemMainText}>{TextUtil.formatCurrency(item.amount)}</Text>
+          <Text style={commonStyles.listItemSubText}>{`${TextUtil.formatCurrency(item.budgetDifference)} ${item.isUnderBudget ? 'under' : 'over'} budget`}</Text>
         </View>
       </View>
     );
   }
 
   return (
-    <View style={{
-      marginTop: 20,
-      marginHorizontal: 20,
-      height: '95%'
-    }}>
+    <View style={BudgetSummaryStyles.budgetSummaryWrapper}>
       <View>
         <Text style={commonStyles.sectionTitle}> Budget Summary </Text>
       </View>
-      <View style={{ marginTop: 5, flex: 1 }}>
+      <View style={BudgetSummaryStyles.BudgetSummaryListWrapper}>
         <FlatList
           data={mockData}
-          contentContainerStyle={{ paddingBottom: 10 }}
+          contentContainerStyle={BudgetSummaryStyles.BudgetSummaryFlatlistContainer}
           renderItem={({ item }) => (
             <BudgetSummaryItem item={item} />
           )}
