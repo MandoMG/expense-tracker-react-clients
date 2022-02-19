@@ -16,7 +16,7 @@ const Home = () => {
          <CurrentDateSubtitle />
          <BalanceSummaryComponent currentBalance={currentBalance} income={income} expenses={expenses} />
          <View style={{
-            height: '53%',
+            height: '56%',
          }}>
             <BudgetSummary />
          </View>

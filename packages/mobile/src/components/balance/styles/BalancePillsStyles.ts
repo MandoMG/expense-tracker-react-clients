@@ -9,7 +9,7 @@ export const BalanceSummaryStyles = StyleSheet.create({
     elevation: 50,
   },
   currentBalanceWrapper: {
-    paddingVertical: 15,
+    paddingVertical: 10,
     paddingLeft: 20,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
@@ -21,7 +21,7 @@ export const BalanceSummaryStyles = StyleSheet.create({
 
 export const IncomeExpenseSummaryStyles = StyleSheet.create({
   textWrapper: {
-    paddingVertical: 15,
+    paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
