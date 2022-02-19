@@ -30,9 +30,6 @@ const RecordList = () => {
 
    return (
       <View >
-         <View>
-            <Text style={commonStyles.sectionTitle}> Activity </Text>
-         </View>
          <View style={commonStyles.listBottomPadding}>
             <FlatList
                data={mockData}

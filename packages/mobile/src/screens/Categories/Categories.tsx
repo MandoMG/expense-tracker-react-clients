@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import { View } from 'react-native';
 import commonStyles from '../../common/CommonStyles';
-import GraphBarComponent from '../../components/graphBar/GraphBar';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import { Category } from '../../types';
 import CategoryDetailModal from './CategoryDetailModal';
@@ -26,16 +25,6 @@ const Categories = () => {
    return (
       <View style={commonStyles.flexOne}>
          <ScreenHeaderComponent title='Categories' />
-         <View>
-            <FlatList
-               horizontal
-               data={mockData}
-               contentContainerStyle={{ paddingHorizontal: 15, paddingTop: 30 }}
-               renderItem={({ item }) => (
-                  <GraphBarComponent percentage={item.percentage} categoryName={item.categoryName} />
-               )}
-            />
-         </View>
          <View style={commonStyles.listWrapper}>
             <CategoriesList handleOnPress={handleCategoryItemOnPress} />
          </View>
