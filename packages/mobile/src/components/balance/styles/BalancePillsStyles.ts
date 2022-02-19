@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const BalanceSummaryStyles = StyleSheet.create({
   balanceSummaryWrapper: {
     backgroundColor: '#323246',
-    marginTop: 20,
+    marginTop: 15,
     marginHorizontal: 20,
     borderRadius: 25,
     elevation: 50,
