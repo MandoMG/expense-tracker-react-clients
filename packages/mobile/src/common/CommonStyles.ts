@@ -3,6 +3,19 @@ import Colors from "./Colors";
 
 const commonStyles = StyleSheet.create({
   flexOne: { flex: 1 },
+  flexRow: { flexDirection: 'row' },
+  headerTitle: {
+    color: 'black',
+    fontSize: 18,
+    flexWrap: 'wrap',
+    fontWeight: 'bold'
+  },
+  subheaderTitle: {
+    color: 'black',
+    fontSize: 18,
+    flexWrap: 'wrap',
+    fontWeight: 'bold'
+  },
   listBottomPadding: {
     paddingBottom: 10
   },
