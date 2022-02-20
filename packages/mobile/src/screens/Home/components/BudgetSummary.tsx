@@ -3,6 +3,7 @@ import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import { FlatList, Text, View } from 'react-native';
 import commonStyles from '../../../common/CommonStyles';
 import { BudgetSummaryStyles } from '../styles/HomeStyles';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const BudgetSummary = () => {
   const mockData = [
@@ -31,7 +32,10 @@ const BudgetSummary = () => {
         </View>
         <View style={commonStyles.listItemRightColumn}>
           <Text style={commonStyles.listItemMainText}>{TextUtil.formatCurrency(item.amount)}</Text>
-          <Text style={commonStyles.listItemSubText}>{`${TextUtil.formatCurrency(item.budgetDifference)} ${item.isUnderBudget ? 'under' : 'over'} budget`}</Text>
+          <View style={commonStyles.flexRow}>
+            <Icon name="circle" color={item.isUnderBudget ? '#14a023' : '#c82d1e'} style={{ marginHorizontal: 5, marginTop: 3 }} solid />
+            <Text style={commonStyles.listItemSubText}>{`${TextUtil.formatCurrency(item.budgetDifference)} ${item.isUnderBudget ? 'under' : 'over'} budget`}</Text>
+          </View>
         </View>
       </View>
     );

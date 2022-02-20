@@ -3,13 +3,13 @@ import { StyleSheet } from "react-native";
 export const BalanceSummaryStyles = StyleSheet.create({
   balanceSummaryWrapper: {
     backgroundColor: '#323246',
-    marginTop: 20,
+    marginTop: 15,
     marginHorizontal: 20,
     borderRadius: 25,
     elevation: 50,
   },
   currentBalanceWrapper: {
-    paddingVertical: 15,
+    paddingVertical: 10,
     paddingLeft: 20,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
@@ -21,7 +21,7 @@ export const BalanceSummaryStyles = StyleSheet.create({
 
 export const IncomeExpenseSummaryStyles = StyleSheet.create({
   textWrapper: {
-    paddingVertical: 15,
+    paddingVertical: 10,
     paddingHorizontal: 15,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
