@@ -12,7 +12,7 @@ const commonStyles = StyleSheet.create({
   },
   subheaderTitle: {
     color: 'black',
-    fontSize: 18,
+    fontSize: 22,
     flexWrap: 'wrap',
     fontWeight: 'bold'
   },

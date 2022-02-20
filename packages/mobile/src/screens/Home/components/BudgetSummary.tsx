@@ -33,7 +33,7 @@ const BudgetSummary = () => {
         <View style={commonStyles.listItemRightColumn}>
           <Text style={commonStyles.listItemMainText}>{TextUtil.formatCurrency(item.amount)}</Text>
           <View style={commonStyles.flexRow}>
-            <Icon name="circle" color={item.isUnderBudget ? '#14a023' : '#a02314'} style={{ marginHorizontal: 5, marginTop: 3 }} solid />
+            <Icon name="circle" color={item.isUnderBudget ? '#14a023' : '#c82d1e'} style={{ marginHorizontal: 5, marginTop: 3 }} solid />
             <Text style={commonStyles.listItemSubText}>{`${TextUtil.formatCurrency(item.budgetDifference)} ${item.isUnderBudget ? 'under' : 'over'} budget`}</Text>
           </View>
         </View>
