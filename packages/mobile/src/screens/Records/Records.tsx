@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
 import BalanceSummaryComponent from '../../components/balance/BalanceSummary';
@@ -16,7 +17,7 @@ const Records = () => {
    };
 
    return (
-      <View style={commonStyles.flexOne}>
+      <SafeAreaView>
          <ScreenHeaderComponent title='Records' />
          <CurrentDateSubtitle isTouchable />
          <ScrollView contentInsetAdjustmentBehavior='automatic'>
@@ -39,7 +40,7 @@ const Records = () => {
                </View>
             )}
          </ScrollView>
-      </View>
+      </SafeAreaView>
    )
 };
 
