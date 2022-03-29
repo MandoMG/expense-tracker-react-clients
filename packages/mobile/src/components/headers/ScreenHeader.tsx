@@ -1,30 +1,48 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import commonStyles from '../../common/CommonStyles';
 import { ScreenHeaderStyles } from './styles/HeaderStyles';
 
+interface HeaderAction {
+  onPress?: () => void;
+  title?: string;
+  isIcon?: boolean;
+}
+
 interface HeaderProps {
-  leftHeaderAction?: () => void;
+  leftHeaderAction?: HeaderAction;
   title: string;
-  rightHeaderItem?: any;
+  rightHeaderAction?: HeaderAction;
 }
 
 const ScreenHeaderComponent = (props: HeaderProps) => {
-  const { leftHeaderAction, title, rightHeaderItem } = props;
+  const { leftHeaderAction, title, rightHeaderAction } = props;
   return (
     <View style={commonStyles.flexRow}>
       <View style={ScreenHeaderStyles.leftItemWrapper}>
         {!!leftHeaderAction && (
-          <Icon name="chevron-left" size={18} style={{ color: 'black' }} onPress={leftHeaderAction} />
+          <TouchableOpacity onPress={() => { }}>
+            {!!leftHeaderAction.isIcon ? (
+              <Icon name="chevron-left" size={18} style={{ color: 'black' }} />
+            ) : (
+              <Text style={commonStyles.headerTitle}> {leftHeaderAction.title} </Text>
+            )}
+          </TouchableOpacity>
         )}
       </View>
       <View style={ScreenHeaderStyles.centerItemWrapper}>
         <Text style={commonStyles.headerTitle}> {title} </Text>
       </View>
       <View style={ScreenHeaderStyles.rightItemWrapper}>
-        {!!rightHeaderItem && (
-          <Icon name="chevron-left" size={18} style={{ color: 'black' }} />
+        {!!rightHeaderAction && (
+          <TouchableOpacity onPress={() => { }}>
+            {!!rightHeaderAction.isIcon ? (
+              <Icon name="chevron-left" size={18} style={{ color: 'black' }} />
+            ) : (
+              <Text style={commonStyles.headerTitle}> {rightHeaderAction.title} </Text>
+            )}
+          </TouchableOpacity>
         )}
       </View>
     </View>

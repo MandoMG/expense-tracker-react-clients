@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../../common/Colors';
@@ -16,9 +16,15 @@ const Records = () => {
       setIsBudgetSelected(isBudget);
    };
 
+   const rightHeaderAction = {
+      onPress: () => { },
+      title: 'Add',
+      isIcon: false
+   };
+
    return (
       <SafeAreaView>
-         <ScreenHeaderComponent title='Records' />
+         <ScreenHeaderComponent title='Records' rightHeaderAction={rightHeaderAction} />
          <CurrentDateSubtitle isTouchable />
          <ScrollView contentInsetAdjustmentBehavior='automatic'>
             <View>
@@ -32,13 +38,15 @@ const Records = () => {
                   <Text style={[commonStyles.sectionTitle, { color: isBudgetSelected ? Colors.black : Colors.expenseOrange }]}> Activity </Text>
                </TouchableOpacity>
             </View>
-            {isBudgetSelected ? (
-               <RecordsGraphs />
-            ) : (
-               <View style={commonStyles.listWrapper}>
-                  <RecordList />
-               </View>
-            )}
+            <View style={{ paddingBottom: 40 }}>
+               {isBudgetSelected ? (
+                  <RecordsGraphs />
+               ) : (
+                  <View style={commonStyles.listWrapper}>
+                     <RecordList />
+                  </View>
+               )}
+            </View>
          </ScrollView>
       </SafeAreaView>
    )
