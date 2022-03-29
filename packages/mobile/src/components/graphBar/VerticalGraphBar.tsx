@@ -8,7 +8,7 @@ interface GraphBarProps {
    barHeight?: number;
 }
 
-const GraphBarComponent = (props: GraphBarProps) => {
+const VerticalGraphBarComponent = (props: GraphBarProps) => {
    const { percentage, categoryName, barHeight } = props;
    const DEFAULT_BAR_HEIGHT = 100;
 
@@ -45,4 +45,4 @@ const GraphBarComponent = (props: GraphBarProps) => {
    )
 }
 
-export default GraphBarComponent;
+export default VerticalGraphBarComponent;
