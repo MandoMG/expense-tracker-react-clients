@@ -1,23 +1,29 @@
 import React, { useMemo, useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
 import BalanceSummaryComponent from '../../components/balance/BalanceSummary';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import CurrentDateSubtitle from '../../components/subtitles/CurrentDateSubtitle';
+import AddEditRecordModal from './components/AddEditRecordModal';
 import RecordList from './components/RecordList';
 import RecordsGraphs from './components/RecordsGraphs';
 
 const Records = () => {
+   const [shouldOpenModal, setShouldOpenModal] = useState(false);
    const [isBudgetSelected, setIsBudgetSelected] = useState<boolean>(true);
 
    const onTouchableTitlePress = (isBudget: boolean) => {
       setIsBudgetSelected(isBudget);
    };
 
+   const onAddPress = () => {
+
+   };
+
    const rightHeaderAction = {
-      onPress: () => { },
+      onPress: () => setShouldOpenModal(true),
       title: 'Add',
       isIcon: false
    };
@@ -48,6 +54,9 @@ const Records = () => {
                )}
             </View>
          </ScrollView>
+         {shouldOpenModal && (
+            <AddEditRecordModal handleClose={() => setShouldOpenModal(false)} handleSave={() => setShouldOpenModal(false)} />
+         )}
       </SafeAreaView>
    )
 };
