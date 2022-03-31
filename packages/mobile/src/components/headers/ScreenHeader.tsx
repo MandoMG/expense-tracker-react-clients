@@ -36,7 +36,7 @@ const ScreenHeaderComponent = (props: HeaderProps) => {
       </View>
       <View style={ScreenHeaderStyles.rightItemWrapper}>
         {!!rightHeaderAction && (
-          <TouchableOpacity onPress={() => { }}>
+          <TouchableOpacity onPress={rightHeaderAction.onPress}>
             {!!rightHeaderAction.isIcon ? (
               <Icon name="chevron-left" size={18} style={{ color: 'black' }} />
             ) : (
