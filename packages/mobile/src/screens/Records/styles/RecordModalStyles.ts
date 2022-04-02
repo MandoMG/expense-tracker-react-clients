@@ -13,13 +13,6 @@ export const RecordModalStyles = StyleSheet.create({
     borderRadius: 15,
     paddingHorizontal: 15
   },
-  dateField: {
-    borderColor: '#505050',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingVertical: 18,
-    paddingHorizontal: 10
-  },
   inputField: {
     borderColor: '#505050',
     borderWidth: 1,
