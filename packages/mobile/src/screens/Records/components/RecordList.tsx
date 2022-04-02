@@ -2,17 +2,13 @@ import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import commonStyles from '../../../common/CommonStyles';
+import { Record } from '../../../types';
 
-const RecordList = () => {
-   const mockData = [
-      { id: 1, description: 'Rent', categoryName: 'Bills', date: '01/01/2022', amount: 1070.58, isExpense: true },
-      { id: 2, description: 'AT&T', categoryName: 'Bills', date: '01/01/2022', amount: 60.10, isExpense: true },
-      { id: 3, description: 'Netflix', categoryName: 'Streaming Services', date: '01/01/2022', amount: 19.99, isExpense: true },
-      { id: 4, description: 'FANG Paycheck', categoryName: 'Paycheck', date: '01/02/2022', amount: 3800.98, isExpense: true },
-      { id: 5, description: 'Best Buy', categoryName: 'Credit Cards', date: '01/02/2022', amount: 200.00, isExpense: true },
-      { id: 6, description: 'Grande', categoryName: 'Bills', date: '01/03/2022', amount: 58.29, isExpense: true },
-   ];
+interface ActivityListProps {
+   activityData: Record[];
+}
 
+const RecordList = ({ activityData }: ActivityListProps) => {
    const RecordItem = ({ item }: any) => {
       return (
          <View style={commonStyles.listItemWrapper}>
@@ -32,7 +28,7 @@ const RecordList = () => {
       <View >
          <View style={commonStyles.listBottomPadding}>
             <FlatList
-               data={mockData}
+               data={activityData}
                scrollEnabled={false}
                renderItem={({ item }) => (
                   <RecordItem item={item} />
@@ -44,4 +40,4 @@ const RecordList = () => {
 
 }
 
-export default RecordList;
+export default React.memo(RecordList);

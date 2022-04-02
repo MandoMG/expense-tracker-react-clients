@@ -14,3 +14,12 @@ export interface Category {
   hasBudget: boolean;
   isExpense: boolean;
 }
+
+export interface Record {
+  id: number;
+  description: string;
+  categoryName: string;
+  date: string;
+  amount: number;
+  isExpense: boolean;
+}
