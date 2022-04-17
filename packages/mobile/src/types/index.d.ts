@@ -23,3 +23,28 @@ export interface Record {
   amount: number;
   isExpense: boolean;
 }
+
+export interface DashboardInfo {
+  featureLabels: DashboardFeatureLabels;
+  pillsData: PillsData;
+  budgetSummaryData: BudgetSummaryItem[];
+}
+
+export interface DashboardFeatureLabels {
+  title: string;
+  monthYear: string;
+  budgetSummary: string;
+}
+
+export interface PillsData {
+  currentBalance: number;
+  income: number;
+  expenses: number;
+}
+
+export interface BudgetSummaryItem {
+  categoryName: string;
+  categoryValue: number;
+  budgetDifference: number;
+  isUnderBudget: boolean;
+}

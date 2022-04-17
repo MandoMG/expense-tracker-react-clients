@@ -26,7 +26,6 @@ const style = StyleSheet.create({
   expensePillWrapper: {
     flex: 1,
     backgroundColor: Colors.expenseOrange,
-    marginLeft: 10,
     marginTop: 20,
     borderRadius: 25,
     elevation: 20,
