@@ -45,6 +45,22 @@ export interface PillsData {
 export interface BudgetSummaryItem {
   categoryName: string;
   categoryValue: number;
+  categoryBudget: number;
   budgetDifference: number;
+  hasBudget: boolean;
   isUnderBudget: boolean;
+}
+
+export interface RecordsInfo {
+  featureLabels: RecordsFeatureLabels;
+  pillsData: PillsData;
+  currentBudgetData: BudgetSummaryItem[];
+  recordItemData: Record[];
+}
+
+export interface RecordsFeatureLabels {
+  title: string;
+  monthYear: string;
+  budgets: string;
+  activity: string;
 }

@@ -9,8 +9,10 @@ import CurrentDateSubtitle from '../../components/subtitles/CurrentDateSubtitle'
 import AddEditRecordModal from './components/AddEditRecordModal';
 import RecordList from './components/RecordList';
 import RecordsGraphs from './components/RecordsGraphs';
+import useRecords from './hooks/useRecords';
 
 const Records = () => {
+   const { recordsInfo } = useRecords();
    const [shouldOpenModal, setShouldOpenModal] = useState(false);
    const [isBudgetSelected, setIsBudgetSelected] = useState<boolean>(true);
 
@@ -28,37 +30,36 @@ const Records = () => {
       isIcon: false
    };
 
-   const mockActivityData = [
-      { id: 1, description: 'Rent', categoryName: 'Bills', date: '01/01/2022', amount: 1070.58, isExpense: true },
-      { id: 2, description: 'AT&T', categoryName: 'Bills', date: '01/01/2022', amount: 60.10, isExpense: true },
-      { id: 3, description: 'Netflix', categoryName: 'Streaming Services', date: '01/01/2022', amount: 19.99, isExpense: true },
-      { id: 4, description: 'FANG Paycheck', categoryName: 'Paycheck', date: '01/02/2022', amount: 3800.98, isExpense: true },
-      { id: 5, description: 'Best Buy', categoryName: 'Credit Cards', date: '01/02/2022', amount: 200.00, isExpense: true },
-      { id: 6, description: 'Grande', categoryName: 'Bills', date: '01/03/2022', amount: 58.29, isExpense: true },
-   ];
-
    return (
       <SafeAreaView>
-         <ScreenHeaderComponent title='Records' rightHeaderAction={rightHeaderAction} />
+         <ScreenHeaderComponent title={recordsInfo?.featureLabels.title || ''} rightHeaderAction={rightHeaderAction} />
          <CurrentDateSubtitle isTouchable />
          <ScrollView contentInsetAdjustmentBehavior='automatic'>
             <View>
-               <BalanceSummaryComponent currentBalance={1420.69} income={2000} expenses={579.31} />
+               <BalanceSummaryComponent
+                  currentBalance={recordsInfo?.pillsData.currentBalance}
+                  income={recordsInfo?.pillsData.income}
+                  expenses={recordsInfo?.pillsData.expenses}
+               />
             </View>
             <View style={commonStyles.flexRow}>
                <TouchableOpacity style={{ flex: 1, marginHorizontal: 20, marginTop: 20 }} onPress={() => onTouchableTitlePress(true)}>
-                  <Text style={[commonStyles.sectionTitle, { color: isBudgetSelected ? Colors.expenseOrange : Colors.black }]}> Budgets </Text>
+                  <Text style={[commonStyles.sectionTitle, { color: isBudgetSelected ? Colors.expenseOrange : Colors.black }]}>
+                     {recordsInfo?.featureLabels.budgets}
+                  </Text>
                </TouchableOpacity>
                <TouchableOpacity style={{ marginHorizontal: 20, marginTop: 20 }} onPress={() => onTouchableTitlePress(false)}>
-                  <Text style={[commonStyles.sectionTitle, { color: isBudgetSelected ? Colors.black : Colors.expenseOrange }]}> Activity </Text>
+                  <Text style={[commonStyles.sectionTitle, { color: isBudgetSelected ? Colors.black : Colors.expenseOrange }]}>
+                     {recordsInfo?.featureLabels.activity}
+                  </Text>
                </TouchableOpacity>
             </View>
             <View style={{ paddingBottom: 40 }}>
                {isBudgetSelected ? (
-                  <RecordsGraphs />
+                  <RecordsGraphs budgetGraphData={recordsInfo?.currentBudgetData} />
                ) : (
                   <View style={commonStyles.listWrapper}>
-                     <RecordList activityData={mockActivityData} />
+                     <RecordList activityData={recordsInfo?.recordItemData} />
                   </View>
                )}
             </View>

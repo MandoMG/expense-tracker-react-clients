@@ -5,7 +5,7 @@ import commonStyles from '../../../common/CommonStyles';
 import { Record } from '../../../types';
 
 interface ActivityListProps {
-   activityData: Record[];
+   activityData?: Record[];
 }
 
 const RecordList = ({ activityData }: ActivityListProps) => {
@@ -25,19 +25,20 @@ const RecordList = ({ activityData }: ActivityListProps) => {
    }
 
    return (
-      <View >
-         <View style={commonStyles.listBottomPadding}>
-            <FlatList
-               data={activityData}
-               scrollEnabled={false}
-               renderItem={({ item }) => (
-                  <RecordItem item={item} />
-               )}
-            />
-         </View>
-      </View >
+      !!activityData ? (
+         <View >
+            <View style={commonStyles.listBottomPadding}>
+               <FlatList
+                  data={activityData}
+                  scrollEnabled={false}
+                  renderItem={({ item }) => (
+                     <RecordItem item={item} />
+                  )}
+               />
+            </View>
+         </View >
+      ) : (<></>)
    )
-
 }
 
 export default React.memo(RecordList);
