@@ -1,10 +1,12 @@
+import { BudgetSummaryItem } from "../types";
+
 const useGraphBar = () => {
-  const getGraphPercentage = (total: number, current: number) => {
-    if (current === 0) {
+  const getGraphPercentage = (budgetItem: BudgetSummaryItem) => {
+    if (budgetItem.categoryValue === 0 || !budgetItem.hasBudget) {
       return 0
     }
 
-    const percentage = (current / total) * 100;
+    const percentage = (budgetItem.categoryValue / budgetItem.categoryBudget) * 100;
     if (percentage >= 100) {
       return 100;
     };

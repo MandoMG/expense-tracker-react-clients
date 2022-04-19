@@ -29,6 +29,14 @@ interface RecordsGraphsProps {
 const RecordsGraphs = ({ budgetGraphData }: RecordsGraphsProps) => {
   const { getGraphPercentage } = useGraphBar();
 
+  const getCategoryBudgetText = (item: BudgetSummaryItem) => {
+    if (!item.hasBudget) {
+      return 'No Budget Set';
+    }
+
+    return TextUtil.formatCurrency(item.categoryBudget);
+  };
+
   return (
     !!budgetGraphData ? (
       <View>
@@ -39,13 +47,13 @@ const RecordsGraphs = ({ budgetGraphData }: RecordsGraphsProps) => {
           renderItem={({ item }) => (
             <TouchableOpacity style={RecordGraphsStyles.graphFlatListItemWrapper}>
               <HorizontalGraphBarComponent
-                percentage={getGraphPercentage(item.categoryBudget, item.categoryValue)}
+                percentage={getGraphPercentage(item)}
                 categoryName={item.categoryName} />
               <View style={commonStyles.flexRow}>
                 <Text style={[commonStyles.flexOne, textStyles.itemText]}>
                   {TextUtil.formatCurrency(item.categoryValue)}
                 </Text>
-                <Text style={textStyles.itemText}> {TextUtil.formatCurrency(item.categoryBudget)} </Text>
+                <Text style={textStyles.itemText}> {getCategoryBudgetText(item)} </Text>
               </View>
             </TouchableOpacity>
           )}

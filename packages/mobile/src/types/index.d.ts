@@ -16,12 +16,12 @@ export interface Category {
 }
 
 export interface Record {
-  id: number;
+  id?: number;
   description: string;
   categoryName: string;
   date: string;
   amount: number;
-  isExpense: boolean;
+  isIncome: boolean;
 }
 
 export interface DashboardInfo {

@@ -1,14 +1,16 @@
-import React, { useMemo, useRef, useState } from 'react';
-import { Modal, SafeAreaView, Switch, Text, TextInput, View } from 'react-native';
+import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
+import React, { MutableRefObject, useMemo, useRef, useState } from 'react';
+import { Keyboard, Modal, SafeAreaView, Switch, Text, TextInput, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Colors from '../../../common/Colors';
 import commonStyles from '../../../common/CommonStyles';
 import ModalHeaderComponent from '../../../components/headers/ModalHeader';
+import { Record } from '../../../types';
 import { RecordModalStyles } from '../styles/RecordModalStyles';
 
 interface AddEditRecordModalProps {
   handleClose: () => void;
-  handleSave: () => void;
+  handleSave: (record: Record) => void;
 }
 
 enum FieldTypes {
@@ -47,13 +49,14 @@ const AddEditRecordModal = ({ handleClose, handleSave }: AddEditRecordModalProps
   }
 
   const onSave = () => {
-    const refs = {
+    const newRecord: Record = {
       description: descriptionRef.current,
-      category: categoryRef.current,
-      amount: amountRef.current,
+      categoryName: categoryRef.current,
+      date: `${date.getFullYear()}-${TextUtil.padNumber(date.getMonth() + 1)}-${TextUtil.padNumber(date.getDate())}`,
+      amount: Number(amountRef.current),
+      isIncome,
     }
-    console.log('Refs: ', refs);
-    handleSave();
+    handleSave(newRecord);
   }
 
   const selectedDate = useMemo(() => {
@@ -83,13 +86,19 @@ const AddEditRecordModal = ({ handleClose, handleSave }: AddEditRecordModalProps
         <View>
           <Text style={RecordModalStyles.inputTitle}>Description</Text>
           <View style={RecordModalStyles.inputFieldWrapper}>
-            <TextInput style={RecordModalStyles.inputField} defaultValue={''} onEndEditing={(event) => updateTextFieldRefValue(event.nativeEvent.text, FieldTypes.description)} />
+            <TextInput
+              style={RecordModalStyles.inputField}
+              defaultValue={''}
+              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.description)} />
           </View>
         </View>
         <View>
           <Text style={RecordModalStyles.inputTitle}>Category</Text>
           <View style={RecordModalStyles.inputFieldWrapper}>
-            <TextInput style={RecordModalStyles.inputField} defaultValue={''} onEndEditing={(event) => updateTextFieldRefValue(event.nativeEvent.text, FieldTypes.category)} />
+            <TextInput
+              style={RecordModalStyles.inputField}
+              defaultValue={''}
+              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.category)} />
           </View>
         </View>
         <View>
@@ -115,7 +124,7 @@ const AddEditRecordModal = ({ handleClose, handleSave }: AddEditRecordModalProps
           <Text style={RecordModalStyles.inputTitle}>Amount</Text>
           <View style={RecordModalStyles.inputFieldWrapper}>
             <TextInput
-              onEndEditing={(event) => updateTextFieldRefValue(event.nativeEvent.text, FieldTypes.amount)}
+              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.amount)}
               keyboardType='decimal-pad'
               style={RecordModalStyles.inputField}
               defaultValue={''} />

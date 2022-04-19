@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { useState, useEffect } from "react";
-import { RecordsInfo } from "../../../types";
+import { Record, RecordsInfo } from "../../../types";
 
 const useRecords = () => {
   const [recordsInfo, setRecordsInfo] = useState<RecordsInfo>();
@@ -10,11 +10,19 @@ const useRecords = () => {
     setRecordsInfo(response.data);
   };
 
+  const saveRecord = async (record: Record) => {
+    await Axios.post('http://localhost:5500/api/records/saveRecord', record);
+  };
+
   useEffect(() => {
     (() => getRecordsInfo())()
   }, []);
 
-  return { recordsInfo }
+  return {
+    getRecordsInfo,
+    recordsInfo,
+    saveRecord
+  }
 };
 
 export default useRecords;

@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
@@ -12,7 +12,7 @@ import RecordsGraphs from './components/RecordsGraphs';
 import useRecords from './hooks/useRecords';
 
 const Records = () => {
-   const { recordsInfo } = useRecords();
+   const { getRecordsInfo, recordsInfo, saveRecord } = useRecords();
    const [shouldOpenModal, setShouldOpenModal] = useState(false);
    const [isBudgetSelected, setIsBudgetSelected] = useState<boolean>(true);
 
@@ -21,8 +21,14 @@ const Records = () => {
    };
 
    const onAddPress = () => {
-      setShouldOpenModal(true)
+      setShouldOpenModal(true);
    };
+
+   const handleOnSave = async (record: any) => {
+      await saveRecord(record);
+      setShouldOpenModal(false);
+      await getRecordsInfo();
+   }
 
    const rightHeaderAction = {
       onPress: onAddPress,
@@ -65,7 +71,7 @@ const Records = () => {
             </View>
          </ScrollView>
          {shouldOpenModal && (
-            <AddEditRecordModal handleClose={() => setShouldOpenModal(false)} handleSave={() => setShouldOpenModal(false)} />
+            <AddEditRecordModal handleClose={() => setShouldOpenModal(false)} handleSave={handleOnSave} />
          )}
       </SafeAreaView>
    )
