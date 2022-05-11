@@ -51,8 +51,8 @@ const AddEditRecordModal = ({ handleClose, handleSave }: AddEditRecordModalProps
   const onSave = () => {
     const newRecord: Record = {
       description: descriptionRef.current,
-      categoryName: categoryRef.current,
-      date: `${date.getFullYear()}-${TextUtil.padNumber(date.getMonth() + 1)}-${TextUtil.padNumber(date.getDate())}`,
+      category: categoryRef.current,
+      recordDate: `${date.getFullYear()}-${TextUtil.padNumber(date.getMonth() + 1)}-${TextUtil.padNumber(date.getDate())}`,
       amount: Number(amountRef.current),
       isIncome,
     }

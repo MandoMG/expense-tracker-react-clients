@@ -18,8 +18,8 @@ export interface Category {
 export interface Record {
   id?: number;
   description: string;
-  categoryName: string;
-  date: string;
+  category: string;
+  recordDate: string;
   amount: number;
   isIncome: boolean;
 }
