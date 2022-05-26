@@ -7,10 +7,6 @@ import CurrentDateSubtitle from '../../components/subtitles/CurrentDateSubtitle'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useHome from './hooks/useHome';
 
-const currentBalance = 1420.69;
-const income = 2000.00;
-const expenses = 579.31;
-
 const Home = () => {
    const { dashboardInfo } = useHome();
    const { height } = useWindowDimensions();
