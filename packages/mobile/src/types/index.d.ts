@@ -64,3 +64,7 @@ export interface RecordsFeatureLabels {
   budgets: string;
   activity: string;
 }
+
+export interface CategoriesInfo {
+  categoryList: Category[];
+}

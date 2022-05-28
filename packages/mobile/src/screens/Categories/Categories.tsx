@@ -1,21 +1,16 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
-import commonStyles from '../../common/CommonStyles';
+import { ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import { Category } from '../../types';
 import CategoryDetailModal from './CategoryDetailModal';
 import CategoriesList from './components/CategoriesList';
+import useCategory from './hooks/useCategories';
 
 const Categories = () => {
+   const { categoriesInfo } = useCategory();
    const [shouldOpenModal, setShouldOpenModal] = useState(false);
    const [selectedCategory, setSelectedCategory] = useState<Category>();
-
-   const mockData = [
-      { categoryName: 'Restaurants', percentage: 40 },
-      { categoryName: 'Bills', percentage: 70 },
-      { categoryName: 'Groceries', percentage: 30 },
-      { categoryName: 'Streaming', percentage: 50 },
-   ];
 
    const handleCategoryItemOnPress = (selectedItem: Category) => {
       setShouldOpenModal(true);
@@ -23,15 +18,15 @@ const Categories = () => {
    };
 
    return (
-      <View style={commonStyles.flexOne}>
+      <SafeAreaView>
          <ScreenHeaderComponent title='Categories' />
-         <View style={commonStyles.listWrapper}>
-            <CategoriesList handleOnPress={handleCategoryItemOnPress} />
-         </View>
+         <ScrollView contentInsetAdjustmentBehavior='automatic'>
+            <CategoriesList categoryList={categoriesInfo?.categoryList || []} handleOnPress={handleCategoryItemOnPress} />
+         </ScrollView>
          {shouldOpenModal && selectedCategory && (
             <CategoryDetailModal category={selectedCategory} handleClose={() => setShouldOpenModal(false)} />
          )}
-      </View>
+      </SafeAreaView>
    )
 };
 
