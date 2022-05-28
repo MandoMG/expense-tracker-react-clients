@@ -8,7 +8,7 @@ export type TabNavigationScreensParams = {
 }
 
 export interface Category {
-  id: number;
+  _id?: number;
   name: string;
   budget: number;
   hasBudget: boolean;

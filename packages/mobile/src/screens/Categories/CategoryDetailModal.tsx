@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, Switch, Text, TextInput, View } from 'react-native';
+import React, { useMemo, useState, useRef } from 'react';
+import { Modal, SafeAreaView, Switch, Text, TextInput, View } from 'react-native';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
 import ModalHeaderComponent from '../../components/headers/ModalHeader';
@@ -8,13 +8,27 @@ import { Category } from '../../types';
 import CategoryDetailStyles from './styles/CategoryDetailModal.styles';
 
 interface CategoryDetailModalProps {
-  category: Category;
+  category?: Category;
   handleClose: () => void;
+  handleSave: (category: Category, isEdit: boolean) => void;
 }
 
-const CategoryDetailModal = ({ category, handleClose }: CategoryDetailModalProps) => {
-  const [isExpense, setIsExpense] = useState<boolean>(category.isExpense);
-  const [hasBudget, setHasBudget] = useState<boolean>(category.hasBudget);
+enum FieldTypes {
+  name = "Name",
+  budget = "Budget"
+}
+
+const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDetailModalProps) => {
+  const [isExpense, setIsExpense] = useState<boolean>(category?.isExpense || false);
+  const [hasBudget, setHasBudget] = useState<boolean>(category?.hasBudget || false);
+
+  const isEditRef = useRef<boolean>(!!category);
+  const nameRef = useRef<string>('');
+  const budgetRef = useRef<string>('');
+
+  const title = useMemo(() => {
+    return isEditRef.current ? 'Edit Category' : 'Add Category';
+  }, [isEditRef])
 
   const handleExpenseSwitchChange = (value: boolean) => {
     setIsExpense(value);
@@ -24,15 +38,40 @@ const CategoryDetailModal = ({ category, handleClose }: CategoryDetailModalProps
     setHasBudget(value);
   };
 
+  const updateTextFieldRefValue = (value: string, fieldType: FieldTypes) => {
+    switch (fieldType) {
+      case FieldTypes.name:
+        if (value !== nameRef.current) { nameRef.current = value }
+        return;
+      case FieldTypes.budget:
+        if (value !== budgetRef.current) { budgetRef.current = value }
+        return;
+      default:
+        return;
+    }
+  }
+
+  const onSave = () => {
+    const newCategory: Category = {
+      name: nameRef.current,
+      budget: Number(budgetRef.current),
+      hasBudget: hasBudget,
+      isExpense
+    }
+    handleSave(newCategory, isEditRef.current);
+  };
 
   return (
     <Modal animationType='slide'>
-      <View style={commonStyles.flexOne}>
-        <ModalHeaderComponent title="Edit Category" handleClose={() => handleClose()} />
+      <SafeAreaView>
+        <ModalHeaderComponent title={title} handleClose={() => handleClose()} handleSave={onSave} />
         <View>
           <Text style={CategoryDetailStyles.inputTitle}>Name</Text>
           <View style={CategoryDetailStyles.inputFieldWrapper}>
-            <TextInput style={CategoryDetailStyles.inputField} defaultValue={category.name} />
+            <TextInput
+              style={CategoryDetailStyles.inputField}
+              defaultValue={category?.name || ''}
+              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.name)} />
           </View>
         </View>
         <View style={CategoryDetailStyles.sliderWrapper}>
@@ -42,7 +81,7 @@ const CategoryDetailModal = ({ category, handleClose }: CategoryDetailModalProps
           <View style={CategoryDetailStyles.sliderItemWrapper}>
             <Switch
               style={CategoryDetailStyles.sliderItem}
-              trackColor={{ false: Colors.backgroundGray, true: Colors.backgroundGray }}
+              trackColor={{ false: Colors.backgroundGray, true: Colors.expenseOrange }}
               onValueChange={handleExpenseSwitchChange}
               value={isExpense} />
           </View>
@@ -55,7 +94,7 @@ const CategoryDetailModal = ({ category, handleClose }: CategoryDetailModalProps
           <View style={CategoryDetailStyles.sliderItemWrapper}>
             <Switch
               style={CategoryDetailStyles.sliderItem}
-              trackColor={{ false: Colors.backgroundGray, true: Colors.backgroundGray }}
+              trackColor={{ false: Colors.backgroundGray, true: Colors.expenseOrange }}
               onValueChange={handleExpenseSwitchChange}
               value={hasBudget} />
           </View>
@@ -67,11 +106,11 @@ const CategoryDetailModal = ({ category, handleClose }: CategoryDetailModalProps
               style={CategoryDetailStyles.inputField}
               editable={hasBudget}
               keyboardType='decimal-pad'
-              defaultValue={String(category.budget)}
-            />
+              defaultValue={String(category?.budget || '')}
+              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.budget)} />
           </View>
         </View>
-      </View>
+      </SafeAreaView>
     </Modal>
   );
 };

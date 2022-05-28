@@ -1,6 +1,6 @@
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
-import React, { MutableRefObject, useMemo, useRef, useState } from 'react';
-import { Keyboard, Modal, SafeAreaView, Switch, Text, TextInput, View } from 'react-native';
+import React, { useMemo, useRef, useState } from 'react';
+import { Modal, SafeAreaView, Switch, Text, TextInput, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Colors from '../../../common/Colors';
 import commonStyles from '../../../common/CommonStyles';

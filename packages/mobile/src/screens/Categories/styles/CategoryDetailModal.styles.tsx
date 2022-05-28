@@ -17,6 +17,7 @@ const CategoryDetailStyles = StyleSheet.create({
     borderColor: '#505050',
     borderWidth: 1,
     borderRadius: 10,
+    paddingVertical: 10,
     paddingHorizontal: 10
   },
   sliderWrapper: {
