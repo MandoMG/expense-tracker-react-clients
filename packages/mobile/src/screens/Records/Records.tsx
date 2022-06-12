@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Colors from '../../common/Colors';
@@ -10,11 +10,13 @@ import AddEditRecordModal from './components/AddEditRecordModal';
 import RecordList from './components/RecordList';
 import RecordsGraphs from './components/RecordsGraphs';
 import useRecords from './hooks/useRecords';
+import { Record } from '../../types';
 
 const Records = () => {
    const { getRecordsInfo, recordsInfo, saveRecord } = useRecords();
    const [shouldOpenModal, setShouldOpenModal] = useState(false);
    const [isBudgetSelected, setIsBudgetSelected] = useState<boolean>(true);
+   const selectedRecord = useRef<Record>();
 
    const onTouchableTitlePress = (isBudget: boolean) => {
       setIsBudgetSelected(isBudget);
@@ -24,9 +26,20 @@ const Records = () => {
       setShouldOpenModal(true);
    };
 
-   const handleOnSave = async (record: any) => {
-      await saveRecord(record);
+   const onRecordPress = (item: Record) => {
+      selectedRecord.current = item;
+      setShouldOpenModal(true);
+   }
+
+   const handleClose = () => {
       setShouldOpenModal(false);
+      selectedRecord.current = undefined;
+   }
+
+   const handleOnSave = async (record: any, recordId: string) => {
+      await saveRecord(record, recordId);
+      setShouldOpenModal(false);
+      selectedRecord.current = undefined;
       await getRecordsInfo();
    }
 
@@ -65,13 +78,15 @@ const Records = () => {
                   <RecordsGraphs budgetGraphData={recordsInfo?.currentBudgetData} />
                ) : (
                   <View style={commonStyles.listWrapper}>
-                     <RecordList activityData={recordsInfo?.recordItemData} />
+                     <RecordList
+                        onPress={onRecordPress}
+                        activityData={recordsInfo?.recordItemData} />
                   </View>
                )}
             </View>
          </ScrollView>
          {shouldOpenModal && (
-            <AddEditRecordModal handleClose={() => setShouldOpenModal(false)} handleSave={handleOnSave} />
+            <AddEditRecordModal record={selectedRecord.current} handleClose={handleClose} handleSave={handleOnSave} />
          )}
       </SafeAreaView>
    )

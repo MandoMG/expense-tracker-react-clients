@@ -16,7 +16,7 @@ export interface Category {
 }
 
 export interface Record {
-  id?: number;
+  _id?: number;
   description: string;
   category: string;
   recordDate: string;

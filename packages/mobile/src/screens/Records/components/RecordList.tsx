@@ -1,20 +1,21 @@
 import { useDateUtil } from 'mandomg-expensetracker-common/src/hooks';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import commonStyles from '../../../common/CommonStyles';
 import { Record } from '../../../types';
 
 interface ActivityListProps {
    activityData?: Record[];
+   onPress: (item: Record) => void;
 }
 
-const RecordList = ({ activityData }: ActivityListProps) => {
+const RecordList = ({ activityData, onPress }: ActivityListProps) => {
    const { constructDateStringFromDateObject } = useDateUtil();
 
    const RecordItem = ({ item }: any) => {
       return (
-         <View style={commonStyles.listItemWrapper}>
+         <TouchableOpacity style={commonStyles.listItemWrapper} onPress={() => onPress(item)}>
             <View style={commonStyles.listItemLeftColumn}>
                <Text style={commonStyles.listItemMainText}>{item.description}</Text>
                <Text style={commonStyles.listItemSubText}>{constructDateStringFromDateObject(item.recordDate)}</Text>
@@ -23,7 +24,7 @@ const RecordList = ({ activityData }: ActivityListProps) => {
                <Text style={commonStyles.listItemMainText}>{TextUtil.formatCurrency(item.amount)}</Text>
                <Text style={commonStyles.listItemSubText}>{item.category}</Text>
             </View>
-         </View>
+         </TouchableOpacity>
       );
    }
 

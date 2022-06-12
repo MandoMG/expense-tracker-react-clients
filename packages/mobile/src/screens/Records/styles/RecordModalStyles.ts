@@ -36,6 +36,12 @@ export const RecordModalStyles = StyleSheet.create({
   },
   sliderItem: {
     marginTop: 3
-  }
+  },
+  pickerButtonText: {
+    alignSelf: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20
+  },
 });
 

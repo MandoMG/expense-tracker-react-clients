@@ -1,70 +1,77 @@
+import { Picker } from '@react-native-picker/picker';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
-import React, { useMemo, useRef, useState } from 'react';
-import { Modal, SafeAreaView, Switch, Text, TextInput, View } from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { Button, Modal, SafeAreaView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Colors from '../../../common/Colors';
 import commonStyles from '../../../common/CommonStyles';
 import ModalHeaderComponent from '../../../components/headers/ModalHeader';
 import { Record } from '../../../types';
+import useRecords from '../hooks/useRecords';
 import { RecordModalStyles } from '../styles/RecordModalStyles';
 
 interface AddEditRecordModalProps {
+  record?: Record;
   handleClose: () => void;
-  handleSave: (record: Record) => void;
+  handleSave: (record: Record, recordId: string) => void;
 }
 
-enum FieldTypes {
-  description = 'Description',
-  category = 'Category',
-  amount = 'amount',
-}
+// TODO TASKS:
+// On modal mount, category item should be set to the first item of the retrieved categories
+// On isIncome change, category item should be set to the first item of the appropriate categories
+// Make fields populate on record modal mount
+// Add mask to amount
 
-const AddEditRecordModal = ({ handleClose, handleSave }: AddEditRecordModalProps) => {
-  const [isIncome, setIsIncome] = useState<boolean>(false);
-  const [date, setDate] = useState(new Date())
+const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordModalProps) => {
+  const [isIncome, setIsIncome] = useState<boolean>(record?.isIncome || false);
+  const [description, setDescription] = useState<string>(record?.description || '');
+  const [amount, setAmount] = useState<string>(String(record?.amount || ''));
+
+  const { categories, handleRecordDateConversion } = useRecords({ isRecordIncome: isIncome });
+  const [date, setDate] = useState<Date>(handleRecordDateConversion(record?.recordDate));
   const [open, setOpen] = useState(false)
+  const [openPicker, setOpenPicker] = useState(false)
 
-  const descriptionRef = useRef<string>('');
-  const categoryRef = useRef<string>('');
-  const amountRef = useRef<string>('');
+  const setInitialSelectedCategory = () => {
+    if (record && record.category) {
+      return record.category;
+    };
+
+    return categories ? categories[0] : '';
+  }
+  const [selectedItem, setSelectedItem] = useState(setInitialSelectedCategory());
 
   const handleIncomeSwitchChange = (value: boolean) => {
     setIsIncome(value);
   };
 
-  const updateTextFieldRefValue = (value: string, fieldType: FieldTypes) => {
-    switch (fieldType) {
-      case FieldTypes.description:
-        if (value !== descriptionRef.current) { descriptionRef.current = value }
-        return;
-      case FieldTypes.category:
-        if (value !== categoryRef.current) { categoryRef.current = value }
-        return;
-      case FieldTypes.amount:
-        if (value !== amountRef.current) { amountRef.current = value }
-        return;
-      default:
-        return;
-    }
-  }
-
   const onSave = () => {
     const newRecord: Record = {
-      description: descriptionRef.current,
-      category: categoryRef.current,
+      description,
+      category: selectedItem,
       recordDate: `${date.getFullYear()}-${TextUtil.padNumber(date.getMonth() + 1)}-${TextUtil.padNumber(date.getDate())}`,
-      amount: Number(amountRef.current),
+      amount: Number(amount),
       isIncome,
-    }
-    handleSave(newRecord);
+    };
+
+    console.log('Record: ', record);
+    console.log('Record: ', record?._id);
+    handleSave(newRecord, String(record?._id) || '');
   }
+
+  const onCategoryFieldPress = () => {
+    setOpenPicker(!openPicker);
+    if (!selectedItem && categories) {
+      setSelectedItem(categories[0]);
+    }
+  };
 
   const selectedDate = useMemo(() => {
     if (!date) {
       return '';
     }
 
-    return `${date.getMonth()}/${date.getDate()}/${date.getFullYear()}`
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   }, [date])
 
   return (
@@ -88,17 +95,16 @@ const AddEditRecordModal = ({ handleClose, handleSave }: AddEditRecordModalProps
           <View style={RecordModalStyles.inputFieldWrapper}>
             <TextInput
               style={RecordModalStyles.inputField}
-              defaultValue={''}
-              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.description)} />
+              defaultValue={description}
+              onChangeText={(text) => setDescription(text)} />
           </View>
         </View>
         <View>
           <Text style={RecordModalStyles.inputTitle}>Category</Text>
           <View style={RecordModalStyles.inputFieldWrapper}>
-            <TextInput
-              style={RecordModalStyles.inputField}
-              defaultValue={''}
-              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.category)} />
+            <TouchableOpacity onPress={onCategoryFieldPress}>
+              <Text style={RecordModalStyles.inputField}>{selectedItem}</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View>
@@ -124,12 +130,27 @@ const AddEditRecordModal = ({ handleClose, handleSave }: AddEditRecordModalProps
           <Text style={RecordModalStyles.inputTitle}>Amount</Text>
           <View style={RecordModalStyles.inputFieldWrapper}>
             <TextInput
-              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.amount)}
+              onChangeText={(text) => setAmount(text)}
               keyboardType='decimal-pad'
               style={RecordModalStyles.inputField}
-              defaultValue={''} />
+              defaultValue={amount} />
           </View>
         </View>
+        {openPicker && (
+          <View>
+            <Picker
+              selectedValue={selectedItem}
+              onValueChange={(itemValue) => setSelectedItem(itemValue)}
+            >
+              {!!categories && categories.map((category: string) => (
+                <Picker.Item label={category} value={category} />
+              ))}
+            </Picker>
+            <TouchableOpacity onPress={() => setOpenPicker(false)}>
+              <Text style={RecordModalStyles.pickerButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </SafeAreaView>
     </Modal>
   )
