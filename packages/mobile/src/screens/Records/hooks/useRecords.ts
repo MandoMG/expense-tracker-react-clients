@@ -29,17 +29,14 @@ const useRecords = (props?: useRecordsProps) => {
     setRecordCategories(response.data.categories);
   };
 
-  const saveRecord = async (record: Record, recordId: string) => {
-    console.log('RecordID: ', recordId);
+  const saveRecord = async (record: Record, recordId?: number) => {
     if (!!recordId) {
       const data = {
         record,
         recordId
       };
-      console.log('Updating');
       await Axios.put('http://localhost:5500/api/records/updateRecord', data);
     } else {
-      console.log('Saving');
       await Axios.post('http://localhost:5500/api/records/saveRecord', record);
     }
   };

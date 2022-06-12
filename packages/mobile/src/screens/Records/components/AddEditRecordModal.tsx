@@ -13,7 +13,7 @@ import { RecordModalStyles } from '../styles/RecordModalStyles';
 interface AddEditRecordModalProps {
   record?: Record;
   handleClose: () => void;
-  handleSave: (record: Record, recordId: string) => void;
+  handleSave: (record: Record, recordId?: number) => void;
 }
 
 // TODO TASKS:
@@ -54,9 +54,7 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
       isIncome,
     };
 
-    console.log('Record: ', record);
-    console.log('Record: ', record?._id);
-    handleSave(newRecord, String(record?._id) || '');
+    handleSave(newRecord, record?._id);
   }
 
   const onCategoryFieldPress = () => {
@@ -73,6 +71,11 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
 
     return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
   }, [date])
+
+  const handleDateSave = (date: Date) => {
+    setOpen(false);
+    setDate(date);
+  }
 
   return (
     <Modal animationType='slide'>
@@ -117,10 +120,7 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
             mode="date"
             open={open}
             date={date}
-            onConfirm={(date) => {
-              setOpen(false)
-              setDate(date)
-            }}
+            onConfirm={handleDateSave}
             onCancel={() => {
               setOpen(false)
             }}

@@ -23,7 +23,6 @@ const useCategories = () => {
     let response;
     if (isEdit) {
       const id = selectedCategoryIdRef.current;
-      console.log('ID: ', selectedCategoryIdRef.current)
       response = await Axios.put(`http://localhost:5500/api/categories/saveCategory/${id}`, updatedCategory);
     }
     setCategoriesInfo(response?.data || {});

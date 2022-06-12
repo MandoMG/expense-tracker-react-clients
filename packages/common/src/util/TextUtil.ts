@@ -6,6 +6,7 @@ export default class TextUtil {
          return 'Undef number';
       };
 
+      let isNegativeNumber = false;
       let formattedValue;
 
       if (typeof amount === 'string') {
@@ -15,13 +16,18 @@ export default class TextUtil {
          formattedValue = this.formatDecimals(amount);
       }
 
+      if (formattedValue < 0) {
+         isNegativeNumber = formattedValue < 0;
+         formattedValue = Math.abs(Number(formattedValue));
+      }
+
       switch (currencyType) {
          case CurrencyTypes.USD:
-            return `$${formattedValue}`;
+            return isNegativeNumber ? `($${formattedValue})` : `$${formattedValue}`;
          case CurrencyTypes.EUR:
-            return `€${formattedValue}`;
+            return isNegativeNumber ? `(€${formattedValue})` : `€${formattedValue}`;
          default:
-            return `$${formattedValue}`;
+            return isNegativeNumber ? `($${formattedValue})` : `$${formattedValue}`;
       }
    }
 
