@@ -95,7 +95,7 @@ const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDeta
             <Switch
               style={CategoryDetailStyles.sliderItem}
               trackColor={{ false: Colors.backgroundGray, true: Colors.expenseOrange }}
-              onValueChange={handleExpenseSwitchChange}
+              onValueChange={handleBudgetSwitchChange}
               value={hasBudget} />
           </View>
         </View>
