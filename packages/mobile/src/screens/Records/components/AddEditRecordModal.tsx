@@ -1,7 +1,7 @@
 import { Picker } from '@react-native-picker/picker';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React, { useMemo, useState } from 'react';
-import { Button, Modal, SafeAreaView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Modal, SafeAreaView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Colors from '../../../common/Colors';
 import commonStyles from '../../../common/CommonStyles';
@@ -13,7 +13,7 @@ import { RecordModalStyles } from '../styles/RecordModalStyles';
 interface AddEditRecordModalProps {
   record?: Record;
   handleClose: () => void;
-  handleSave: (record: Record, recordId?: number) => void;
+  handleSave: (record: Record, recordId?: number) => Promise<void>;
 }
 
 // TODO TASKS:

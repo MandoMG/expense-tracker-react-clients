@@ -13,7 +13,7 @@ import useRecords from './hooks/useRecords';
 import { Record } from '../../types';
 
 const Records = () => {
-   const { getRecordsInfo, recordsInfo, saveRecord } = useRecords();
+   const { getRecordsInfo, recordsInfo, saveRecord, deleteRecord } = useRecords();
    const [shouldOpenModal, setShouldOpenModal] = useState(false);
    const [isBudgetSelected, setIsBudgetSelected] = useState<boolean>(true);
    const selectedRecord = useRef<Record>();
@@ -31,12 +31,17 @@ const Records = () => {
       setShouldOpenModal(true);
    }
 
+   const onRecordDelete = async (recordId: number) => {
+      await deleteRecord(recordId);
+      await getRecordsInfo();
+   }
+
    const handleClose = () => {
       setShouldOpenModal(false);
       selectedRecord.current = undefined;
    }
 
-   const handleOnSave = async (record: any, recordId: string) => {
+   const handleOnSave = async (record: Record, recordId?: number) => {
       await saveRecord(record, recordId);
       setShouldOpenModal(false);
       selectedRecord.current = undefined;
@@ -80,6 +85,7 @@ const Records = () => {
                   <View style={commonStyles.listWrapper}>
                      <RecordList
                         onPress={onRecordPress}
+                        onDelete={onRecordDelete}
                         activityData={recordsInfo?.recordItemData} />
                   </View>
                )}

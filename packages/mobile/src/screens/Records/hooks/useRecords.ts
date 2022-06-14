@@ -1,5 +1,6 @@
 import Axios from "axios";
 import { useState, useEffect } from "react";
+import { Alert } from 'react-native';
 import { Record, RecordsInfo } from "../../../types";
 
 interface useRecordsProps {
@@ -41,6 +42,16 @@ const useRecords = (props?: useRecordsProps) => {
     }
   };
 
+  const deleteRecord = async (recordId: number) => {
+    if (recordId) {
+      await Axios.post(`http://localhost:5500/api/records/deleteRecord/${recordId}`);
+    } else {
+      const title = 'Error';
+      const msg = 'Could not delete record.';
+      Alert.alert(title, msg)
+    }
+  }
+
   useEffect(() => {
     if (props?.isRecordIncome !== undefined) {
       (() => getRecordsCategories(props?.isRecordIncome))()
@@ -52,9 +63,10 @@ const useRecords = (props?: useRecordsProps) => {
   }, []);
 
   return {
+    categories: recordCategories,
+    deleteRecord,
     getRecordsInfo,
     handleRecordDateConversion,
-    categories: recordCategories,
     recordsInfo,
     saveRecord
   }
