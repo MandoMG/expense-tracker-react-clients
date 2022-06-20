@@ -13,6 +13,7 @@ export interface Category {
   budget: number;
   hasBudget: boolean;
   isExpense: boolean;
+  isIncome?: boolean; // tempValue
 }
 
 export interface Record {

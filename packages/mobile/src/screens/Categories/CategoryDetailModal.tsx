@@ -19,7 +19,7 @@ enum FieldTypes {
 }
 
 const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDetailModalProps) => {
-  const [isExpense, setIsExpense] = useState<boolean>(category?.isExpense || false);
+  const [isExpense, setIsExpense] = useState<boolean>(!category?.isIncome || false);
   const [hasBudget, setHasBudget] = useState<boolean>(category?.hasBudget || false);
 
   const isEditRef = useRef<boolean>(!!category);
