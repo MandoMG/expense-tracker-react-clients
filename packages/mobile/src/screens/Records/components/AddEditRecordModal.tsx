@@ -1,4 +1,3 @@
-import { Picker } from '@react-native-picker/picker';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React, { useMemo, useState } from 'react';
 import { Modal, SafeAreaView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -6,6 +5,7 @@ import DatePicker from 'react-native-date-picker';
 import Colors from '../../../common/Colors';
 import commonStyles from '../../../common/CommonStyles';
 import ModalHeaderComponent from '../../../components/headers/ModalHeader';
+import ItemPicker from '../../../components/itemPicker/ItemPicker';
 import { Record } from '../../../types';
 import useRecords from '../hooks/useRecords';
 import { RecordModalStyles } from '../styles/RecordModalStyles';
@@ -69,7 +69,7 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
       return '';
     }
 
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
   }, [date])
 
   const handleDateSave = (date: Date) => {
@@ -112,9 +112,13 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
         </View>
         <View>
           <Text style={RecordModalStyles.inputTitle}>Date</Text>
-          <View style={RecordModalStyles.inputFieldWrapper} >
-            <TextInput onPressIn={() => setOpen(true)} editable={false} style={RecordModalStyles.inputField} defaultValue={selectedDate} />
-          </View>
+          <TouchableOpacity style={RecordModalStyles.inputFieldWrapper} onPressIn={() => setOpen(true)}>
+            <TextInput
+              onPressIn={() => setOpen(true)}
+              editable={false}
+              style={RecordModalStyles.inputField}
+              defaultValue={selectedDate} />
+          </TouchableOpacity>
           <DatePicker
             modal
             mode="date"
@@ -137,19 +141,12 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
           </View>
         </View>
         {openPicker && (
-          <View>
-            <Picker
-              selectedValue={selectedItem}
-              onValueChange={(itemValue) => setSelectedItem(itemValue)}
-            >
-              {!!categories && categories.map((category: string) => (
-                <Picker.Item label={category} value={category} />
-              ))}
-            </Picker>
-            <TouchableOpacity onPress={() => setOpenPicker(false)}>
-              <Text style={RecordModalStyles.pickerButtonText}>Close</Text>
-            </TouchableOpacity>
-          </View>
+          <ItemPicker
+            itemList={categories || []}
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
+            setOpenPicker={setOpenPicker}
+          />
         )}
       </SafeAreaView>
     </Modal>

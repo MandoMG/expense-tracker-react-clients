@@ -1,9 +1,11 @@
 const Colors = {
-  black: '#000000',
-  expenseOrange: '#ff6937',
   backgroundGray: '#DADADA',
+  black: '#000000',
+  borderGray: '#505050',
+  expenseOrange: '#ff6937',
+  incomePurple: '#8132ff',
   subTextGray: '#858585',
-  incomePurple: '#8132ff'
+  white: '#FFFFFF',
 }
 
 export default Colors;
