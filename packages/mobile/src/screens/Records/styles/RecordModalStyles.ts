@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+import Colors from "../../../common/Colors";
 
-const CategoryDetailStyles = StyleSheet.create({
+export const RecordModalStyles = StyleSheet.create({
   inputTitle: {
     fontWeight: 'bold',
     marginLeft: 20,
@@ -8,17 +9,18 @@ const CategoryDetailStyles = StyleSheet.create({
   },
   inputFieldWrapper: {
     marginTop: 8,
-    backgroundColor: 'white',
+    backgroundColor: Colors.white,
     height: 40,
     borderRadius: 15,
     paddingHorizontal: 15
   },
   inputField: {
-    borderColor: '#505050',
+    borderColor: Colors.borderGray,
     borderWidth: 1,
     borderRadius: 10,
     paddingVertical: 10,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    color: Colors.black
   },
   sliderWrapper: {
     flexDirection: 'row',
@@ -37,6 +39,11 @@ const CategoryDetailStyles = StyleSheet.create({
   sliderItem: {
     marginTop: 3
   },
+  pickerButtonText: {
+    alignSelf: 'center',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 20
+  },
 });
 
-export default CategoryDetailStyles;

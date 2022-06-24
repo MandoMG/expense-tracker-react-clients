@@ -17,6 +17,8 @@ import Home from './screens/Home/Home';
 import Records from './screens/Records/Records';
 import Categories from './screens/Categories/Categories';
 import Colors from './common/Colors';
+import { useEffect } from 'react';
+import { LogBox } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,10 +34,15 @@ const getNavigatorIcon = (routeName: string, isActive: boolean) => {
 }
 
 const App = () => {
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested inside plain ScrollViews with the same orientation because it can break windowing and other functionality - use another VirtualizedList-backed container instead.'])
+  }, [])
+
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName="Home" screenOptions={({ route }) => ({
         headerShown: false,
+        unmountOnBlur: true,
         tabBarActiveTintColor: Colors.expenseOrange,
         tabBarIcon: ({ focused }) => {
           return getNavigatorIcon(route.name, focused);

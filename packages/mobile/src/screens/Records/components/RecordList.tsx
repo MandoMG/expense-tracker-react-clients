@@ -1,47 +1,66 @@
+import { useDateUtil } from 'mandomg-expensetracker-common/src/hooks';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { Alert, AlertButton, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import commonStyles from '../../../common/CommonStyles';
+import { Record } from '../../../types';
 
-const RecordList = () => {
-   const mockData = [
-      { id: 1, description: 'Rent', categoryName: 'Bills', date: '01/01/2022', amount: 1070.58, isExpense: true },
-      { id: 2, description: 'AT&T', categoryName: 'Bills', date: '01/01/2022', amount: 60.10, isExpense: true },
-      { id: 3, description: 'Netflix', categoryName: 'Streaming Services', date: '01/01/2022', amount: 19.99, isExpense: true },
-      { id: 4, description: 'FANG Paycheck', categoryName: 'Paycheck', date: '01/02/2022', amount: 3800.98, isExpense: true },
-      { id: 5, description: 'Best Buy', categoryName: 'Credit Cards', date: '01/02/2022', amount: 200.00, isExpense: true },
-      { id: 6, description: 'Grande', categoryName: 'Bills', date: '01/03/2022', amount: 58.29, isExpense: true },
-   ];
+interface ActivityListProps {
+   activityData?: Record[];
+   onPress: (item: Record) => void;
+   onDelete: (recordId: number) => void;
+}
+
+const RecordList = ({ activityData, onPress, onDelete }: ActivityListProps) => {
+   const { constructDateStringFromDateObject } = useDateUtil();
+
+   const confirmDelete = (recordId: number) => {
+      onDelete(recordId);
+   };
+
+   const handleDelete = (item: Record) => {
+      const title = 'Delete Record';
+      const msg = 'Do you want to delete this record?';
+      const cancelButton: AlertButton = { text: 'Cancel' };
+      const confirmButton: AlertButton = { text: 'Confirm', onPress: () => confirmDelete(item._id || 0) };
+
+      const buttons: AlertButton[] = [cancelButton, confirmButton];
+      Alert.alert(title, msg, buttons)
+   }
 
    const RecordItem = ({ item }: any) => {
       return (
-         <View style={commonStyles.listItemWrapper}>
+         <TouchableOpacity
+            style={commonStyles.listItemWrapper}
+            onLongPress={() => handleDelete(item)}
+            onPress={() => onPress(item)}>
             <View style={commonStyles.listItemLeftColumn}>
                <Text style={commonStyles.listItemMainText}>{item.description}</Text>
-               <Text style={commonStyles.listItemSubText}>{item.date}</Text>
+               <Text style={commonStyles.listItemSubText}>{constructDateStringFromDateObject(item.recordDate)}</Text>
             </View>
             <View style={commonStyles.listItemRightColumn}>
                <Text style={commonStyles.listItemMainText}>{TextUtil.formatCurrency(item.amount)}</Text>
-               <Text style={commonStyles.listItemSubText}>{item.categoryName}</Text>
+               <Text style={commonStyles.listItemSubText}>{item.category}</Text>
             </View>
-         </View>
+         </TouchableOpacity>
       );
    }
 
    return (
-      <View >
-         <View style={commonStyles.listBottomPadding}>
-            <FlatList
-               data={mockData}
-               scrollEnabled={false}
-               renderItem={({ item }) => (
-                  <RecordItem item={item} />
-               )}
-            />
-         </View>
-      </View >
+      !!activityData ? (
+         <View >
+            <View style={commonStyles.listBottomPadding}>
+               <FlatList
+                  data={activityData}
+                  scrollEnabled={false}
+                  renderItem={({ item }) => (
+                     <RecordItem item={item} />
+                  )}
+               />
+            </View>
+         </View >
+      ) : (<></>)
    )
-
 }
 
-export default RecordList;
+export default React.memo(RecordList);

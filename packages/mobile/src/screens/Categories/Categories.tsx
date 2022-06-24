@@ -1,37 +1,42 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import commonStyles from '../../common/CommonStyles';
+import React from 'react';
+import { ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
-import { Category } from '../../types';
 import CategoryDetailModal from './CategoryDetailModal';
 import CategoriesList from './components/CategoriesList';
+import useCategories from './hooks/useCategories';
 
 const Categories = () => {
-   const [shouldOpenModal, setShouldOpenModal] = useState(false);
-   const [selectedCategory, setSelectedCategory] = useState<Category>();
+   const {
+      categoriesInfo,
+      deleteCategory,
+      handleCategoryItemOnPress,
+      handleModalClose,
+      handleModalSave,
+      onAddPress,
+      selectedCategory,
+      shouldOpenModal
+   } = useCategories();
 
-   const mockData = [
-      { categoryName: 'Restaurants', percentage: 40 },
-      { categoryName: 'Bills', percentage: 70 },
-      { categoryName: 'Groceries', percentage: 30 },
-      { categoryName: 'Streaming', percentage: 50 },
-   ];
-
-   const handleCategoryItemOnPress = (selectedItem: Category) => {
-      setShouldOpenModal(true);
-      setSelectedCategory(selectedItem);
+   const rightHeaderAction = {
+      onPress: onAddPress,
+      title: 'Add',
+      isIcon: false
    };
 
    return (
-      <View style={commonStyles.flexOne}>
-         <ScreenHeaderComponent title='Categories' />
-         <View style={commonStyles.listWrapper}>
-            <CategoriesList handleOnPress={handleCategoryItemOnPress} />
-         </View>
-         {shouldOpenModal && selectedCategory && (
-            <CategoryDetailModal category={selectedCategory} handleClose={() => setShouldOpenModal(false)} />
+      <SafeAreaView>
+         <ScreenHeaderComponent title='Categories' rightHeaderAction={rightHeaderAction} />
+         <ScrollView contentInsetAdjustmentBehavior='automatic'>
+            <CategoriesList
+               categoryList={categoriesInfo?.categoryList || []}
+               onDelete={deleteCategory}
+               handleOnPress={handleCategoryItemOnPress} />
+         </ScrollView>
+         {shouldOpenModal && (
+            <CategoryDetailModal category={selectedCategory} handleClose={handleModalClose} handleSave={handleModalSave} />
          )}
-      </View>
+      </SafeAreaView>
    )
 };
 

@@ -5,13 +5,13 @@ import IncomeExpensePill from './IncomeExpensePill';
 import { BalanceSummaryStyles } from './styles/BalancePillsStyles';
 
 interface BalanceSummaryProps {
-   currentBalance: number;
-   income: number;
-   expenses: number;
+   currentBalance?: number;
+   income?: number;
+   expenses?: number;
 }
 
 const BalanceSummaryComponent = (props: BalanceSummaryProps) => {
-   const { currentBalance, income, expenses } = props;
+   const { currentBalance = 0, income = 0, expenses = 0 } = props;
 
    return (
       <View>

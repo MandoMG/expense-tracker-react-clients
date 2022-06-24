@@ -43,9 +43,9 @@ const commonStyles = StyleSheet.create({
     alignItems: 'flex-end'
   },
   listWrapper: {
-    flex: 1,
     marginTop: 10,
-    marginHorizontal: 15
+    marginHorizontal: 15,
+    marginBottom: 50
   },
   listItemMainText: { color: Colors.black, fontWeight: 'bold', fontSize: 14 },
   listItemSubText: { color: Colors.subTextGray },
