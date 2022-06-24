@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { ModalHeaderStyles } from './styles/HeaderStyles';
 
 interface ModalHeaderProps {
-  handleClose: () => void;
+  handleClose?: () => void;
   title: string;
   handleSave?: () => void;
 }
@@ -13,9 +13,11 @@ const ModalHeaderComponent = (props: ModalHeaderProps) => {
   return (
     <View style={ModalHeaderStyles.headerWrapper}>
       <View style={ModalHeaderStyles.leftItemWrapper}>
-        <TouchableOpacity onPress={handleClose}>
-          <Text style={ModalHeaderStyles.sideItems}> Close </Text>
-        </TouchableOpacity>
+        {!!handleClose && (
+          <TouchableOpacity onPress={handleClose}>
+            <Text style={ModalHeaderStyles.sideItems}> Close </Text>
+          </TouchableOpacity>
+        )}
       </View>
       <View style={ModalHeaderStyles.centerItemWrapper}>
         <Text style={ModalHeaderStyles.centerItem}> {title} </Text>
