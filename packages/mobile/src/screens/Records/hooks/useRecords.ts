@@ -1,13 +1,20 @@
-import Axios from "axios";
+import TextUtil from "mandomg-expensetracker-common/src/util/TextUtil";
 import { useState, useEffect } from "react";
 import { Alert } from 'react-native';
+import ApiRoutes from "../../../common/ApiRoutes";
+import useAxios from "../../../hooks/useAxios";
 import { Record, RecordsInfo } from "../../../types";
 
 interface useRecordsProps {
   isRecordIncome?: boolean;
 }
 
+interface RecordCategoryResponse {
+  categories: string[];
+}
+
 const useRecords = (props?: useRecordsProps) => {
+  const { getRequest, postRequest, putRequest } = useAxios();
   const [recordsInfo, setRecordsInfo] = useState<RecordsInfo>();
   const [recordCategories, setRecordCategories] = useState<string[]>();
 
@@ -21,13 +28,13 @@ const useRecords = (props?: useRecordsProps) => {
   }
 
   const getRecordsInfo = async () => {
-    const response = await Axios.get('http://localhost:5500/api/records/getInfo');
-    setRecordsInfo(response.data);
+    const recordsInfo = await getRequest<RecordsInfo>(ApiRoutes.getRecordInfo);
+    setRecordsInfo(recordsInfo);
   };
 
   const getRecordsCategories = async (isIncome: boolean) => {
-    const response = await Axios.post('http://localhost:5500/api/records/getRecordsCategories', { isIncome });
-    setRecordCategories(response.data.categories);
+    const response = await getRequest<RecordCategoryResponse>(TextUtil.formatString(ApiRoutes.getRecordCategories, [String(isIncome)]));
+    setRecordCategories(response.categories);
   };
 
   const saveRecord = async (record: Record, recordId?: number) => {
@@ -36,15 +43,15 @@ const useRecords = (props?: useRecordsProps) => {
         record,
         recordId
       };
-      await Axios.put('http://localhost:5500/api/records/updateRecord', data);
+      await putRequest(ApiRoutes.updateRecord, data);
     } else {
-      await Axios.post('http://localhost:5500/api/records/saveRecord', record);
+      await postRequest(ApiRoutes.saveRecord, record);
     }
   };
 
   const deleteRecord = async (recordId: number) => {
     if (recordId) {
-      await Axios.post(`http://localhost:5500/api/records/deleteRecord/${recordId}`);
+      await postRequest(TextUtil.formatString(ApiRoutes.deleteRecord, [recordId]));
     } else {
       const title = 'Error';
       const msg = 'Could not delete record.';

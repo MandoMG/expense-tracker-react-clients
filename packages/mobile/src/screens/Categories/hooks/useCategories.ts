@@ -1,9 +1,12 @@
-import Axios from "axios";
+import TextUtil from "mandomg-expensetracker-common/src/util/TextUtil";
 import { useState, useEffect, useRef } from "react";
 import { Alert } from "react-native";
+import ApiRoutes from "../../../common/ApiRoutes";
+import useAxios from "../../../hooks/useAxios";
 import { Category, CategoriesInfo } from "../../../types";
 
 const useCategories = () => {
+  const { getRequest, postRequest, putRequest } = useAxios();
   const [categoriesInfo, setCategoriesInfo] = useState<CategoriesInfo>();
   const [shouldOpenModal, setShouldOpenModal] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<Category>();
@@ -30,18 +33,19 @@ const useCategories = () => {
     let response;
     if (isEdit) {
       const id = selectedCategoryIdRef.current;
-      response = await Axios.put(`http://localhost:5500/api/categories/updateCategory/${id}`, category);
+      await putRequest(TextUtil.formatString(ApiRoutes.updateCategory, [id]), category);
     } else {
-      await Axios.post(`http://localhost:5500/api/categories/saveCategory`, category);
-      response = await Axios.get('http://localhost:5500/api/categories/getInfo');
+      await postRequest(ApiRoutes.saveCategory, category);
     }
-    setCategoriesInfo(response?.data || {});
+
+    response = await getRequest<CategoriesInfo>(ApiRoutes.getCategoryInfo);
+    setCategoriesInfo(response || {});
     setShouldOpenModal(false);
   }
 
   const deleteCategory = async (categoryId: number) => {
     if (categoryId) {
-      await Axios.post(`http://localhost:5500/api/categories/deleteCategory/${categoryId}/`);
+      await postRequest(TextUtil.formatString(ApiRoutes.deleteCategory, [categoryId]));
       await getCategoriesInfo();
     } else {
       const title = 'Error';
@@ -51,8 +55,8 @@ const useCategories = () => {
   }
 
   const getCategoriesInfo = async () => {
-    const response = await Axios.get('http://localhost:5500/api/categories/getInfo');
-    setCategoriesInfo(response.data);
+    const categoriesInfo = await getRequest<CategoriesInfo>(ApiRoutes.getCategoryInfo);
+    setCategoriesInfo(categoriesInfo);
   };
 
   useEffect(() => {
