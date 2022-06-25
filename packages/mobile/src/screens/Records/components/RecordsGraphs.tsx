@@ -8,17 +8,12 @@ import textStyles from '../../../common/TextStyles';
 import { BudgetSummaryItem } from '../../../types';
 import useGraphBar from '../../../hooks/useGraphBar';
 
-const mockData = [
-  { id: 1, categoryName: 'Restaurants', currentTotal: 119.52, totalBudget: 200.00, percentage: 60 },
-  { id: 2, categoryName: 'Bills', currentTotal: 302.52, totalBudget: 400.00, percentage: 75 },
-  { id: 3, categoryName: 'Groceries', currentTotal: 411.19, totalBudget: 450.00, percentage: 91 },
-  { id: 4, categoryName: 'Streaming Services', currentTotal: 108.66, totalBudget: 150.00, percentage: 72 },
-  { id: 5, categoryName: 'Gas', currentTotal: 383.76, totalBudget: 460.00, percentage: 83 },
-  { id: 6, categoryName: 'Restaurants', currentTotal: 119.52, totalBudget: 200.00, percentage: 60 },
-  { id: 7, categoryName: 'Bills', currentTotal: 302.52, totalBudget: 400.00, percentage: 75 },
-  { id: 8, categoryName: 'Groceries', currentTotal: 411.19, totalBudget: 450.00, percentage: 91 },
-  { id: 9, categoryName: 'Streaming Services', currentTotal: 108.66, totalBudget: 150.00, percentage: 72 },
-  { id: 10, categoryName: 'Gas', currentTotal: 383.76, totalBudget: 460.00, percentage: 83 },
+const mockData: BudgetSummaryItem[] = [
+  { categoryName: 'Restaurants', categoryValue: 119.52, categoryBudget: 200.00, budgetDifference: 80.48, hasBudget: true, isUnderBudget: true },
+  { categoryName: 'Bills', categoryValue: 150.00, categoryBudget: 300.00, budgetDifference: 150.00, hasBudget: true, isUnderBudget: true },
+  { categoryName: 'Groceries', categoryValue: 100.00, categoryBudget: 400.00, budgetDifference: 300.00, hasBudget: true, isUnderBudget: true },
+  { categoryName: 'Gas', categoryValue: 250.00, categoryBudget: 500.00, budgetDifference: 250.00, hasBudget: true, isUnderBudget: true },
+  { categoryName: 'Holly', categoryValue: 400.00, categoryBudget: 600.00, budgetDifference: 200.00, hasBudget: true, isUnderBudget: true },
 ];
 
 interface RecordsGraphsProps {
