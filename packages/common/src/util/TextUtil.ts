@@ -1,6 +1,12 @@
 import { CurrencyTypes } from "../constants/CurrencyTypes";
 
 export default class TextUtil {
+   static formatString(str: string, args: any) {
+      return str.replace(/{([0-9]+)}/g, (match, index) => {
+         return typeof args[index] == 'undefined' ? match : args[index];
+      })
+   };
+
    static formatCurrency(amount: number, precision: number = 2, currencyType?: string) {
       if (amount === undefined) {
          return 'Undef number';

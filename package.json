@@ -15,6 +15,7 @@
       "**/react-bootstrap/**",
       "**/react-native",
       "**/react-native-codegen",
+      "**/react-native-reanimated",
       "**/react-native-safe-area-context",
       "**/react-native-screens",
       "**/react-native-vector-icons",
