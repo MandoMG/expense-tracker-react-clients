@@ -1,6 +1,7 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
 import { Category } from '../../../types';
+import CategoryStyles from '../styles/CategoryStyles';
 import CategoryListItem from './CategoryListItem';
 
 interface CategoriesListProps {
@@ -11,7 +12,7 @@ interface CategoriesListProps {
 
 const CategoriesList = ({ categoryList, handleOnPress, onDelete }: CategoriesListProps) => {
   return (
-    <View style={{ marginHorizontal: 20, paddingBottom: 20 }}>
+    <View style={CategoryStyles.categoryListWrapper}>
       <FlatList
         data={categoryList}
         renderItem={({ item }: { item: Category }) => (
