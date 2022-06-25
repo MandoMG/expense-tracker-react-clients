@@ -6,6 +6,7 @@ import Colors from '../../../common/Colors';
 import commonStyles from '../../../common/CommonStyles';
 import ModalHeaderComponent from '../../../components/headers/ModalHeader';
 import ItemPicker from '../../../components/itemPicker/ItemPicker';
+import TextInputField from '../../../components/textInputField/TextInputField';
 import { Record } from '../../../types';
 import useRecords from '../hooks/useRecords';
 import { RecordModalStyles } from '../styles/RecordModalStyles';
@@ -96,8 +97,7 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
         <View>
           <Text style={RecordModalStyles.inputTitle}>Description</Text>
           <View style={RecordModalStyles.inputFieldWrapper}>
-            <TextInput
-              style={RecordModalStyles.inputField}
+            <TextInputField
               defaultValue={description}
               onChangeText={(text) => setDescription(text)} />
           </View>
@@ -113,11 +113,10 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
         <View>
           <Text style={RecordModalStyles.inputTitle}>Date</Text>
           <TouchableOpacity style={RecordModalStyles.inputFieldWrapper} onPressIn={() => setOpen(true)}>
-            <TextInput
+            <TextInputField
+              defaultValue={selectedDate}
               onPressIn={() => setOpen(true)}
-              editable={false}
-              style={RecordModalStyles.inputField}
-              defaultValue={selectedDate} />
+              editable={false} />
           </TouchableOpacity>
           <DatePicker
             modal
@@ -133,7 +132,7 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
         <View>
           <Text style={RecordModalStyles.inputTitle}>Amount</Text>
           <View style={RecordModalStyles.inputFieldWrapper}>
-            <TextInput
+            <TextInputField
               onChangeText={(text) => setAmount(text)}
               keyboardType='decimal-pad'
               style={RecordModalStyles.inputField}

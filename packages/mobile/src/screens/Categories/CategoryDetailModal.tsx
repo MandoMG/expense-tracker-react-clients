@@ -1,9 +1,10 @@
 import React, { useMemo, useState, useRef } from 'react';
-import { Modal, SafeAreaView, Switch, Text, TextInput, View } from 'react-native';
+import { Modal, SafeAreaView, Switch, Text, View } from 'react-native';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
 import ModalHeaderComponent from '../../components/headers/ModalHeader';
 import LineSeparator from '../../components/lineSeparator/LineSeparator';
+import TextInputField from '../../components/textInputField/TextInputField';
 import { Category } from '../../types';
 import CategoryDetailStyles from './styles/CategoryDetailModal.styles';
 
@@ -68,8 +69,7 @@ const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDeta
         <View>
           <Text style={CategoryDetailStyles.inputTitle}>Name</Text>
           <View style={CategoryDetailStyles.inputFieldWrapper}>
-            <TextInput
-              style={CategoryDetailStyles.inputField}
+            <TextInputField
               defaultValue={category?.name || ''}
               onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.name)} />
           </View>
@@ -102,8 +102,7 @@ const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDeta
         <View>
           <Text style={CategoryDetailStyles.inputTitle}>Budget</Text>
           <View style={CategoryDetailStyles.inputFieldWrapper}>
-            <TextInput
-              style={CategoryDetailStyles.inputField}
+            <TextInputField
               editable={hasBudget}
               keyboardType='decimal-pad'
               defaultValue={String(category?.budget || '')}
