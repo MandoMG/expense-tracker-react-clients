@@ -9,13 +9,16 @@ const AndroidPicker = (props: ItemPickerProps) => {
   const { itemList, setSelectedItem, setOpenPicker } = props;
 
   const onPickerItemPress = (item: string) => {
+    console.log('Item got clicked: ', item);
     setSelectedItem(item);
     setOpenPicker(false);
   }
 
   const PickerItem = ({ pickerItem }: any) => {
     return (
-      <TouchableOpacity style={{ paddingVertical: 15, paddingLeft: 20, borderBottomWidth: 1, borderBottomColor: Colors.lightGray }} onPress={() => onPickerItemPress(pickerItem)}>
+      <TouchableOpacity
+        style={{ paddingVertical: 15, paddingLeft: 20, borderBottomWidth: 1, borderBottomColor: Colors.lightGray }}
+        onPress={() => onPickerItemPress(pickerItem)}>
         <Text style={commonStyles.listItemMainText}>{pickerItem}</Text>
       </TouchableOpacity>
     );

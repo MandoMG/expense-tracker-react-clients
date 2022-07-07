@@ -1,6 +1,6 @@
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React, { useMemo, useState } from 'react';
-import { Modal, SafeAreaView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Keyboard, Modal, SafeAreaView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Colors from '../../../common/Colors';
 import commonStyles from '../../../common/CommonStyles';
@@ -59,6 +59,7 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
   }
 
   const onCategoryFieldPress = () => {
+    Keyboard.dismiss();
     setOpenPicker(!openPicker);
     if (!selectedItem && categories) {
       setSelectedItem(categories[0]);
