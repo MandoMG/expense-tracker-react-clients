@@ -68,4 +68,5 @@ export interface RecordsFeatureLabels {
 
 export interface CategoriesInfo {
   categoryList: Category[];
+  totalBudget: number;
 }

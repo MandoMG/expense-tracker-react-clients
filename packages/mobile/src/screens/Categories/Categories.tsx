@@ -1,6 +1,8 @@
+import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import commonStyles from '../../common/CommonStyles';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import CategoryDetailModal from './CategoryDetailModal';
 import CategoriesList from './components/CategoriesList';
@@ -28,6 +30,14 @@ const Categories = () => {
       <SafeAreaView>
          <ScreenHeaderComponent title='Categories' rightHeaderAction={rightHeaderAction} />
          <ScrollView contentInsetAdjustmentBehavior='automatic'>
+            <View style={{ flexDirection: 'row', marginHorizontal: 20, paddingVertical: 10 }}>
+               <View style={commonStyles.listItemLeftColumn}>
+                  <Text style={commonStyles.boldText}>Total Budget</Text>
+               </View>
+               <View style={commonStyles.listItemRightColumn}>
+                  <Text style={commonStyles.boldText}>{TextUtil.formatCurrency(categoriesInfo?.totalBudget || 0)}</Text>
+               </View>
+            </View>
             <CategoriesList
                categoryList={categoriesInfo?.categoryList || []}
                onDelete={deleteCategory}

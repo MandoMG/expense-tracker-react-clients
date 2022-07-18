@@ -16,6 +16,12 @@ const commonStyles = StyleSheet.create({
     flexWrap: 'wrap',
     fontWeight: 'bold'
   },
+  boldText: {
+    color: 'black',
+    fontSize: 18,
+    flexWrap: 'wrap',
+    fontWeight: 'bold'
+  },
   listBottomPadding: {
     paddingBottom: 10
   },
