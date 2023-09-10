@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {FlatList, Text, TouchableOpacity, View} from 'react-native';
+import {useDateUtil} from 'mandomg-expensetracker-common/src/hooks';
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import {RecordGraphsStyles} from '../styles/RecordsStyles';
 import HorizontalGraphBarComponent from '../../../components/graphBar/HorizontalGraphBar';
@@ -9,80 +10,8 @@ import {BudgetSummaryItem, Record} from '../../../types';
 import useGraphBar from '../../../hooks/useGraphBar';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Colors from '../../../common/Colors';
-
-const mockData: BudgetSummaryItem[] = [
-  {
-    categoryName: 'Restaurants',
-    categoryValue: 119.52,
-    categoryBudget: 200.0,
-    budgetDifference: 80.48,
-    hasBudget: true,
-    isUnderBudget: true,
-  },
-  {
-    categoryName: 'Bills',
-    categoryValue: 150.0,
-    categoryBudget: 300.0,
-    budgetDifference: 150.0,
-    hasBudget: true,
-    isUnderBudget: true,
-  },
-  {
-    categoryName: 'Groceries',
-    categoryValue: 100.0,
-    categoryBudget: 400.0,
-    budgetDifference: 300.0,
-    hasBudget: true,
-    isUnderBudget: true,
-  },
-  {
-    categoryName: 'Gas',
-    categoryValue: 250.0,
-    categoryBudget: 500.0,
-    budgetDifference: 250.0,
-    hasBudget: true,
-    isUnderBudget: true,
-  },
-  {
-    categoryName: 'Holly',
-    categoryValue: 400.0,
-    categoryBudget: 600.0,
-    budgetDifference: 200.0,
-    hasBudget: true,
-    isUnderBudget: true,
-  },
-];
-
-const mockRecords: Record[] = [
-  {
-    description: 'HEB',
-    category: 'Groceries',
-    recordDate: '2023-09-01',
-    amount: 10.21,
-    isIncome: false,
-  },
-  {
-    description: 'Walmart',
-    category: 'Groceries',
-    recordDate: '2023-09-02',
-    amount: 30.22,
-    isIncome: false,
-  },
-  {
-    description: 'Exxon',
-    category: 'Gas',
-    recordDate: '2023-09-03',
-    amount: 30.55,
-    isIncome: false,
-  },
-  {
-    description: 'House',
-    category: 'Bills',
-    recordDate: '2023-09-04',
-    amount: 2000.23,
-    isIncome: false,
-  },
-];
+import {useAppSelector as useSelector} from '../../../redux/hooks';
+import {selectRecords} from '../../../redux/slices/recordSlice';
 
 interface RecordsGraphsProps {
   budgetGraphData?: BudgetSummaryItem[];
@@ -90,6 +19,8 @@ interface RecordsGraphsProps {
 
 const RecordsGraphs = ({budgetGraphData}: RecordsGraphsProps) => {
   const {getGraphPercentage} = useGraphBar();
+  const {constructDateStringFromDateObject} = useDateUtil();
+  const records = useSelector(selectRecords);
   const [selectedRecordList, setSelectedRecordList] = useState<Record[]>([]);
   const [selectedBudgetCategory, setSelectedBudgetCategory] =
     useState<string>('');
@@ -104,14 +35,12 @@ const RecordsGraphs = ({budgetGraphData}: RecordsGraphsProps) => {
 
   const onItemPress = (category: string) => {
     // Get real data
-    const list = mockRecords.filter(record => record.category === category);
+    const list = records.filter(record => record.category === category);
     setSelectedRecordList(list);
 
     if (selectedBudgetCategory === category) {
-      console.log('Reset Category');
       setSelectedBudgetCategory('');
     } else {
-      console.log(`Set Category to ${category}`);
       setSelectedBudgetCategory(category);
     }
   };
@@ -163,14 +92,18 @@ const RecordsGraphs = ({budgetGraphData}: RecordsGraphsProps) => {
                         marginHorizontal: 10,
                       }}>
                       <Text>{record.description}</Text>
-                      <Text>{record.amount}</Text>
+                      <Text>{TextUtil.formatCurrency(record.amount)}</Text>
                     </View>
                     <View
                       style={{
                         flexDirection: 'row',
                         marginHorizontal: 10,
                       }}>
-                      <Text>{record.recordDate}</Text>
+                      <Text>
+                        {constructDateStringFromDateObject(
+                          new Date(record.recordDate),
+                        )}
+                      </Text>
                     </View>
                   </View>
                 ))
