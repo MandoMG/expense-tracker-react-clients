@@ -33,6 +33,7 @@ const useCategories = () => {
     let response;
     if (isEdit) {
       const id = selectedCategoryIdRef.current;
+
       await putRequest(TextUtil.formatString(ApiRoutes.updateCategory, [id]), category);
     } else {
       await postRequest(ApiRoutes.saveCategory, category);
