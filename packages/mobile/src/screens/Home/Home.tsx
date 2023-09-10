@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   Platform,
@@ -10,16 +10,29 @@ import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import BudgetSummary from './components/BudgetSummary';
 import CurrentDateSubtitle from '../../components/subtitles/CurrentDateSubtitle';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import useHome from './hooks/useHome';
 import {useSelector} from 'react-redux';
-import {selectIsAppLoading} from '../../redux/slices/appSlice';
+import {
+  selectDashboardInfo,
+  selectIsAppLoading,
+} from '../../redux/slices/appSlice';
 import Colors from '../../common/Colors';
+import {useAppDispatch as useDispatch, useAppSelector} from '../../redux/hooks';
+import {getDashboardInfo} from '../../redux/thunks/dashboardThunks';
 
 const Home = () => {
-  const {dashboardInfo} = useHome();
+  const dispatch = useDispatch();
   const {height} = useWindowDimensions();
   const screenPercentage = Platform.OS === 'android' ? 0.62 : 0.54;
+
   const isLoading = useSelector(selectIsAppLoading);
+  const dashboardInfo = useAppSelector(selectDashboardInfo);
+
+  // fetches only on mount, but need to prevent stale data
+  useEffect(() => {
+    if (!dashboardInfo) {
+      dispatch(getDashboardInfo());
+    }
+  }, []);
 
   return !isLoading ? (
     <SafeAreaView>
