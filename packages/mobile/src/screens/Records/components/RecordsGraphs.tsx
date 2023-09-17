@@ -83,7 +83,10 @@ const RecordsGraphs = ({budgetGraphData}: RecordsGraphsProps) => {
                 selectedRecordList.map(record => (
                   <View
                     style={{
-                      marginVertical: 10,
+                      marginVertical: 6,
+                      marginHorizontal: 10,
+                      borderLeftColor: Colors.expenseOrange,
+                      borderLeftWidth: 2,
                     }}>
                     <View
                       style={{
@@ -91,15 +94,15 @@ const RecordsGraphs = ({budgetGraphData}: RecordsGraphsProps) => {
                         justifyContent: 'space-between',
                         marginHorizontal: 10,
                       }}>
-                      <Text>{record.description}</Text>
-                      <Text>{TextUtil.formatCurrency(record.amount)}</Text>
+                      <Text style={{ color: Colors.black}}>{record.description}</Text>
+                      <Text style={{ color: Colors.black}}>{TextUtil.formatCurrency(record.amount)}</Text>
                     </View>
                     <View
                       style={{
                         flexDirection: 'row',
                         marginHorizontal: 10,
                       }}>
-                      <Text>
+                      <Text style={{ color: Colors.subTextGray}}>
                         {constructDateStringFromDateObject(
                           new Date(record.recordDate),
                         )}

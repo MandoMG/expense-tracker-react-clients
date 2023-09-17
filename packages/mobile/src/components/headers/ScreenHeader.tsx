@@ -3,6 +3,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import commonStyles from '../../common/CommonStyles';
 import { ScreenHeaderStyles } from './styles/HeaderStyles';
+import Colors from "../../common/Colors";
 
 interface HeaderAction {
   onPress?: () => void;
@@ -24,7 +25,7 @@ const ScreenHeaderComponent = (props: HeaderProps) => {
         {!!leftHeaderAction && (
           <TouchableOpacity onPress={() => { }}>
             {!!leftHeaderAction.isIcon ? (
-              <Icon name="chevron-left" size={18} style={{ color: 'black' }} />
+              <Icon name="chevron-left" size={18} style={{ color: Colors.black }} />
             ) : (
               <Text style={commonStyles.headerTitle}> {leftHeaderAction.title} </Text>
             )}
@@ -38,7 +39,7 @@ const ScreenHeaderComponent = (props: HeaderProps) => {
         {!!rightHeaderAction && (
           <TouchableOpacity onPress={rightHeaderAction.onPress}>
             {!!rightHeaderAction.isIcon ? (
-              <Icon name="chevron-left" size={18} style={{ color: 'black' }} />
+              <Icon name="chevron-left" size={18} style={{ color: Colors.black }} />
             ) : (
               <Text style={commonStyles.headerTitle}> {rightHeaderAction.title} </Text>
             )}

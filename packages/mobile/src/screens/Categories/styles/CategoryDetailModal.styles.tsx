@@ -1,20 +1,22 @@
 import { StyleSheet } from "react-native";
+import Colors from "../../../common/Colors";
 
 const CategoryDetailStyles = StyleSheet.create({
   inputTitle: {
+    color: Colors.black,
     fontWeight: 'bold',
     marginLeft: 20,
     marginTop: 10
   },
   inputFieldWrapper: {
     marginTop: 8,
-    backgroundColor: 'white',
+    backgroundColor: Colors.appBackground,
     height: 40,
     borderRadius: 15,
     paddingHorizontal: 15
   },
   inputField: {
-    borderColor: '#505050',
+    borderColor: Colors.borderGray,
     borderWidth: 1,
     borderRadius: 10,
     paddingVertical: 10,
@@ -26,6 +28,7 @@ const CategoryDetailStyles = StyleSheet.create({
     marginRight: 10
   },
   sliderText: {
+    color: Colors.black,
     fontWeight: 'bold',
     marginLeft: 20,
     marginTop: 5

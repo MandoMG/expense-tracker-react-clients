@@ -29,6 +29,7 @@ const style = StyleSheet.create({
     marginTop: 20,
     borderRadius: 25,
     elevation: 20,
+    shadowOpacity: 0.3,
   },
   incomePillWrapper: {
     flex: 1,
@@ -37,6 +38,7 @@ const style = StyleSheet.create({
     marginTop: 20,
     borderRadius: 25,
     elevation: 20,
+    shadowOpacity: 0.3,
   }
 });
 

@@ -60,6 +60,7 @@ const App = () => {
             headerShown: false,
             unmountOnBlur: true,
             tabBarActiveTintColor: Colors.expenseOrange,
+            tabBarStyle: {backgroundColor: Colors.appBackground},
             tabBarIcon: ({focused}) => {
               return getNavigatorIcon(route.name, focused);
             },

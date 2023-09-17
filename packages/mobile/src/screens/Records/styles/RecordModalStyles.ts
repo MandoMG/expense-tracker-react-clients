@@ -3,13 +3,14 @@ import Colors from "../../../common/Colors";
 
 export const RecordModalStyles = StyleSheet.create({
   inputTitle: {
+    color: Colors.black,
     fontWeight: 'bold',
     marginLeft: 20,
     marginTop: 10
   },
   inputFieldWrapper: {
     marginTop: 8,
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.appBackground,
     height: 40,
     borderRadius: 15,
     paddingHorizontal: 15
@@ -28,6 +29,7 @@ export const RecordModalStyles = StyleSheet.create({
     marginRight: 10
   },
   sliderText: {
+    color: Colors.black,
     fontWeight: 'bold',
     marginLeft: 20,
     marginTop: 5

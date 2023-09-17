@@ -81,7 +81,7 @@ const AddEditRecordModal = ({ record, handleClose, handleSave }: AddEditRecordMo
 
   return (
     <Modal animationType='slide'>
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1, backgroundColor: Colors.appBackground}}>
         <ModalHeaderComponent title="Add Record" handleClose={handleClose} handleSave={onSave} />
         <View style={RecordModalStyles.sliderWrapper}>
           <View style={commonStyles.flexOne}>

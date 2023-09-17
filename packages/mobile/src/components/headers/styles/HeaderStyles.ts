@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import Colors from "../../../common/Colors";
 
 export const ScreenHeaderStyles = StyleSheet.create({
   leftItemWrapper: {
@@ -45,6 +46,6 @@ export const ModalHeaderStyles = StyleSheet.create({
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
-  sideItems: { color: 'black', fontSize: 16, flexWrap: 'wrap' },
-  centerItem: { color: 'black', fontSize: 18, flexWrap: 'wrap', fontWeight: 'bold' }
+  sideItems: { color: Colors.black, fontSize: 16, flexWrap: 'wrap' },
+  centerItem: { color: Colors.black, fontSize: 18, flexWrap: 'wrap', fontWeight: 'bold' }
 });

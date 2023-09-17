@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
+import Colors from "../../../common/Colors";
 
 export const BalanceSummaryStyles = StyleSheet.create({
   balanceSummaryWrapper: {
-    backgroundColor: '#323246',
+    backgroundColor: Colors.darkPurple,
     marginTop: 15,
     marginHorizontal: 20,
     borderRadius: 25,
     elevation: 50,
+    shadowOpacity: 0.5,
   },
   currentBalanceWrapper: {
     paddingVertical: 10,

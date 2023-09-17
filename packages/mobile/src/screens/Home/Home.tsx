@@ -35,7 +35,7 @@ const Home = () => {
   }, []);
 
   return !isLoading ? (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor: Colors.appBackground}}>
       <View>
         <ScreenHeaderComponent
           title={dashboardInfo?.featureLabels.title || ''}

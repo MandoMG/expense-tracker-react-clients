@@ -77,7 +77,7 @@ const CategoryDetailModal = ({
 
   return (
     <Modal animationType="slide">
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1, backgroundColor: Colors.appBackground}}>
         <ModalHeaderComponent
           title={title}
           handleClose={() => handleClose()}

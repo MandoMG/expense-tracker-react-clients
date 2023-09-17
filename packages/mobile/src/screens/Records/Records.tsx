@@ -64,7 +64,7 @@ const Records = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: Colors.appBackground, flex: 1}}>
       <ScreenHeaderComponent
         title={recordsInfo?.featureLabels.title || ''}
         rightHeaderAction={rightHeaderAction}
@@ -131,6 +131,7 @@ const Records = () => {
         ) : (
           <View
             style={{
+              backgroundColor: Colors.appBackground,
               alignItems: 'center',
               justifyContent: 'center',
               marginTop: 60,
