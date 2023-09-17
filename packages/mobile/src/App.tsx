@@ -1,13 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -19,6 +9,9 @@ import Categories from './screens/Categories/Categories';
 import Colors from './common/Colors';
 import {useEffect} from 'react';
 import {LogBox} from 'react-native';
+
+import {store} from './redux/store';
+import {Provider} from 'react-redux';
 
 const Tab = createBottomTabNavigator();
 
@@ -59,22 +52,24 @@ const App = () => {
   }, []);
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
-        screenOptions={({route}) => ({
-          headerShown: false,
-          unmountOnBlur: true,
-          tabBarActiveTintColor: Colors.expenseOrange,
-          tabBarIcon: ({focused}) => {
-            return getNavigatorIcon(route.name, focused);
-          },
-        })}>
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Records" component={Records} />
-        <Tab.Screen name="Categories" component={Categories} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator
+          initialRouteName="Home"
+          screenOptions={({route}) => ({
+            headerShown: false,
+            unmountOnBlur: true,
+            tabBarActiveTintColor: Colors.expenseOrange,
+            tabBarIcon: ({focused}) => {
+              return getNavigatorIcon(route.name, focused);
+            },
+          })}>
+          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Records" component={Records} />
+          <Tab.Screen name="Categories" component={Categories} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 

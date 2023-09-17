@@ -1,23 +1,33 @@
-import React, { useMemo, useState } from 'react';
-import { FlatList, Modal, SafeAreaView, Switch, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import {
+  FlatList,
+  Modal,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
 import ModalHeaderComponent from '../headers/ModalHeader';
-import { ItemPickerProps } from './ItemPicker'
+import {ItemPickerProps} from './ItemPicker';
 
 const AndroidPicker = (props: ItemPickerProps) => {
-  const { itemList, setSelectedItem, setOpenPicker } = props;
+  const {itemList, setSelectedItem, setOpenPicker} = props;
 
   const onPickerItemPress = (item: string) => {
-    console.log('Item got clicked: ', item);
     setSelectedItem(item);
     setOpenPicker(false);
-  }
+  };
 
-  const PickerItem = ({ pickerItem }: any) => {
+  const PickerItem = ({pickerItem}: any) => {
     return (
       <TouchableOpacity
-        style={{ paddingVertical: 15, paddingLeft: 20, borderBottomWidth: 1, borderBottomColor: Colors.lightGray }}
+        style={{
+          paddingVertical: 15,
+          paddingLeft: 20,
+          borderBottomWidth: 1,
+          borderBottomColor: Colors.lightGray,
+        }}
         onPress={() => onPickerItemPress(pickerItem)}>
         <Text style={commonStyles.listItemMainText}>{pickerItem}</Text>
       </TouchableOpacity>
@@ -25,18 +35,16 @@ const AndroidPicker = (props: ItemPickerProps) => {
   };
 
   return (
-    <Modal animationType='slide'>
+    <Modal animationType="slide">
       <SafeAreaView>
         <ModalHeaderComponent title="Choose Category" />
         <FlatList
           data={itemList}
-          renderItem={({ item }) => (
-            <PickerItem pickerItem={item} />
-          )}
+          renderItem={({item}) => <PickerItem pickerItem={item} />}
         />
       </SafeAreaView>
     </Modal>
-  )
+  );
 };
 
 export default AndroidPicker;

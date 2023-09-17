@@ -1,11 +1,11 @@
-import React, { useMemo, useState, useRef } from 'react';
-import { Modal, SafeAreaView, Switch, Text, View } from 'react-native';
+import React, {useMemo, useState, useRef} from 'react';
+import {Modal, SafeAreaView, Switch, Text, View} from 'react-native';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
 import ModalHeaderComponent from '../../components/headers/ModalHeader';
 import LineSeparator from '../../components/lineSeparator/LineSeparator';
 import TextInputField from '../../components/textInputField/TextInputField';
-import { Category } from '../../types';
+import {Category} from '../../types';
 import CategoryDetailStyles from './styles/CategoryDetailModal.styles';
 
 interface CategoryDetailModalProps {
@@ -15,13 +15,21 @@ interface CategoryDetailModalProps {
 }
 
 enum FieldTypes {
-  name = "Name",
-  budget = "Budget"
+  name = 'Name',
+  budget = 'Budget',
 }
 
-const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDetailModalProps) => {
-  const [isExpense, setIsExpense] = useState<boolean>(!category?.isIncome || false);
-  const [hasBudget, setHasBudget] = useState<boolean>(category?.hasBudget || false);
+const CategoryDetailModal = ({
+  category,
+  handleClose,
+  handleSave,
+}: CategoryDetailModalProps) => {
+  const [isExpense, setIsExpense] = useState<boolean>(
+    !category?.isIncome || false,
+  );
+  const [hasBudget, setHasBudget] = useState<boolean>(
+    category?.hasBudget || false,
+  );
 
   const isEditRef = useRef<boolean>(!!category);
   const nameRef = useRef<string>('');
@@ -29,7 +37,7 @@ const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDeta
 
   const title = useMemo(() => {
     return isEditRef.current ? 'Edit Category' : 'Add Category';
-  }, [isEditRef])
+  }, [isEditRef]);
 
   const handleExpenseSwitchChange = (value: boolean) => {
     setIsExpense(value);
@@ -42,36 +50,48 @@ const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDeta
   const updateTextFieldRefValue = (value: string, fieldType: FieldTypes) => {
     switch (fieldType) {
       case FieldTypes.name:
-        if (value !== nameRef.current) { nameRef.current = value }
+        if (value !== nameRef.current) {
+          nameRef.current = value;
+        }
         return;
       case FieldTypes.budget:
-        if (value !== budgetRef.current) { budgetRef.current = value }
+        if (value !== budgetRef.current) {
+          budgetRef.current = value;
+        }
         return;
       default:
         return;
     }
-  }
+  };
 
   const onSave = () => {
     const newCategory: Category = {
       name: nameRef.current,
       budget: Number(budgetRef.current),
       hasBudget: hasBudget,
-      isExpense
-    }
+      isExpense,
+    };
+
     handleSave(newCategory, isEditRef.current);
   };
 
   return (
-    <Modal animationType='slide'>
+    <Modal animationType="slide">
       <SafeAreaView>
-        <ModalHeaderComponent title={title} handleClose={() => handleClose()} handleSave={onSave} />
+        <ModalHeaderComponent
+          title={title}
+          handleClose={() => handleClose()}
+          handleSave={onSave}
+        />
         <View>
           <Text style={CategoryDetailStyles.inputTitle}>Name</Text>
           <View style={CategoryDetailStyles.inputFieldWrapper}>
             <TextInputField
               defaultValue={category?.name || ''}
-              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.name)} />
+              onChangeText={text =>
+                updateTextFieldRefValue(text, FieldTypes.name)
+              }
+            />
           </View>
         </View>
         <View style={CategoryDetailStyles.sliderWrapper}>
@@ -81,9 +101,13 @@ const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDeta
           <View style={CategoryDetailStyles.sliderItemWrapper}>
             <Switch
               style={CategoryDetailStyles.sliderItem}
-              trackColor={{ false: Colors.backgroundGray, true: Colors.expenseOrange }}
+              trackColor={{
+                false: Colors.backgroundGray,
+                true: Colors.expenseOrange,
+              }}
               onValueChange={handleExpenseSwitchChange}
-              value={isExpense} />
+              value={isExpense}
+            />
           </View>
         </View>
         <LineSeparator />
@@ -94,9 +118,13 @@ const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDeta
           <View style={CategoryDetailStyles.sliderItemWrapper}>
             <Switch
               style={CategoryDetailStyles.sliderItem}
-              trackColor={{ false: Colors.backgroundGray, true: Colors.expenseOrange }}
+              trackColor={{
+                false: Colors.backgroundGray,
+                true: Colors.expenseOrange,
+              }}
               onValueChange={handleBudgetSwitchChange}
-              value={hasBudget} />
+              value={hasBudget}
+            />
           </View>
         </View>
         <View>
@@ -104,9 +132,12 @@ const CategoryDetailModal = ({ category, handleClose, handleSave }: CategoryDeta
           <View style={CategoryDetailStyles.inputFieldWrapper}>
             <TextInputField
               editable={hasBudget}
-              keyboardType='decimal-pad'
+              keyboardType="decimal-pad"
               defaultValue={String(category?.budget || '')}
-              onChangeText={(text) => updateTextFieldRefValue(text, FieldTypes.budget)} />
+              onChangeText={text =>
+                updateTextFieldRefValue(text, FieldTypes.budget)
+              }
+            />
           </View>
         </View>
       </SafeAreaView>
