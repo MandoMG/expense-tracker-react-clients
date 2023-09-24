@@ -9,7 +9,6 @@ import BalanceSummaryComponent from '../../components/balance/BalanceSummary';
 import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import BudgetSummary from './components/BudgetSummary';
 import CurrentDateSubtitle from '../../components/subtitles/CurrentDateSubtitle';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {useSelector} from 'react-redux';
 import {
   selectDashboardInfo,
@@ -18,6 +17,7 @@ import {
 import Colors from '../../common/Colors';
 import {useAppDispatch as useDispatch, useAppSelector} from '../../redux/hooks';
 import {getDashboardInfo} from '../../redux/thunks/dashboardThunks';
+import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const Home = () => {
   }, []);
 
   return !isLoading ? (
-    <SafeAreaView style={{ backgroundColor: Colors.appBackground}}>
+    <ScreenWrapper>
       <View>
         <ScreenHeaderComponent
           title={dashboardInfo?.featureLabels.title || ''}
@@ -53,7 +53,7 @@ const Home = () => {
           <BudgetSummary summaryData={dashboardInfo?.budgetSummaryData} />
         </View>
       </View>
-    </SafeAreaView>
+    </ScreenWrapper>
   ) : (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <ActivityIndicator size="large" color={Colors.expenseOrange} />
