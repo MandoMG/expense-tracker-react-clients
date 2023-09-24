@@ -2829,7 +2829,7 @@
   dependencies:
     "@types/react" "^17"
 
-"@types/react-native-vector-icons@^6.4.9":
+"@types/react-native-vector-icons@^6.4.14":
   version "6.4.14"
   resolved "https://registry.yarnpkg.com/@types/react-native-vector-icons/-/react-native-vector-icons-6.4.14.tgz#085868a3d73a1db4bd49d6ce308c88b3a39cd96c"
   integrity sha512-3RaEadfUUImrDed03hwRnYp5QFevcWkWgPUHxj9U9lB6G5uPEGaxXoLWdjgioQ46CvADXUzrDOEYLSVcAn1GQw==
