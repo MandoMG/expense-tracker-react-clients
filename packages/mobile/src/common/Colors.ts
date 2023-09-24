@@ -10,6 +10,8 @@ const Colors = {
   pillBackground: '#ffffff',
   subTextGray: '#858585',
   white: '#FFFFFF',
+  green: '#14a023',
+  red: '#c82d1e',
 };
 
 // const Colors = {
@@ -24,6 +26,8 @@ const Colors = {
 //   pillBackground: '#464b55',
 //   subTextGray: '#C5C5C5',
 //   white: '#000000',
+//   green: '#14a023',
+//   red: '#c82d1e',
 // };
 
 export default Colors;

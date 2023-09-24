@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
   Platform,
+  ScrollView,
   useWindowDimensions,
   View,
 } from 'react-native';
@@ -18,6 +19,9 @@ import Colors from '../../common/Colors';
 import {useAppDispatch as useDispatch, useAppSelector} from '../../redux/hooks';
 import {getDashboardInfo} from '../../redux/thunks/dashboardThunks';
 import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
+import Tile from '../../components/tile/Tile';
+import Summary from './components/Summary';
+import RecordSummary from "./components/RecordSummary";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -41,17 +45,15 @@ const Home = () => {
           title={dashboardInfo?.featureLabels.title || ''}
         />
         <CurrentDateSubtitle />
-        <BalanceSummaryComponent
-          currentBalance={dashboardInfo?.pillsData.currentBalance}
-          income={dashboardInfo?.pillsData.income}
-          expenses={dashboardInfo?.pillsData.expenses}
-        />
-        <View
-          style={{
-            height: height * screenPercentage,
-          }}>
+        <ScrollView>
+          <Summary
+            balance={dashboardInfo?.pillsData.currentBalance}
+            income={dashboardInfo?.pillsData.income}
+            expenses={dashboardInfo?.pillsData.expenses}
+          />
           <BudgetSummary summaryData={dashboardInfo?.budgetSummaryData} />
-        </View>
+          <RecordSummary />
+        </ScrollView>
       </View>
     </ScreenWrapper>
   ) : (

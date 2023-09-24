@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import commonStyles from '../../../common/CommonStyles';
 import {BudgetSummaryStyles} from '../styles/HomeStyles';
 import {BudgetSummaryItem} from '../../../types';
+import Tile from '../../../components/tile/Tile';
+import Colors from '../../../common/Colors';
 
 interface BudgetSummaryProps {
   summaryData?: BudgetSummaryItem[];
@@ -17,30 +19,12 @@ interface BudgetSummaryItemProps {
 const BudgetSummary = ({summaryData}: BudgetSummaryProps) => {
   const BudgetSummaryItem = ({summaryItem}: BudgetSummaryItemProps) => {
     return (
-      <View style={commonStyles.listItemWrapper}>
-        <View style={commonStyles.listItemSingleLineLeftColumn}>
-          <Text style={commonStyles.listItemMainText}>
-            {summaryItem.categoryName}
-          </Text>
-        </View>
-        <View style={commonStyles.listItemRightColumn}>
-          <Text style={commonStyles.listItemMainText}>
-            {TextUtil.formatCurrency(summaryItem.categoryValue)}
-          </Text>
-          <View style={commonStyles.flexRow}>
-            <Icon
-              name="circle"
-              color={summaryItem.isUnderBudget ? '#14a023' : '#c82d1e'}
-              style={{marginHorizontal: 5, marginTop: 3}}
-              solid
-            />
-            <Text
-              style={commonStyles.listItemSubText}>{`${TextUtil.formatCurrency(
-              summaryItem.budgetDifference,
-            )} ${summaryItem.isUnderBudget ? 'under' : 'over'} budget`}</Text>
-          </View>
-        </View>
-      </View>
+      <Tile
+        label={summaryItem.categoryName}
+        value={summaryItem.categoryValue}
+        backgroundColor={Colors.darkPurple}
+        statusColor={summaryItem.isUnderBudget ? Colors.green : Colors.red}
+      />
     );
   };
 
@@ -51,6 +35,7 @@ const BudgetSummary = ({summaryData}: BudgetSummaryProps) => {
       </View>
       <View style={BudgetSummaryStyles.BudgetSummaryListWrapper}>
         <FlatList
+          horizontal
           data={summaryData}
           contentContainerStyle={
             BudgetSummaryStyles.BudgetSummaryFlatlistContainer
