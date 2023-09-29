@@ -1,9 +1,10 @@
 module.exports = {
   dependencies: {
-    'react-native-vector-icons': {
-      platforms: {
-        ios: null,
-      },
-    },
+    // Uncomment this if vector-icons don't build
+    // 'react-native-vector-icons': {
+    //   platforms: {
+    //     ios: null,
+    //   },
+    // },
   },
 };
