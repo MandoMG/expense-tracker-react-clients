@@ -57,10 +57,16 @@ const commonStyles = StyleSheet.create({
   listItemMainText: {color: Colors.black, fontWeight: 'bold', fontSize: 14},
   listItemSubText: {color: Colors.subTextGray},
   sectionTitle: {
+    flex: 1,
     color: Colors.black,
     fontSize: 18,
     flexWrap: 'wrap',
     fontWeight: 'bold',
+  },
+  sectionLink: {
+    color: Colors.expenseOrange,
+    fontSize: 15,
+    flexWrap: 'wrap',
   },
 });
 

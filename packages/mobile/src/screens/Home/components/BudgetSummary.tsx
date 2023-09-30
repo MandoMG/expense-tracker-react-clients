@@ -1,12 +1,11 @@
 import React from 'react';
-import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
 import {FlatList, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import commonStyles from '../../../common/CommonStyles';
 import {BudgetSummaryStyles} from '../styles/HomeStyles';
 import {BudgetSummaryItem} from '../../../types';
 import Tile from '../../../components/tile/Tile';
 import Colors from '../../../common/Colors';
+import NavigationLink from "../../../components/navigationLink/NavigationLink";
 
 interface BudgetSummaryProps {
   summaryData?: BudgetSummaryItem[];
@@ -30,8 +29,9 @@ const BudgetSummary = ({summaryData}: BudgetSummaryProps) => {
 
   return !!summaryData ? (
     <View style={BudgetSummaryStyles.budgetSummaryWrapper}>
-      <View>
+      <View style={{ flexDirection: "row"}}>
         <Text style={commonStyles.sectionTitle}> Budget Summary </Text>
+        <NavigationLink label="Go to Budgets" route="Budgets" />
       </View>
       <View style={BudgetSummaryStyles.BudgetSummaryListWrapper}>
         <FlatList

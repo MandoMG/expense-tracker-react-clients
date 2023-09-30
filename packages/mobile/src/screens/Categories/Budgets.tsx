@@ -8,8 +8,9 @@ import CategoryDetailModal from './CategoryDetailModal';
 import CategoriesList from './components/CategoriesList';
 import useCategories from './hooks/useCategories';
 import Colors from '../../common/Colors';
+import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
 
-const Categories = () => {
+const Budgets = () => {
   const {
     categoriesInfo,
     deleteCategory,
@@ -28,12 +29,8 @@ const Categories = () => {
   };
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.appBackground}}>
-      <ScreenHeaderComponent
-        title="Categories"
-        rightHeaderAction={rightHeaderAction}
-      />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
+    <ScreenWrapper>
+      <View>
         <View
           style={{
             flexDirection: 'row',
@@ -49,21 +46,16 @@ const Categories = () => {
             </Text>
           </View>
         </View>
-        <CategoriesList
-          categoryList={categoriesInfo?.categoryList || []}
-          onDelete={deleteCategory}
-          handleOnPress={handleCategoryItemOnPress}
-        />
-      </ScrollView>
-      {shouldOpenModal && (
-        <CategoryDetailModal
-          category={selectedCategory}
-          handleClose={handleModalClose}
-          handleSave={handleModalSave}
-        />
-      )}
-    </SafeAreaView>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <CategoriesList
+            categoryList={categoriesInfo?.categoryList || []}
+            onDelete={deleteCategory}
+            handleOnPress={handleCategoryItemOnPress}
+          />
+        </ScrollView>
+      </View>
+    </ScreenWrapper>
   );
 };
 
-export default Categories;
+export default Budgets;
