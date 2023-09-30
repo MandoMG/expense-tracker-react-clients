@@ -1,9 +1,7 @@
 import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
-  Platform,
   ScrollView,
-  useWindowDimensions,
   View,
 } from 'react-native';
 import BudgetSummary from './components/BudgetSummary';
