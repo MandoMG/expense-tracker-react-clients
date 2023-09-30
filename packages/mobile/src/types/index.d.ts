@@ -26,8 +26,8 @@ export interface Record {
 }
 
 export interface DashboardInfo {
-  featureLabels: DashboardFeatureLabels;
-  pillsData: PillsData;
+  summaryData: SummaryData;
+  recordSummaryData: Record[];
   budgetSummaryData: BudgetSummaryItem[];
 }
 
@@ -35,6 +35,12 @@ export interface DashboardFeatureLabels {
   title: string;
   monthYear: string;
   budgetSummary: string;
+}
+
+export interface SummaryData {
+  currentBalance: number;
+  income: number;
+  expenses: number;
 }
 
 export interface PillsData {

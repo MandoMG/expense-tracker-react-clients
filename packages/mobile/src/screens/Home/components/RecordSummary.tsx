@@ -5,91 +5,15 @@ import commonStyles from '../../../common/CommonStyles';
 import {useDateUtil} from 'mandomg-expensetracker-common/src/hooks';
 import {Record} from '../../../types';
 
-const summaryData: Record[] = [
-  {
-    amount: 40,
-    category: 'Gas',
-    description: 'HEB Gas',
-    isIncome: false,
-    recordDate: '2023-09-19T00:00:00.000Z',
-  },
-  {
-    amount: 29,
-    category: 'Holly',
-    description: 'Boozy Bark',
-    isIncome: false,
-    recordDate: '2023-09-19T00:00:00.000Z',
-  },
-  {
-    amount: 100,
-    category: 'Investments',
-    description: 'Vanguard',
-    isIncome: false,
-    recordDate: '2023-09-18T00:00:00.000Z',
-  },
-  {
-    amount: 17.62,
-    category: 'Restaurants',
-    description: 'Burger King',
-    isIncome: false,
-    recordDate: '2023-09-17T00:00:00.000Z',
-  },
-  {
-    amount: 40.04,
-    category: 'Gas',
-    description: 'HEB Gas ',
-    isIncome: false,
-    recordDate: '2023-09-16T00:00:00.000Z',
-  },
-  {
-    amount: 8.06,
-    category: 'Restaurants',
-    description: 'Chick fil a',
-    isIncome: false,
-    recordDate: '2023-09-16T00:00:00.000Z',
-  },
-  {
-    amount: 2.12,
-    category: 'Travel',
-    description: 'Roadrunner ',
-    isIncome: false,
-    recordDate: '2023-09-16T00:00:00.000Z',
-  },
-  {
-    amount: 7.24,
-    category: 'Miscellaneous',
-    description: 'Walmart',
-    isIncome: false,
-    recordDate: '2023-09-16T00:00:00.000Z',
-  },
-  {
-    amount: 32,
-    category: 'Gas',
-    description: 'Murphy Express',
-    isIncome: false,
-    recordDate: '2023-09-16T00:00:00.000Z',
-  },
-  {
-    amount: 2808.83,
-    category: 'Paycheck',
-    description: 'GM',
-    isIncome: true,
-    recordDate: '2023-09-15T00:00:00.000Z',
-  },
-  {
-    amount: 150,
-    category: 'Bills',
-    description: 'House payment',
-    isIncome: false,
-    recordDate: '2023-09-15T00:00:00.000Z',
-  },
-];
-
 interface RecordSummaryProps {
+  summaryData?: Record[];
+}
+
+interface RecordItemProps {
   item: Record;
 }
 
-const RecordSummaryItem = ({item}: RecordSummaryProps) => {
+const RecordSummaryItem = ({item}: RecordItemProps) => {
   const {constructDateStringFromDateObject} = useDateUtil();
   const date = new Date(item.recordDate);
 
@@ -111,7 +35,7 @@ const RecordSummaryItem = ({item}: RecordSummaryProps) => {
   );
 };
 
-const RecordSummary = () => {
+const RecordSummary = ({summaryData}: RecordSummaryProps) => {
   return (
     <View style={{marginHorizontal: 20}}>
       <View>
