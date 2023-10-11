@@ -22,6 +22,11 @@ export type RecordScreenNavigationProp = NativeStackNavigationProp<
   NativeStackParamList,
   'Records'
 >;
+
+export type BudgetScreenNavigationProp = NativeStackNavigationProp<
+  NativeStackParamList,
+  'Budgets'
+>;
 const Stack = createNativeStackNavigator<NativeStackParamList>();
 
 const NativeStackNavigator = () => {

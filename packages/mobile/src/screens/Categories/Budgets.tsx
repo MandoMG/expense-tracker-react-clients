@@ -1,16 +1,19 @@
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
-import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import React, {useEffect, useMemo} from 'react';
+import {Platform, ScrollView, Text, TouchableOpacity, View} from 'react-native';
 import commonStyles from '../../common/CommonStyles';
-import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
-import CategoryDetailModal from './CategoryDetailModal';
 import CategoriesList from './components/CategoriesList';
 import useCategories from './hooks/useCategories';
-import Colors from '../../common/Colors';
 import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
+import Icon from "react-native-vector-icons/FontAwesome5";
+import {useNavigation} from "@react-navigation/native";
+import {BudgetScreenNavigationProp} from "../../navigators/NativeStackNavigator";
+import CategoryDetailModal from "./CategoryDetailModal";
+
+const isAndroid = Platform.OS === 'android';
 
 const Budgets = () => {
+  const navigation = useNavigation<BudgetScreenNavigationProp>();
   const {
     categoriesInfo,
     deleteCategory,
@@ -22,11 +25,27 @@ const Budgets = () => {
     shouldOpenModal,
   } = useCategories();
 
-  const rightHeaderAction = {
-    onPress: onAddPress,
-    title: 'Add',
-    isIcon: false,
-  };
+  const headerStyle = useMemo(() => {
+    return isAndroid
+      ? commonStyles.androidHeaderText
+      : commonStyles.iosHeaderText;
+  }, [Platform]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <TouchableOpacity onPress={onAddPress}>
+            {isAndroid ? (
+              <Icon style={headerStyle} name="plus" />
+            ) : (
+              <Text style={headerStyle}>Add</Text>
+            )}
+          </TouchableOpacity>
+        );
+      },
+    });
+  }, []);
 
   return (
     <ScreenWrapper>
@@ -53,6 +72,9 @@ const Budgets = () => {
             handleOnPress={handleCategoryItemOnPress}
           />
         </ScrollView>
+        {shouldOpenModal && (
+          <CategoryDetailModal category={selectedCategory} handleClose={handleModalClose} handleSave={handleModalSave} />
+        )}
       </View>
     </ScreenWrapper>
   );
