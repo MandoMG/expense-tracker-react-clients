@@ -8,6 +8,7 @@ type NativeStackParamList = {
   Dashboard: undefined;
   Records: undefined;
   Budgets: undefined;
+  AddEditRecord: undefined;
 };
 
 export type ScreenNames = keyof NativeStackParamList;
@@ -17,6 +18,10 @@ export type DashboardScreenNavigationProp = NativeStackNavigationProp<
   'Dashboard'
 >;
 
+export type RecordScreenNavigationProp = NativeStackNavigationProp<
+  NativeStackParamList,
+  'Records'
+>;
 const Stack = createNativeStackNavigator<NativeStackParamList>();
 
 const NativeStackNavigator = () => {

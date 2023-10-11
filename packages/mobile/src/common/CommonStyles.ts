@@ -4,6 +4,8 @@ import Colors from './Colors';
 const commonStyles = StyleSheet.create({
   flexOne: {flex: 1},
   flexRow: {flexDirection: 'row'},
+  androidHeaderText: {fontSize: 20, color: Colors.black},
+  iosHeaderText: {fontSize: 16, color: '#327af5'},
   headerTitle: {
     color: Colors.black,
     fontSize: 18,
