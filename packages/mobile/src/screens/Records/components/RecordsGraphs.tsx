@@ -80,8 +80,9 @@ const RecordsGraphs = ({budgetGraphData}: RecordsGraphsProps) => {
             </TouchableOpacity>
             {item.categoryName === selectedBudgetCategory &&
               (!!selectedRecordList.length ? (
-                selectedRecordList.map(record => (
+                selectedRecordList.map((record, index) => (
                   <View
+                    key={`${record.description}-${index}`}
                     style={{
                       marginVertical: 6,
                       marginHorizontal: 10,
