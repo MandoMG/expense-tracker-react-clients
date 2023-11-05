@@ -1,16 +1,14 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect, useMemo} from 'react';
 import {
   ActivityIndicator,
+  Platform,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
-import BalanceSummaryComponent from '../../components/balance/BalanceSummary';
-import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import CurrentDateSubtitle from '../../components/subtitles/CurrentDateSubtitle';
 import AddEditRecordModal from './components/AddEditRecordModal';
 import RecordList from './components/RecordList';
@@ -19,13 +17,27 @@ import useRecords from './hooks/useRecords';
 import {Record} from '../../types';
 import {useAppSelector as useSelector} from '../../redux/hooks';
 import {selectIsRecordLoading} from '../../redux/slices/recordSlice';
+import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
+import Summary from '../Home/components/Summary';
+import {useNavigation} from '@react-navigation/native';
+import {RecordScreenNavigationProp} from '../../navigators/NativeStackNavigator';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
+const isAndroid = Platform.OS === 'android';
 
 const Records = () => {
+  const navigation = useNavigation<RecordScreenNavigationProp>();
   const {getRecordsInfo, recordsInfo, saveRecord, deleteRecord} = useRecords();
   const isLoading = useSelector(selectIsRecordLoading);
   const [shouldOpenModal, setShouldOpenModal] = useState(false);
   const [isBudgetSelected, setIsBudgetSelected] = useState<boolean>(true);
   const selectedRecord = useRef<Record>();
+
+  const headerStyle = useMemo(() => {
+    return isAndroid
+      ? commonStyles.androidHeaderText
+      : commonStyles.iosHeaderText;
+  }, [Platform]);
 
   const onTouchableTitlePress = (isBudget: boolean) => {
     setIsBudgetSelected(isBudget);
@@ -57,97 +69,103 @@ const Records = () => {
     await getRecordsInfo();
   };
 
-  const rightHeaderAction = {
-    onPress: onAddPress,
-    title: 'Add',
-    isIcon: false,
-  };
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <TouchableOpacity onPress={onAddPress}>
+            {isAndroid ? (
+              <Icon style={headerStyle} name="plus" />
+            ) : (
+              <Text style={headerStyle}>Add</Text>
+            )}
+          </TouchableOpacity>
+        );
+      },
+    });
+  }, []);
 
   return (
-    <SafeAreaView style={{backgroundColor: Colors.appBackground, flex: 1}}>
-      <ScreenHeaderComponent
-        title={recordsInfo?.featureLabels.title || ''}
-        rightHeaderAction={rightHeaderAction}
-      />
-      <CurrentDateSubtitle isTouchable />
-      <ScrollView contentInsetAdjustmentBehavior="automatic">
-        <View>
-          <BalanceSummaryComponent
-            currentBalance={recordsInfo?.pillsData.currentBalance}
-            income={recordsInfo?.pillsData.income}
-            expenses={recordsInfo?.pillsData.expenses}
-          />
-        </View>
-        {!isLoading ? (
-          <>
-            <View style={commonStyles.flexRow}>
-              <TouchableOpacity
-                style={{flex: 1, marginHorizontal: 20, marginTop: 20}}
-                onPress={() => onTouchableTitlePress(true)}>
-                <Text
-                  style={[
-                    commonStyles.sectionTitle,
-                    {
-                      color: isBudgetSelected
-                        ? Colors.expenseOrange
-                        : Colors.black,
-                    },
-                  ]}>
-                  {recordsInfo?.featureLabels.budgets}
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{marginHorizontal: 20, marginTop: 20}}
-                onPress={() => onTouchableTitlePress(false)}>
-                <Text
-                  style={[
-                    commonStyles.sectionTitle,
-                    {
-                      color: isBudgetSelected
-                        ? Colors.black
-                        : Colors.expenseOrange,
-                    },
-                  ]}>
-                  {recordsInfo?.featureLabels.activity}
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View style={{paddingBottom: 40}}>
-              {isBudgetSelected ? (
-                <RecordsGraphs
-                  budgetGraphData={recordsInfo?.currentBudgetData}
-                />
-              ) : (
-                <View style={commonStyles.listWrapper}>
-                  <RecordList
-                    onPress={onRecordPress}
-                    onDelete={onRecordDelete}
-                    activityData={recordsInfo?.recordItemData}
-                  />
-                </View>
-              )}
-            </View>
-          </>
-        ) : (
-          <View
-            style={{
-              backgroundColor: Colors.appBackground,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginTop: 60,
-            }}>
-            <ActivityIndicator size="large" color={Colors.expenseOrange} />
-          </View>
-        )}
-      </ScrollView>
-      {shouldOpenModal && (
-        <AddEditRecordModal
-          record={selectedRecord.current}
-          handleClose={handleClose}
-          handleSave={handleOnSave}
+    <ScreenWrapper>
+      <View>
+        <CurrentDateSubtitle isTouchable />
+        <Summary
+          balance={recordsInfo?.pillsData.currentBalance}
+          income={recordsInfo?.pillsData.income}
+          expenses={recordsInfo?.pillsData.expenses}
         />
-      )}
-    </SafeAreaView>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          {!isLoading ? (
+            <>
+              <View style={commonStyles.flexRow}>
+                <TouchableOpacity
+                  style={{flex: 1, marginHorizontal: 20, marginTop: 20}}
+                  onPress={() => onTouchableTitlePress(true)}>
+                  <Text
+                    style={[
+                      commonStyles.sectionTitle,
+                      {
+                        color: isBudgetSelected
+                          ? Colors.expenseOrange
+                          : Colors.black,
+                      },
+                    ]}>
+                    {recordsInfo?.featureLabels.budgets}
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{marginHorizontal: 20, marginTop: 20}}
+                  onPress={() => onTouchableTitlePress(false)}>
+                  <Text
+                    style={[
+                      commonStyles.sectionTitle,
+                      {
+                        color: isBudgetSelected
+                          ? Colors.black
+                          : Colors.expenseOrange,
+                      },
+                    ]}>
+                    {recordsInfo?.featureLabels.activity}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View style={{paddingBottom: 40}}>
+                {isBudgetSelected ? (
+                  <RecordsGraphs
+                    budgetGraphData={recordsInfo?.currentBudgetData}
+                  />
+                ) : (
+                  <View style={commonStyles.listWrapper}>
+                    <RecordList
+                      onPress={onRecordPress}
+                      onDelete={onRecordDelete}
+                      activityData={recordsInfo?.recordItemData}
+                    />
+                  </View>
+                )}
+              </View>
+            </>
+          ) : (
+            <View
+              style={{
+                backgroundColor: Colors.appBackground,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: 60,
+              }}>
+              <ActivityIndicator size="large" color={Colors.expenseOrange} />
+            </View>
+          )}
+        </ScrollView>
+        {shouldOpenModal && (
+          <AddEditRecordModal
+            record={selectedRecord.current}
+            handleClose={handleClose}
+            handleSave={handleOnSave}
+          />
+        )}
+      </View>
+    </ScreenWrapper>
   );
 };
 

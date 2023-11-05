@@ -1,12 +1,9 @@
 import React, {useEffect} from 'react';
 import {
   ActivityIndicator,
-  Platform,
-  useWindowDimensions,
+  ScrollView,
   View,
 } from 'react-native';
-import BalanceSummaryComponent from '../../components/balance/BalanceSummary';
-import ScreenHeaderComponent from '../../components/headers/ScreenHeader';
 import BudgetSummary from './components/BudgetSummary';
 import CurrentDateSubtitle from '../../components/subtitles/CurrentDateSubtitle';
 import {useSelector} from 'react-redux';
@@ -18,12 +15,11 @@ import Colors from '../../common/Colors';
 import {useAppDispatch as useDispatch, useAppSelector} from '../../redux/hooks';
 import {getDashboardInfo} from '../../redux/thunks/dashboardThunks';
 import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
+import Summary from './components/Summary';
+import RecordSummary from './components/RecordSummary';
 
 const Home = () => {
   const dispatch = useDispatch();
-  const {height} = useWindowDimensions();
-  const screenPercentage = Platform.OS === 'android' ? 0.62 : 0.54;
-
   const isLoading = useSelector(selectIsAppLoading);
   const dashboardInfo = useAppSelector(selectDashboardInfo);
 
@@ -37,21 +33,16 @@ const Home = () => {
   return !isLoading ? (
     <ScreenWrapper>
       <View>
-        <ScreenHeaderComponent
-          title={dashboardInfo?.featureLabels.title || ''}
-        />
         <CurrentDateSubtitle />
-        <BalanceSummaryComponent
-          currentBalance={dashboardInfo?.pillsData.currentBalance}
-          income={dashboardInfo?.pillsData.income}
-          expenses={dashboardInfo?.pillsData.expenses}
+        <Summary
+          balance={dashboardInfo?.summaryData.currentBalance}
+          income={dashboardInfo?.summaryData.income}
+          expenses={dashboardInfo?.summaryData.expenses}
         />
-        <View
-          style={{
-            height: height * screenPercentage,
-          }}>
+        <ScrollView>
           <BudgetSummary summaryData={dashboardInfo?.budgetSummaryData} />
-        </View>
+          <RecordSummary summaryData={dashboardInfo?.recordSummaryData} />
+        </ScrollView>
       </View>
     </ScreenWrapper>
   ) : (
