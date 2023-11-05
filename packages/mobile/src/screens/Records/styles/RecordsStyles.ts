@@ -1,6 +1,6 @@
 import { Platform, StyleSheet } from "react-native";
 
-const budgetListPaddingBottom = Platform.OS === "android" ? 55 : 15;
+const budgetListPaddingBottom = Platform.OS === "android" ? 55 : 100;
 
 export const RecordGraphsStyles = StyleSheet.create({
   graphSectionWrapper: { marginHorizontal: 20, marginTop: 20 },

@@ -4,7 +4,8 @@ import {FlatList, Text, View} from 'react-native';
 import commonStyles from '../../../common/CommonStyles';
 import {useDateUtil} from 'mandomg-expensetracker-common/src/hooks';
 import {Record} from '../../../types';
-import NavigationLink from "../../../components/navigationLink/NavigationLink";
+import NavigationLink from '../../../components/navigationLink/NavigationLink';
+import {RecordSummaryStyles} from '../styles/HomeStyles';
 
 interface RecordSummaryProps {
   summaryData?: Record[];
@@ -38,9 +39,9 @@ const RecordSummaryItem = ({item}: RecordItemProps) => {
 
 const RecordSummary = ({summaryData}: RecordSummaryProps) => {
   return (
-    <View style={{marginHorizontal: 20}}>
+    <View style={RecordSummaryStyles.recordSummaryWrapper}>
       <View>
-        <View style={{ flexDirection: "row"}}>
+        <View style={{flexDirection: 'row'}}>
           <Text style={commonStyles.sectionTitle}> Last 7 Days </Text>
           <NavigationLink label="Go to Records" route="Records" />
         </View>

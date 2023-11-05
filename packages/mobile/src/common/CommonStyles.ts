@@ -54,7 +54,7 @@ const commonStyles = StyleSheet.create({
   listWrapper: {
     marginTop: 10,
     marginHorizontal: 15,
-    marginBottom: 50,
+    marginBottom: 70,
   },
   listItemMainText: {color: Colors.black, fontWeight: 'bold', fontSize: 14},
   listItemSubText: {color: Colors.subTextGray},

@@ -12,3 +12,7 @@ export const BudgetSummaryStyles = StyleSheet.create({
   BudgetSummaryListWrapper: { marginTop: 5, flex: 1 },
   BudgetSummaryFlatlistContainer: { paddingBottom: 10 },
 });
+
+export const RecordSummaryStyles = StyleSheet.create({
+  recordSummaryWrapper: {marginHorizontal: 20, paddingBottom: 120}
+});
