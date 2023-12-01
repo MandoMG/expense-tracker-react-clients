@@ -1,16 +1,20 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../store';
-import {RecordsInfo, Record} from '../../types';
-import {getRecordsInfo} from '../thunks/recordsThunks';
+import {RecordsInfo, Record, PreviousMonthsRecordInfo} from '../../types';
+import {getPreviousMonthsInfo, getRecordsInfo} from '../thunks/recordsThunks';
 
 export interface RecordState {
   isRecordsLoading: boolean;
   recordsInfo: RecordsInfo | null;
+  previousMonthsInfo: PreviousMonthsRecordInfo[] | null;
+  lastPreviousMonthRequestTimestamp: string;
 }
 
 const initialState: RecordState = {
   isRecordsLoading: false,
   recordsInfo: null,
+  previousMonthsInfo: null,
+  lastPreviousMonthRequestTimestamp: '',
 };
 
 export const recordSlice = createSlice({
@@ -25,6 +29,11 @@ export const recordSlice = createSlice({
       .addCase(getRecordsInfo.fulfilled, (state, action) => {
         state.isRecordsLoading = false;
         state.recordsInfo = action.payload;
+      })
+      .addCase(getPreviousMonthsInfo.fulfilled, (state, action) => {
+        state.isRecordsLoading = false;
+        state.previousMonthsInfo = action.payload;
+        state.lastPreviousMonthRequestTimestamp = new Date().toISOString();
       });
   },
 });
@@ -58,6 +67,16 @@ export const selectRecords = createSelector(
     }
 
     return record.recordsInfo.recordItemData;
+  },
+);
+
+export const selectPreviousMonthsData = createSelector(
+  (state: RootState) => state.record,
+  record => {
+    return {
+      previousMonthsInfo: record.previousMonthsInfo,
+      timestamp: new Date(record.lastPreviousMonthRequestTimestamp),
+    };
   },
 );
 

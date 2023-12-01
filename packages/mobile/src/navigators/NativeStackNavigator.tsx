@@ -7,10 +7,12 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import WelcomeScreen from '../screens/Welcome/Welcome';
+import PreviousMonthData from "../screens/Records/screens/PreviousMonthData";
 
 type NativeStackParamList = {
   Dashboard: undefined;
   Records: undefined;
+  PreviousMonths: undefined;
   Budgets: undefined;
   AddEditRecord: undefined;
   SignIn: undefined;
@@ -48,6 +50,7 @@ const NativeStackNavigator = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen name="Records" component={Records} />
+          <Stack.Screen name="PreviousMonths" component={PreviousMonthData} />
           <Stack.Screen name="Budgets" component={Budgets} />
         </>
       ) : (

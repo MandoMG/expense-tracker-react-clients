@@ -69,6 +69,10 @@ const Records = () => {
     await getRecordsInfo();
   };
 
+  const onPreviousMonthsTap = () => {
+    navigation.navigate('PreviousMonths');
+  };
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
@@ -97,6 +101,29 @@ const Records = () => {
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           {!isLoading ? (
             <>
+              <View style={commonStyles.flexRow}>
+                <TouchableOpacity
+                  onPress={onPreviousMonthsTap}
+                  style={{
+                    backgroundColor: Colors.incomePurple,
+                    flex: 1,
+                    marginTop: 12,
+                    marginHorizontal: 16,
+                    paddingVertical: 12,
+                    borderRadius: 12,
+                    elevation: 50,
+                    shadowOpacity: 0.5,
+                  }}>
+                  <Text
+                    style={{
+                      textAlign: 'center',
+                      color: Colors.white,
+                      fontSize: 16,
+                    }}>
+                    View Previous Months Data
+                  </Text>
+                </TouchableOpacity>
+              </View>
               <View style={commonStyles.flexRow}>
                 <TouchableOpacity
                   style={{flex: 1, marginHorizontal: 20, marginTop: 20}}

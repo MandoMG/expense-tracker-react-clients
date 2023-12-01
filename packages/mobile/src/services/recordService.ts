@@ -1,4 +1,4 @@
-import {RecordsInfo} from '../types';
+import {PreviousMonthsRecordInfo, RecordsInfo} from '../types';
 import ApiRoutes from '../common/ApiRoutes';
 import {AxiosClient} from '../clients/AxiosClient';
 
@@ -21,5 +21,20 @@ export class RecordService {
     return await AxiosClient.getInstance().getRequest<RecordsInfo>(
       ApiRoutes.getRecordInfo,
     );
+  }
+
+  async getPreviousMonthsRecordInfo(): Promise<PreviousMonthsRecordInfo[]> {
+    const previousMonthsInfo = await AxiosClient.getInstance().getRequest<PreviousMonthsRecordInfo[]>(
+      ApiRoutes.getPreviousMonthsRecordInfo,
+    );
+
+    return previousMonthsInfo.map((monthInfo) => {
+      return {
+        ...monthInfo,
+        balance: Number(monthInfo.balance),
+        income: Number(monthInfo.income),
+        expense: Number(monthInfo.expense),
+      }
+    })
   }
 }

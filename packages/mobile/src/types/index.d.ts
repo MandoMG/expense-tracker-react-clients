@@ -65,6 +65,13 @@ export interface RecordsInfo {
   recordItemData: Record[];
 }
 
+export interface PreviousMonthsRecordInfo {
+  monthYear: string;
+  balance: number;
+  income: number;
+  expense: number;
+}
+
 export interface RecordsFeatureLabels {
   title: string;
   monthYear: string;

@@ -10,7 +10,8 @@ const ApiRoutes = {
   getRecordCategories: 'api/records/getRecordsCategories/{0}',
   deleteRecord: 'api/records/deleteRecord/{0}',
   saveRecord: 'api/records/saveRecord',
-  updateRecord: 'api/records/updateRecord'
+  updateRecord: 'api/records/updateRecord',
+  getPreviousMonthsRecordInfo: 'api/records/getPreviousMonthsInfo'
 };
 
 export default ApiRoutes;
