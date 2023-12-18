@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import {Alert} from 'react-native';
 import ApiRoutes from '../../../common/ApiRoutes';
 import useAxios from '../../../hooks/useAxios';
-import {Record} from '../../../types';
+import {Category, Record} from '../../../types';
 import {
   useAppDispatch as useDispatch,
   useAppSelector as useSelector,
@@ -16,7 +16,7 @@ interface useRecordsProps {
 }
 
 interface RecordCategoryResponse {
-  categories: string[];
+  categories: Category[];
 }
 
 const useRecords = (props?: useRecordsProps) => {
@@ -46,16 +46,18 @@ const useRecords = (props?: useRecordsProps) => {
     const response = await getRequest<RecordCategoryResponse>(
       TextUtil.formatString(ApiRoutes.getRecordCategories, [String(isIncome)]),
     );
-    setRecordCategories(response.categories);
+
+    const categoryNames = response.categories.map(category => category.name);
+    setRecordCategories(categoryNames);
   };
 
   const saveRecord = async (record: Record, recordId?: number) => {
     if (!!recordId) {
-      const data = {
-        record,
-        recordId,
-      };
-      await putRequest(ApiRoutes.updateRecord, data);
+      const updateRecordRoute = TextUtil.formatString(ApiRoutes.updateRecord, [
+        String(recordId),
+      ]);
+
+      await putRequest(updateRecordRoute, record);
     } else {
       await postRequest(ApiRoutes.saveRecord, record);
     }

@@ -17,11 +17,11 @@ interface PreviousMonthItemProps {
   monthYear: string;
   balance: number;
   income: number;
-  expense: number;
+  expenses: number;
 }
 
 const PreviousMonthItem = (props: PreviousMonthItemProps) => {
-  const {balance, expense, income, monthYear} = props;
+  const {balance, expenses, income, monthYear} = props;
 
   return (
     <View style={[commonStyles.listItemWrapper, {flexDirection: 'column'}]}>
@@ -66,7 +66,7 @@ const PreviousMonthItem = (props: PreviousMonthItemProps) => {
             Expense
           </Text>
           <Text style={{flex: 1, textAlign: 'right'}}>
-            {TextUtil.formatCurrency(expense, 0)}
+            {TextUtil.formatCurrency(expenses, 0)}
           </Text>
         </View>
       </View>

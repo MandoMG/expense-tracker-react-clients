@@ -43,13 +43,8 @@ export interface SummaryData {
   expenses: number;
 }
 
-export interface PillsData {
-  currentBalance: number;
-  income: number;
-  expenses: number;
-}
-
 export interface BudgetSummaryItem {
+  id: string;
   categoryName: string;
   categoryValue: number;
   categoryBudget: number;
@@ -59,8 +54,7 @@ export interface BudgetSummaryItem {
 }
 
 export interface RecordsInfo {
-  featureLabels: RecordsFeatureLabels;
-  pillsData: PillsData;
+  summaryData: SummaryData;
   currentBudgetData: BudgetSummaryItem[];
   recordItemData: Record[];
 }
@@ -69,17 +63,10 @@ export interface PreviousMonthsRecordInfo {
   monthYear: string;
   balance: number;
   income: number;
-  expense: number;
-}
-
-export interface RecordsFeatureLabels {
-  title: string;
-  monthYear: string;
-  budgets: string;
-  activity: string;
+  expenses: number;
 }
 
 export interface CategoriesInfo {
-  categoryList: Category[];
+  budgetList: BudgetSummaryItem[];
   totalBudget: number;
 }

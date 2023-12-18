@@ -21,7 +21,7 @@ const Budgets = () => {
     handleModalClose,
     handleModalSave,
     onAddPress,
-    selectedCategory,
+    selectedCategoryId,
     shouldOpenModal,
   } = useCategories();
 
@@ -67,13 +67,13 @@ const Budgets = () => {
         </View>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           <CategoriesList
-            categoryList={categoriesInfo?.categoryList || []}
+            budgetList={categoriesInfo?.budgetList || []}
             onDelete={deleteCategory}
             handleOnPress={handleCategoryItemOnPress}
           />
         </ScrollView>
         {shouldOpenModal && (
-          <CategoryDetailModal category={selectedCategory} handleClose={handleModalClose} handleSave={handleModalSave} />
+          <CategoryDetailModal categoryId={selectedCategoryId} handleClose={handleModalClose} handleSave={handleModalSave} />
         )}
       </View>
     </ScreenWrapper>

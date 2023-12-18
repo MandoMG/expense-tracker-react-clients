@@ -9,7 +9,7 @@ import {Category} from '../../types';
 import CategoryDetailStyles from './styles/CategoryDetailModal.styles';
 
 interface CategoryDetailModalProps {
-  category?: Category;
+  categoryId?: string;
   handleClose: () => void;
   handleSave: (category: Category, isEdit: boolean) => void;
 }
@@ -19,8 +19,16 @@ enum FieldTypes {
   budget = 'Budget',
 }
 
+const category: Category = {
+  isIncome: false,
+  budget: 120,
+  hasBudget: false,
+  name: 'test',
+  isExpense: true,
+};
+
 const CategoryDetailModal = ({
-  category,
+  categoryId,
   handleClose,
   handleSave,
 }: CategoryDetailModalProps) => {

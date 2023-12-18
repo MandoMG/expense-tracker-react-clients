@@ -3,29 +3,29 @@ import { useState, useEffect, useRef } from "react";
 import { Alert } from "react-native";
 import ApiRoutes from "../../../common/ApiRoutes";
 import useAxios from "../../../hooks/useAxios";
-import { Category, CategoriesInfo } from "../../../types";
+import {Category, CategoriesInfo, BudgetSummaryItem} from "../../../types";
 
 const useCategories = () => {
   const { getRequest, postRequest, putRequest } = useAxios();
   const [categoriesInfo, setCategoriesInfo] = useState<CategoriesInfo>();
   const [shouldOpenModal, setShouldOpenModal] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<Category>();
-  const selectedCategoryIdRef = useRef<number>();
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string>();
+  const selectedCategoryIdRef = useRef<string>();
 
   const onAddPress = () => {
     selectedCategoryIdRef.current = undefined;
-    setSelectedCategory(undefined);
+    setSelectedCategoryId(undefined);
     setShouldOpenModal(true);
   }
 
-  const handleCategoryItemOnPress = (selectedItem: Category) => {
+  const handleCategoryItemOnPress = (selectedItem: BudgetSummaryItem) => {
     setShouldOpenModal(true);
-    setSelectedCategory(selectedItem);
-    selectedCategoryIdRef.current = selectedItem._id;
+    setSelectedCategoryId(selectedItem.id);
+    selectedCategoryIdRef.current = selectedItem.id;
   };
 
   const handleModalClose = () => {
-    selectedCategoryIdRef.current = 0;
+    selectedCategoryIdRef.current = '';
     setShouldOpenModal(false);
   }
 
@@ -44,7 +44,7 @@ const useCategories = () => {
     setShouldOpenModal(false);
   }
 
-  const deleteCategory = async (categoryId: number) => {
+  const deleteCategory = async (categoryId: string) => {
     if (categoryId) {
       await postRequest(TextUtil.formatString(ApiRoutes.deleteCategory, [categoryId]));
       await getCategoriesInfo();
@@ -71,7 +71,7 @@ const useCategories = () => {
     handleModalClose,
     handleModalSave,
     onAddPress,
-    selectedCategory,
+    selectedCategoryId,
     shouldOpenModal
   }
 };

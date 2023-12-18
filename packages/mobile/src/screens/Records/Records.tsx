@@ -25,6 +25,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const isAndroid = Platform.OS === 'android';
 
+const BUDGET_LABEL = "Budgets";
+const ACTIVITY_LABEL = "Activity";
+
 const Records = () => {
   const navigation = useNavigation<RecordScreenNavigationProp>();
   const {getRecordsInfo, recordsInfo, saveRecord, deleteRecord} = useRecords();
@@ -94,9 +97,9 @@ const Records = () => {
       <View>
         <CurrentDateSubtitle isTouchable />
         <Summary
-          balance={recordsInfo?.pillsData.currentBalance}
-          income={recordsInfo?.pillsData.income}
-          expenses={recordsInfo?.pillsData.expenses}
+          balance={recordsInfo?.summaryData.currentBalance}
+          income={recordsInfo?.summaryData.income}
+          expenses={recordsInfo?.summaryData.expenses}
         />
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           {!isLoading ? (
@@ -137,7 +140,7 @@ const Records = () => {
                           : Colors.black,
                       },
                     ]}>
-                    {recordsInfo?.featureLabels.budgets}
+                    {BUDGET_LABEL}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -152,7 +155,7 @@ const Records = () => {
                           : Colors.expenseOrange,
                       },
                     ]}>
-                    {recordsInfo?.featureLabels.activity}
+                    {ACTIVITY_LABEL}
                   </Text>
                 </TouchableOpacity>
               </View>

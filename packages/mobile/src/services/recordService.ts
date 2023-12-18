@@ -33,7 +33,7 @@ export class RecordService {
         ...monthInfo,
         balance: Number(monthInfo.balance),
         income: Number(monthInfo.income),
-        expense: Number(monthInfo.expense),
+        expense: Number(monthInfo.expenses),
       }
     })
   }
