@@ -6,10 +6,8 @@ import useAxios from '../../../hooks/useAxios';
 import {Category, Record} from '../../../types';
 import {
   useAppDispatch as useDispatch,
-  useAppSelector as useSelector,
 } from '../../../redux/hooks';
 import {getRecordsInfo} from '../../../redux/thunks/recordsThunks';
-import {selectDashboardInfo} from '../../../redux/slices/recordSlice';
 
 interface useRecordsProps {
   isRecordIncome?: boolean;
@@ -21,7 +19,6 @@ interface RecordCategoryResponse {
 
 const useRecords = (props?: useRecordsProps) => {
   const {getRequest, postRequest, putRequest} = useAxios();
-  const recordsInfo = useSelector(selectDashboardInfo);
   const dispatch = useDispatch();
   const [recordCategories, setRecordCategories] = useState<string[]>();
 
@@ -90,7 +87,6 @@ const useRecords = (props?: useRecordsProps) => {
     deleteRecord,
     getRecordsInfo: fetchRecordsInfo,
     handleRecordDateConversion,
-    recordsInfo,
     saveRecord,
   };
 };

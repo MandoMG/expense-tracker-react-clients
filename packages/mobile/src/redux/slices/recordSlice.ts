@@ -1,20 +1,37 @@
 import {createSelector, createSlice} from '@reduxjs/toolkit';
 import {RootState} from '../store';
-import {RecordsInfo, Record, PreviousMonthsRecordInfo} from '../../types';
-import {getPreviousMonthsInfo, getRecordsInfo} from '../thunks/recordsThunks';
+import {
+  Record,
+  PreviousMonthsRecordInfo,
+  SummaryData,
+  BudgetSummaryItem,
+} from '../../types';
+import {
+  getPreviousMonthsInfo,
+  getRecordById,
+  getRecordsInfo,
+} from '../thunks/recordsThunks';
 
 export interface RecordState {
+  currentBudgetData: BudgetSummaryItem[];
+  currentRecord: Record | null;
+  hasError: boolean;
   isRecordsLoading: boolean;
-  recordsInfo: RecordsInfo | null;
-  previousMonthsInfo: PreviousMonthsRecordInfo[] | null;
   lastPreviousMonthRequestTimestamp: string;
+  previousMonthsInfo: PreviousMonthsRecordInfo[] | null;
+  recordItemData: Record[];
+  summaryData: SummaryData | null;
 }
 
 const initialState: RecordState = {
+  currentBudgetData: [],
+  currentRecord: null,
+  hasError: false,
   isRecordsLoading: false,
-  recordsInfo: null,
-  previousMonthsInfo: null,
   lastPreviousMonthRequestTimestamp: '',
+  previousMonthsInfo: null,
+  recordItemData: [],
+  summaryData: null,
 };
 
 export const recordSlice = createSlice({
@@ -23,18 +40,35 @@ export const recordSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(getRecordsInfo.pending, (state, _action) => {
-        state.isRecordsLoading = true;
-      })
       .addCase(getRecordsInfo.fulfilled, (state, action) => {
         state.isRecordsLoading = false;
-        state.recordsInfo = action.payload;
+        state.summaryData = action.payload.summaryData;
+        state.currentBudgetData = action.payload.currentBudgetData;
+        state.recordItemData = action.payload.recordItemData;
+      })
+      .addCase(getRecordById.fulfilled, (state, action) => {
+        state.isRecordsLoading = false;
+        console.log('AM - payload: ', action.payload);
+        state.currentRecord = action.payload;
       })
       .addCase(getPreviousMonthsInfo.fulfilled, (state, action) => {
         state.isRecordsLoading = false;
         state.previousMonthsInfo = action.payload;
         state.lastPreviousMonthRequestTimestamp = new Date().toISOString();
-      });
+      })
+      .addMatcher(
+        action => action.type.endsWith('/rejected'),
+        (state, action) => {
+          console.log(action.type)
+        },
+      )
+      .addMatcher(
+        action => action.type.endsWith('/pending'),
+        (state, _action) => {
+          state.isRecordsLoading = true;
+          state.hasError = false;
+        },
+      );
   },
 });
 
@@ -48,25 +82,39 @@ export const selectIsRecordLoading = createSelector(
   },
 );
 
+export const selectHasError = createSelector(
+  (state: RootState) => state.record,
+  record => {
+    return record.hasError;
+  },
+);
+
+export const selectCurrentRecord = createSelector(
+  (state: RootState) => state.record,
+  record => {
+    return record.currentRecord;
+  },
+);
+
 export const selectDashboardInfo = createSelector(
   (state: RootState) => state.record,
   record => {
-    return record.recordsInfo;
+    return {
+      summaryData: record.summaryData,
+      currentBudgetData: record.currentBudgetData,
+      recordItemData: record.recordItemData,
+    };
   },
 );
 
 export const selectRecords = createSelector(
   (state: RootState) => state.record,
   record => {
-    if (
-      !record.recordsInfo ||
-      !record.recordsInfo.recordItemData ||
-      !record.recordsInfo.recordItemData.length
-    ) {
+    if (!record.recordItemData || !record.recordItemData.length) {
       return [] as Record[];
     }
 
-    return record.recordsInfo.recordItemData;
+    return record.recordItemData;
   },
 );
 

@@ -1,6 +1,7 @@
 import TextUtil from 'mandomg-expensetracker-common/src/util/TextUtil';
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
+  ActivityIndicator,
   Keyboard,
   Modal,
   SafeAreaView,
@@ -18,9 +19,18 @@ import TextInputField from '../../../components/textInputField/TextInputField';
 import {Record} from '../../../types';
 import useRecords from '../hooks/useRecords';
 import {RecordModalStyles} from '../styles/RecordModalStyles';
+import {getRecordById} from '../../../redux/thunks/recordsThunks';
+import {
+  useAppDispatch as useDispatch,
+  useAppSelector as useSelector,
+} from '../../../redux/hooks';
+import {
+  selectCurrentRecord,
+  selectIsRecordLoading,
+} from '../../../redux/slices/recordSlice';
 
 interface AddEditRecordModalProps {
-  record?: Record;
+  recordId?: string;
   handleClose: () => void;
   handleSave: (record: Record, recordId?: number) => Promise<void>;
 }
@@ -32,19 +42,22 @@ interface AddEditRecordModalProps {
 // Add mask to amount
 
 const AddEditRecordModal = ({
-  record,
+  recordId,
   handleClose,
   handleSave,
 }: AddEditRecordModalProps) => {
-  const [isIncome, setIsIncome] = useState<boolean>(record?.isIncome || false);
-  const [description, setDescription] = useState<string>(
-    record?.description || '',
-  );
-  const [amount, setAmount] = useState<string>(String(record?.amount || ''));
+  const dispatch = useDispatch();
+  const record = useSelector(selectCurrentRecord);
+  const isLoading = useSelector(selectIsRecordLoading);
+
+  const [isIncome, setIsIncome] = useState<boolean>(false);
+  const [description, setDescription] = useState<string>('');
+  const [amount, setAmount] = useState<string>(String(''));
 
   const {categories, handleRecordDateConversion} = useRecords({
     isRecordIncome: isIncome,
   });
+
   const [date, setDate] = useState<Date>(
     handleRecordDateConversion(record?.recordDate),
   );
@@ -101,87 +114,122 @@ const AddEditRecordModal = ({
     setDate(date);
   };
 
+  const updateLocalState = () => {
+    if (record) {
+      setIsIncome(record.isIncome);
+      setDescription(record.description);
+      setSelectedItem(setInitialSelectedCategory());
+      setDate(handleRecordDateConversion(record?.recordDate));
+      setAmount(String(record.amount));
+    }
+  };
+
+  useEffect(() => {
+    updateLocalState();
+  }, [record]);
+
+  useEffect(() => {
+    const recordID = recordId ?? '';
+    dispatch(getRecordById({recordId: recordID}));
+  }, []);
+
   return (
     <Modal animationType="slide">
       <SafeAreaView style={{flex: 1, backgroundColor: Colors.appBackground}}>
-        <ModalHeaderComponent
-          title="Add Record"
-          handleClose={handleClose}
-          handleSave={onSave}
-        />
-        <View style={RecordModalStyles.sliderWrapper}>
-          <View style={commonStyles.flexOne}>
-            <Text style={RecordModalStyles.sliderText}>Is Income</Text>
-          </View>
-          <View style={RecordModalStyles.sliderItemWrapper}>
-            <Switch
-              style={RecordModalStyles.sliderItem}
-              trackColor={{
-                false: Colors.backgroundGray,
-                true: Colors.expenseOrange,
-              }}
-              onValueChange={handleIncomeSwitchChange}
-              value={isIncome}
+        {!isLoading ? (
+          <>
+            <ModalHeaderComponent
+              title="Add Record"
+              handleClose={handleClose}
+              handleSave={onSave}
             />
+            <View style={RecordModalStyles.sliderWrapper}>
+              <View style={commonStyles.flexOne}>
+                <Text style={RecordModalStyles.sliderText}>Is Income</Text>
+              </View>
+              <View style={RecordModalStyles.sliderItemWrapper}>
+                <Switch
+                  style={RecordModalStyles.sliderItem}
+                  trackColor={{
+                    false: Colors.backgroundGray,
+                    true: Colors.expenseOrange,
+                  }}
+                  onValueChange={handleIncomeSwitchChange}
+                  value={isIncome}
+                />
+              </View>
+            </View>
+            <View>
+              <Text style={RecordModalStyles.inputTitle}>Description</Text>
+              <View style={RecordModalStyles.inputFieldWrapper}>
+                <TextInputField
+                  defaultValue={description}
+                  onChangeText={text => setDescription(text)}
+                />
+              </View>
+            </View>
+            <View>
+              <Text style={RecordModalStyles.inputTitle}>Category</Text>
+              <View style={RecordModalStyles.inputFieldWrapper}>
+                <TouchableOpacity onPress={onCategoryFieldPress}>
+                  <Text style={RecordModalStyles.inputField}>
+                    {selectedItem}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <Text style={RecordModalStyles.inputTitle}>Date</Text>
+              <TouchableOpacity
+                style={RecordModalStyles.inputFieldWrapper}
+                onPressIn={() => setOpen(true)}>
+                <TextInputField
+                  defaultValue={selectedDate}
+                  onPressIn={() => setOpen(true)}
+                  editable={false}
+                />
+              </TouchableOpacity>
+              <DatePicker
+                modal
+                mode="date"
+                open={open}
+                date={date}
+                onConfirm={handleDateSave}
+                onCancel={() => {
+                  setOpen(false);
+                }}
+              />
+            </View>
+            <View>
+              <Text style={RecordModalStyles.inputTitle}>Amount</Text>
+              <View style={RecordModalStyles.inputFieldWrapper}>
+                <TextInputField
+                  onChangeText={text => setAmount(text)}
+                  keyboardType="decimal-pad"
+                  style={RecordModalStyles.inputField}
+                  defaultValue={amount}
+                />
+              </View>
+            </View>
+            {openPicker && (
+              <ItemPicker
+                itemList={categories || []}
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+                setOpenPicker={setOpenPicker}
+              />
+            )}
+          </>
+        ) : (
+          <View
+            style={{
+              backgroundColor: Colors.appBackground,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 60,
+            }}>
+            <ActivityIndicator size="large" color={Colors.expenseOrange} />
           </View>
-        </View>
-        <View>
-          <Text style={RecordModalStyles.inputTitle}>Description</Text>
-          <View style={RecordModalStyles.inputFieldWrapper}>
-            <TextInputField
-              defaultValue={description}
-              onChangeText={text => setDescription(text)}
-            />
-          </View>
-        </View>
-        <View>
-          <Text style={RecordModalStyles.inputTitle}>Category</Text>
-          <View style={RecordModalStyles.inputFieldWrapper}>
-            <TouchableOpacity onPress={onCategoryFieldPress}>
-              <Text style={RecordModalStyles.inputField}>{selectedItem}</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View>
-          <Text style={RecordModalStyles.inputTitle}>Date</Text>
-          <TouchableOpacity
-            style={RecordModalStyles.inputFieldWrapper}
-            onPressIn={() => setOpen(true)}>
-            <TextInputField
-              defaultValue={selectedDate}
-              onPressIn={() => setOpen(true)}
-              editable={false}
-            />
-          </TouchableOpacity>
-          <DatePicker
-            modal
-            mode="date"
-            open={open}
-            date={date}
-            onConfirm={handleDateSave}
-            onCancel={() => {
-              setOpen(false);
-            }}
-          />
-        </View>
-        <View>
-          <Text style={RecordModalStyles.inputTitle}>Amount</Text>
-          <View style={RecordModalStyles.inputFieldWrapper}>
-            <TextInputField
-              onChangeText={text => setAmount(text)}
-              keyboardType="decimal-pad"
-              style={RecordModalStyles.inputField}
-              defaultValue={amount}
-            />
-          </View>
-        </View>
-        {openPicker && (
-          <ItemPicker
-            itemList={categories || []}
-            selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
-            setOpenPicker={setOpenPicker}
-          />
         )}
       </SafeAreaView>
     </Modal>

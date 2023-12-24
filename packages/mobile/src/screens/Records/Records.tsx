@@ -16,7 +16,10 @@ import RecordsGraphs from './components/RecordsGraphs';
 import useRecords from './hooks/useRecords';
 import {Record} from '../../types';
 import {useAppSelector as useSelector} from '../../redux/hooks';
-import {selectIsRecordLoading} from '../../redux/slices/recordSlice';
+import {
+  selectDashboardInfo,
+  selectIsRecordLoading,
+} from '../../redux/slices/recordSlice';
 import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
 import Summary from '../Home/components/Summary';
 import {useNavigation} from '@react-navigation/native';
@@ -25,13 +28,14 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const isAndroid = Platform.OS === 'android';
 
-const BUDGET_LABEL = "Budgets";
-const ACTIVITY_LABEL = "Activity";
+const BUDGET_LABEL = 'Budgets';
+const ACTIVITY_LABEL = 'Activity';
 
 const Records = () => {
   const navigation = useNavigation<RecordScreenNavigationProp>();
-  const {getRecordsInfo, recordsInfo, saveRecord, deleteRecord} = useRecords();
+  const {getRecordsInfo, saveRecord, deleteRecord} = useRecords();
   const isLoading = useSelector(selectIsRecordLoading);
+  const recordsInfo = useSelector(selectDashboardInfo);
   const [shouldOpenModal, setShouldOpenModal] = useState(false);
   const [isBudgetSelected, setIsBudgetSelected] = useState<boolean>(true);
   const selectedRecord = useRef<Record>();
@@ -51,6 +55,7 @@ const Records = () => {
   };
 
   const onRecordPress = (item: Record) => {
+    console.log('AM - item: ', item);
     selectedRecord.current = item;
     setShouldOpenModal(true);
   };
@@ -76,7 +81,7 @@ const Records = () => {
     navigation.navigate('PreviousMonths');
   };
 
-  useEffect(() => {
+  const initializeHeader = () => {
     navigation.setOptions({
       headerRight: () => {
         return (
@@ -90,6 +95,10 @@ const Records = () => {
         );
       },
     });
+  };
+
+  useEffect(() => {
+    initializeHeader();
   }, []);
 
   return (
@@ -97,9 +106,9 @@ const Records = () => {
       <View>
         <CurrentDateSubtitle isTouchable />
         <Summary
-          balance={recordsInfo?.summaryData.currentBalance}
-          income={recordsInfo?.summaryData.income}
-          expenses={recordsInfo?.summaryData.expenses}
+          balance={recordsInfo?.summaryData?.currentBalance}
+          income={recordsInfo?.summaryData?.income}
+          expenses={recordsInfo?.summaryData?.expenses}
         />
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           {!isLoading ? (
@@ -189,7 +198,7 @@ const Records = () => {
         </ScrollView>
         {shouldOpenModal && (
           <AddEditRecordModal
-            record={selectedRecord.current}
+            recordId={String(selectedRecord.current?._id)}
             handleClose={handleClose}
             handleSave={handleOnSave}
           />
