@@ -1,19 +1,18 @@
 export type TabNavigationPropsParams = {
-  Category: { category: Category }
-}
+  Category: {category: Category};
+};
 
 export type TabNavigationScreensParams = {
-  Categories: undefined,
-  CategoryDetail: { category: Category }
-}
+  Categories: undefined;
+  CategoryDetail: {category: Category};
+};
 
 export interface Category {
   _id?: number;
   name: string;
   budget: number;
   hasBudget: boolean;
-  isExpense: boolean;
-  isIncome?: boolean; // tempValue
+  isIncome: boolean;
 }
 
 export interface Record {
@@ -51,6 +50,7 @@ export interface BudgetSummaryItem {
   budgetDifference: number;
   hasBudget: boolean;
   isUnderBudget: boolean;
+  isIncome: boolean;
 }
 
 export interface RecordsInfo {
@@ -68,5 +68,16 @@ export interface PreviousMonthsRecordInfo {
 
 export interface CategoriesInfo {
   budgetList: BudgetSummaryItem[];
+  totalBudget: number;
+}
+
+export interface AvailableCategories {
+  expense: string[];
+  income: string[];
+}
+
+export interface MappedCategoriesInfo {
+  budgetList: BudgetSummaryItem[];
+  availableCategories: AvailableCategories;
   totalBudget: number;
 }

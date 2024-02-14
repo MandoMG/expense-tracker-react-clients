@@ -1,7 +1,8 @@
 const ApiRoutes = {
   getDashboardInfo: 'api/dashboard/getInfo',
 
-  getCategoryInfo: 'api/categories/getInfo',
+  getCategoriesInfo: 'api/categories/getInfo',
+  getSingleCategoryData: 'api/categories/getCategoryData/{0}',
   deleteCategory: 'api/categories/deleteCategory/{0}',
   saveCategory: 'api/categories/saveCategory',
   updateCategory: 'api/categories/updateCategory/{0}',

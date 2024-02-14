@@ -6,8 +6,10 @@ const HOST = __DEV__
 
 export class AxiosClient {
   private static instance: AxiosClient | null = null;
+  private axiosInstance;
 
   private constructor() {
+    this.axiosInstance = new Axios({timeout: 50000});
     // Private constructor to prevent external instantiation.
   }
 

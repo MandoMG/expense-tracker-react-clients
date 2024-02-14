@@ -35,7 +35,7 @@ const initialState: RecordState = {
 };
 
 export const recordSlice = createSlice({
-  name: 'appSlice',
+  name: 'recordSlice',
   initialState,
   reducers: {},
   extraReducers: builder => {
@@ -48,7 +48,6 @@ export const recordSlice = createSlice({
       })
       .addCase(getRecordById.fulfilled, (state, action) => {
         state.isRecordsLoading = false;
-        console.log('AM - payload: ', action.payload);
         state.currentRecord = action.payload;
       })
       .addCase(getPreviousMonthsInfo.fulfilled, (state, action) => {

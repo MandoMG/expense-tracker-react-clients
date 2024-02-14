@@ -5,23 +5,26 @@ import commonStyles from '../../common/CommonStyles';
 import CategoriesList from './components/CategoriesList';
 import useCategories from './hooks/useCategories';
 import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
-import Icon from "react-native-vector-icons/FontAwesome5";
-import {useNavigation} from "@react-navigation/native";
-import {BudgetScreenNavigationProp} from "../../navigators/NativeStackNavigator";
-import CategoryDetailModal from "./CategoryDetailModal";
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {useNavigation} from '@react-navigation/native';
+import {BudgetScreenNavigationProp} from '../../navigators/NativeStackNavigator';
+import CategoryDetailModal from './CategoryDetailModal';
+import {useAppDispatch as useDispatch, useAppSelector as useSelector} from '../../redux/hooks';
+import {getCategoriesInfo} from '../../redux/thunks/categoriesThunks';
+import {selectCategoriesInfo} from "../../redux/slices/categorySlice";
 
 const isAndroid = Platform.OS === 'android';
 
 const Budgets = () => {
   const navigation = useNavigation<BudgetScreenNavigationProp>();
+  const dispatch = useDispatch();
+  const categoriesInfo = useSelector(selectCategoriesInfo)
   const {
-    categoriesInfo,
     deleteCategory,
     handleCategoryItemOnPress,
     handleModalClose,
     handleModalSave,
     onAddPress,
-    selectedCategoryId,
     shouldOpenModal,
   } = useCategories();
 
@@ -45,6 +48,7 @@ const Budgets = () => {
         );
       },
     });
+    dispatch(getCategoriesInfo());
   }, []);
 
   return (
@@ -73,7 +77,10 @@ const Budgets = () => {
           />
         </ScrollView>
         {shouldOpenModal && (
-          <CategoryDetailModal categoryId={selectedCategoryId} handleClose={handleModalClose} handleSave={handleModalSave} />
+          <CategoryDetailModal
+            handleClose={handleModalClose}
+            handleSave={handleModalSave}
+          />
         )}
       </View>
     </ScreenWrapper>
