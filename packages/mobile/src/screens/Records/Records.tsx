@@ -15,8 +15,12 @@ import RecordList from './components/RecordList';
 import RecordsGraphs from './components/RecordsGraphs';
 import useRecords from './hooks/useRecords';
 import {Record} from '../../types';
-import {useAppSelector as useSelector} from '../../redux/hooks';
 import {
+  useAppDispatch as useDispatch,
+  useAppSelector as useSelector,
+} from '../../redux/hooks';
+import {
+  resetSelectedRecord,
   selectDashboardInfo,
   selectIsRecordLoading,
 } from '../../redux/slices/recordSlice';
@@ -25,6 +29,7 @@ import Summary from '../Home/components/Summary';
 import {useNavigation} from '@react-navigation/native';
 import {RecordScreenNavigationProp} from '../../navigators/NativeStackNavigator';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {getRecordsInfo} from '../../redux/thunks/recordsThunks';
 
 const isAndroid = Platform.OS === 'android';
 
@@ -33,7 +38,8 @@ const ACTIVITY_LABEL = 'Activity';
 
 const Records = () => {
   const navigation = useNavigation<RecordScreenNavigationProp>();
-  const {getRecordsInfo, saveRecord, deleteRecord} = useRecords();
+  const {saveRecord, deleteRecord} = useRecords();
+  const dispatch = useDispatch();
   const isLoading = useSelector(selectIsRecordLoading);
   const recordsInfo = useSelector(selectDashboardInfo);
   const [shouldOpenModal, setShouldOpenModal] = useState(false);
@@ -51,30 +57,31 @@ const Records = () => {
   };
 
   const onAddPress = () => {
+    console.log('AM - item: [onAddPress]', selectedRecord.current);
     setShouldOpenModal(true);
   };
 
   const onRecordPress = (item: Record) => {
-    console.log('AM - item: ', item);
+    console.log('AM - item [On RecordPress]: ', item);
     selectedRecord.current = item;
     setShouldOpenModal(true);
   };
 
   const onRecordDelete = async (recordId: number) => {
     await deleteRecord(recordId);
-    await getRecordsInfo();
   };
 
   const handleClose = () => {
     setShouldOpenModal(false);
     selectedRecord.current = undefined;
+    dispatch(resetSelectedRecord());
   };
 
   const handleOnSave = async (record: Record, recordId?: number) => {
     await saveRecord(record, recordId);
     setShouldOpenModal(false);
+    dispatch(resetSelectedRecord());
     selectedRecord.current = undefined;
-    await getRecordsInfo();
   };
 
   const onPreviousMonthsTap = () => {
@@ -97,8 +104,13 @@ const Records = () => {
     });
   };
 
+  const fetchRecordsInfo = async () => {
+    dispatch(getRecordsInfo());
+  };
+
   useEffect(() => {
     initializeHeader();
+    (async () => await fetchRecordsInfo())();
   }, []);
 
   return (
@@ -198,7 +210,7 @@ const Records = () => {
         </ScrollView>
         {shouldOpenModal && (
           <AddEditRecordModal
-            recordId={String(selectedRecord.current?._id)}
+            recordId={String(selectedRecord.current?._id ?? '') ?? ''}
             handleClose={handleClose}
             handleSave={handleOnSave}
           />

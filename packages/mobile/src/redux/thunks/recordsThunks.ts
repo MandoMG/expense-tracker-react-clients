@@ -23,7 +23,7 @@ export const getRecordById = createAsyncThunk(
 export const deleteRecordById = createAsyncThunk(
   'records/deleteRecordById',
   async ({recordId}: SingleRecordsParams) => {
-    return await RecordService.getInstance().deleteRecord({recordId});
+    await RecordService.getInstance().deleteRecord({recordId});
   },
 );
 

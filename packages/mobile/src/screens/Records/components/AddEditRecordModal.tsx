@@ -129,8 +129,18 @@ const AddEditRecordModal = ({
   }, [record]);
 
   useEffect(() => {
-    const recordID = recordId ?? '';
-    dispatch(getRecordById({recordId: recordID}));
+    console.log('AM - not not recordId [useEffect]: ', !!recordId);
+
+    if(!!recordId) {
+      console.log('AM - recordId [useEffect]: ', recordId);
+      dispatch(getRecordById({recordId: recordId}));
+    }
+    // const recordID = recordId ?? '';
+    // console.log('AM - recordId [useEffect]: ', recordId);
+    // if (!!recordID) {
+    //   console.log('AM - recordID [useEffect]: ', recordID);
+    //   dispatch(getRecordById({recordId: recordID}));
+    // }
   }, []);
 
   return (

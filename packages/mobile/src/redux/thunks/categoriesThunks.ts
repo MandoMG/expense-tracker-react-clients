@@ -23,21 +23,18 @@ export const getCategoryItem = createAsyncThunk(
 
 export const saveCategory = createAsyncThunk(
   'category/saveCategory',
-  async ({category}: SaveCategoryParams, thunkAPI) => {
+  async ({category}: SaveCategoryParams) => {
     await CategoryService.getInstance().saveCategory({
       category,
     });
-    thunkAPI.fulfillWithValue(true);
   },
 );
 
 export const deleteCategoryById = createAsyncThunk(
-  'category/deleteCategory',
-  async ({categoryId}: SingleCategoryParams, thunkAPI) => {
+  'category/deleteCategoryById',
+  async ({categoryId}: SingleCategoryParams) => {
     await CategoryService.getInstance().deleteCategory({
       categoryId,
     });
-
-    thunkAPI.fulfillWithValue(true);
   },
 );

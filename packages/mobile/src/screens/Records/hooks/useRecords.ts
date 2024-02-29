@@ -4,10 +4,12 @@ import {Alert} from 'react-native';
 import ApiRoutes from '../../../common/ApiRoutes';
 import useAxios from '../../../hooks/useAxios';
 import {Category, Record} from '../../../types';
+import {useAppDispatch as useDispatch} from '../../../redux/hooks';
 import {
-  useAppDispatch as useDispatch,
-} from '../../../redux/hooks';
-import {getRecordsInfo} from '../../../redux/thunks/recordsThunks';
+  deleteRecordById,
+  saveRecord,
+  updateRecord,
+} from '../../../redux/thunks/recordsThunks';
 
 interface useRecordsProps {
   isRecordIncome?: boolean;
@@ -18,7 +20,7 @@ interface RecordCategoryResponse {
 }
 
 const useRecords = (props?: useRecordsProps) => {
-  const {getRequest, postRequest, putRequest} = useAxios();
+  const {getRequest} = useAxios();
   const dispatch = useDispatch();
   const [recordCategories, setRecordCategories] = useState<string[]>();
 
@@ -35,10 +37,6 @@ const useRecords = (props?: useRecordsProps) => {
     );
   };
 
-  const fetchRecordsInfo = async () => {
-    dispatch(getRecordsInfo());
-  };
-
   const getRecordsCategories = async (isIncome: boolean) => {
     const response = await getRequest<RecordCategoryResponse>(
       TextUtil.formatString(ApiRoutes.getRecordCategories, [String(isIncome)]),
@@ -48,23 +46,22 @@ const useRecords = (props?: useRecordsProps) => {
     setRecordCategories(categoryNames);
   };
 
-  const saveRecord = async (record: Record, recordId?: number) => {
+  const onSaveRecordPress = async (record: Record, recordId?: number) => {
     if (!!recordId) {
-      const updateRecordRoute = TextUtil.formatString(ApiRoutes.updateRecord, [
-        String(recordId),
-      ]);
-
-      await putRequest(updateRecordRoute, record);
+      // const updateRecordRoute = TextUtil.formatString(ApiRoutes.updateRecord, [
+      //   String(recordId),
+      // ]);
+      //
+      // await putRequest(updateRecordRoute, record);
+      dispatch(updateRecord({record, recordId: String(recordId)}));
     } else {
-      await postRequest(ApiRoutes.saveRecord, record);
+      dispatch(saveRecord({record}));
     }
   };
 
-  const deleteRecord = async (recordId: number) => {
+  const onDeleteRecordPress = async (recordId: number) => {
     if (recordId) {
-      await postRequest(
-        TextUtil.formatString(ApiRoutes.deleteRecord, [recordId]),
-      );
+      dispatch(deleteRecordById({recordId: String(recordId)}));
     } else {
       const title = 'Error';
       const msg = 'Could not delete record.';
@@ -78,16 +75,11 @@ const useRecords = (props?: useRecordsProps) => {
     }
   }, [props?.isRecordIncome]);
 
-  useEffect(() => {
-    (() => fetchRecordsInfo())();
-  }, []);
-
   return {
     categories: recordCategories,
-    deleteRecord,
-    getRecordsInfo: fetchRecordsInfo,
+    deleteRecord: onDeleteRecordPress,
     handleRecordDateConversion,
-    saveRecord,
+    saveRecord: onSaveRecordPress,
   };
 };
 

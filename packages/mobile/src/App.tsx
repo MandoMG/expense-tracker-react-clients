@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {store} from './redux/store';
 import {Provider} from 'react-redux';
 import NativeStackNavigator from './navigators/NativeStackNavigator';
+import './redux/listeners';
 
 const App = () => {
   useEffect(() => {

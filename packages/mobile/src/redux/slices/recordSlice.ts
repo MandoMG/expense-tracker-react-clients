@@ -1,4 +1,4 @@
-import {createSelector, createSlice} from '@reduxjs/toolkit';
+import {createSelector, createSlice, isAnyOf} from '@reduxjs/toolkit';
 import {RootState} from '../store';
 import {
   Record,
@@ -9,7 +9,8 @@ import {
 import {
   getPreviousMonthsInfo,
   getRecordById,
-  getRecordsInfo,
+  getRecordsInfo, saveRecord,
+  updateRecord,
 } from '../thunks/recordsThunks';
 
 export interface RecordState {
@@ -37,7 +38,11 @@ const initialState: RecordState = {
 export const recordSlice = createSlice({
   name: 'recordSlice',
   initialState,
-  reducers: {},
+  reducers: {
+    resetSelectedRecord: state => {
+      state.currentRecord = null;
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getRecordsInfo.fulfilled, (state, action) => {
@@ -56,9 +61,22 @@ export const recordSlice = createSlice({
         state.lastPreviousMonthRequestTimestamp = new Date().toISOString();
       })
       .addMatcher(
+        isAnyOf(updateRecord.fulfilled, saveRecord.fulfilled),
+        (state, _action) => {
+          state.isRecordsLoading = false;
+        },
+      )
+      .addMatcher(
+        action => action.type.endsWith('/fulfilled'),
+        (state, action) => {
+          console.log(action.type);
+        },
+      )
+      .addMatcher(
         action => action.type.endsWith('/rejected'),
         (state, action) => {
-          console.log(action.type)
+          state.isRecordsLoading = false;
+          console.log(action.type);
         },
       )
       .addMatcher(
@@ -72,7 +90,7 @@ export const recordSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const {} = recordSlice.actions;
+export const {resetSelectedRecord} = recordSlice.actions;
 
 export const selectIsRecordLoading = createSelector(
   (state: RootState) => state.record,

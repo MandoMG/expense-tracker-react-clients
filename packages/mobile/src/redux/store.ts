@@ -2,13 +2,20 @@ import {configureStore} from '@reduxjs/toolkit';
 import appReducer from './slices/appSlice';
 import recordReducer from './slices/recordSlice';
 import categoryReducer from './slices/categorySlice';
-import './listeners';
+import {listenerMiddleware} from './listeners/listenerMiddleware';
 
 export const store = configureStore({
   reducer: {
     app: appReducer,
     record: recordReducer,
     category: categoryReducer,
+  },
+  middleware: getDefaultMiddleware => {
+    const defaultMiddleware = getDefaultMiddleware().prepend(
+      listenerMiddleware.middleware,
+    );
+
+    return defaultMiddleware;
   },
 });
 

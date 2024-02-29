@@ -11,6 +11,7 @@ const refreshGetRecordsInfo = (
   action: PayloadAction,
   store: ListenerEffectAPI<any, any>,
 ) => {
+  console.log('Dispatched by this action: ', action.type);
   store.dispatch(getRecordsInfo());
 };
 
@@ -26,5 +27,7 @@ startAppListening({
 
 startAppListening({
   actionCreator: updateRecord.fulfilled,
-  effect: refreshGetRecordsInfo,
+  effect: (action, api) => {
+    refreshGetRecordsInfo(action, api);
+  },
 });

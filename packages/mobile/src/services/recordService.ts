@@ -21,7 +21,7 @@ export interface SingleRecordsParams {
 }
 
 export interface SaveUpdateRecordParams {
-  recordId?: Record;
+  recordId?: string;
   record: Record;
 }
 

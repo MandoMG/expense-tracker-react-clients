@@ -10,7 +10,6 @@ const refreshGetCategoriesInfo = (
   action: PayloadAction,
   store: ListenerEffectAPI<any, any>,
 ) => {
-  console.log('Dispatched by this action: ', action.type);
   store.dispatch(getCategoriesInfo());
 };
 
@@ -21,5 +20,7 @@ startAppListening({
 
 startAppListening({
   actionCreator: deleteCategoryById.fulfilled,
-  effect: refreshGetCategoriesInfo,
+  effect: (action, api) => {
+    refreshGetCategoriesInfo(action, api);
+  },
 });
