@@ -7,8 +7,9 @@ export interface SingleCategoryParams {
   categoryId: string;
 }
 
-export interface SaveCategoryParams {
+export interface SaveUpdateCategoryParams {
   category: Category;
+  categoryId?: string;
 }
 
 export class CategoryService {
@@ -47,7 +48,7 @@ export class CategoryService {
     );
   }
 
-  async saveCategory({category}: SaveCategoryParams): Promise<void> {
+  async saveCategory({category}: SaveUpdateCategoryParams): Promise<void> {
     await AxiosClient.getInstance().postRequest<void>(
       ApiRoutes.saveCategory,
       category,
@@ -60,8 +61,22 @@ export class CategoryService {
       [categoryId],
     );
 
-    console.log('AM - deleteCategoryEndpoint: ', deleteCategoryEndpoint);
     await AxiosClient.getInstance().postRequest<void>(deleteCategoryEndpoint);
+  }
+
+  async updateCategory({
+    categoryId,
+    category,
+  }: SaveUpdateCategoryParams): Promise<void> {
+    const updateCategoryEndpoint = TextUtil.formatString(
+      ApiRoutes.updateCategory,
+      [categoryId],
+    );
+
+    await AxiosClient.getInstance().putRequest<void>(
+      updateCategoryEndpoint,
+      category,
+    );
   }
 
   private categoryInfoMapper(

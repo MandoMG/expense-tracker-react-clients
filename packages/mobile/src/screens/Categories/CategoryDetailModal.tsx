@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useRef} from 'react';
+import React, {useMemo, useState, useRef, useEffect} from 'react';
 import {Modal, SafeAreaView, Switch, Text, View} from 'react-native';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
@@ -32,13 +32,12 @@ const CategoryDetailModal = ({
     category?.hasBudget || false,
   );
 
-  const isEditRef = useRef<boolean>(!!category);
   const nameRef = useRef<string>('');
   const budgetRef = useRef<string>('');
 
   const title = useMemo(() => {
-    return isEditRef.current ? 'Edit Category' : 'Add Category';
-  }, [isEditRef]);
+    return !!category ? 'Edit Category' : 'Add Category';
+  }, [category]);
 
   const handleExpenseSwitchChange = (value: boolean) => {
     setIsIncome(value);
@@ -67,14 +66,22 @@ const CategoryDetailModal = ({
 
   const onSave = () => {
     const newCategory: Category = {
-      name: nameRef.current,
+      _id: category?._id,
+      name: nameRef.current ?? category?.name,
       budget: Number(budgetRef.current),
       hasBudget: hasBudget,
-      isIncome: true,
+      isIncome: isIncome,
     };
 
-    handleSave(newCategory, isEditRef.current);
+    handleSave(newCategory, !!category);
   };
+
+  useEffect(() => {
+    if (category) {
+      handleExpenseSwitchChange(category.isIncome);
+      handleBudgetSwitchChange(category.hasBudget);
+    }
+  }, [category]);
 
   return (
     <Modal animationType="slide">

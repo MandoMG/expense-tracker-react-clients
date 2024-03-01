@@ -57,12 +57,10 @@ const Records = () => {
   };
 
   const onAddPress = () => {
-    console.log('AM - item: [onAddPress]', selectedRecord.current);
     setShouldOpenModal(true);
   };
 
   const onRecordPress = (item: Record) => {
-    console.log('AM - item [On RecordPress]: ', item);
     selectedRecord.current = item;
     setShouldOpenModal(true);
   };

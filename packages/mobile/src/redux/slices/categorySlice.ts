@@ -39,9 +39,17 @@ export const categorySlice = createSlice({
         state.selectedCategory = action.payload;
       })
       .addMatcher(
+        action => action.type.endsWith('/fulfilled'),
+        (state, action) => {
+          console.log(action.type);
+          state.isLoading = false;
+        },
+      )
+      .addMatcher(
         action => action.type.endsWith('/rejected'),
         (state, action) => {
           console.log(action.type);
+          state.isLoading = false;
         },
       )
       .addMatcher(
@@ -70,6 +78,13 @@ export const selectCategoryInFocus = createSelector(
   (state: RootState) => state.category,
   category => {
     return category.selectedCategory;
+  },
+);
+
+export const selectIsCategoryLoading = createSelector(
+  (state: RootState) => state.category,
+  category => {
+    return category.isLoading;
   },
 );
 

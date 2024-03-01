@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {
   CategoryService,
-  SaveCategoryParams,
+  SaveUpdateCategoryParams,
   SingleCategoryParams,
 } from '../../services/categoryService';
 
@@ -23,7 +23,7 @@ export const getCategoryItem = createAsyncThunk(
 
 export const saveCategory = createAsyncThunk(
   'category/saveCategory',
-  async ({category}: SaveCategoryParams) => {
+  async ({category}: SaveUpdateCategoryParams) => {
     await CategoryService.getInstance().saveCategory({
       category,
     });
@@ -34,6 +34,16 @@ export const deleteCategoryById = createAsyncThunk(
   'category/deleteCategoryById',
   async ({categoryId}: SingleCategoryParams) => {
     await CategoryService.getInstance().deleteCategory({
+      categoryId,
+    });
+  },
+);
+
+export const updateCategory = createAsyncThunk(
+  'category/updateCategory',
+  async ({category, categoryId}: SaveUpdateCategoryParams) => {
+    await CategoryService.getInstance().updateCategory({
+      category,
       categoryId,
     });
   },
