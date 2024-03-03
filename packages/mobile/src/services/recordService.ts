@@ -25,6 +25,11 @@ export interface SaveUpdateRecordParams {
   record: Record;
 }
 
+export interface GetMonthRecordParams {
+  year: string;
+  month: string;
+}
+
 export class RecordService {
   private static instance: RecordService | null = null;
 
@@ -43,6 +48,18 @@ export class RecordService {
   async getRecordInfo(): Promise<RecordsInfo> {
     return await AxiosClient.getInstance().getRequest<RecordsInfo>(
       ApiRoutes.getRecordInfo,
+    );
+  }
+
+  async getMonthRecordsData({year, month}: GetMonthRecordParams): Promise<RecordsInfo> {
+    const getMonthRecordDataEndpoint = TextUtil.formatString(
+      ApiRoutes.getMonthRecordData,
+      [month, year],
+    );
+
+    console.log('AM - getMonthRecordDataEndpoint: ', getMonthRecordDataEndpoint);
+    return await AxiosClient.getInstance().getRequest<RecordsInfo>(
+      getMonthRecordDataEndpoint,
     );
   }
 

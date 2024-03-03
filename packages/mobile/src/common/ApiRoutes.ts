@@ -8,6 +8,7 @@ const ApiRoutes = {
   updateCategory: 'api/categories/updateCategory/{0}',
 
   getRecordInfo: 'api/records/getInfo',
+  getMonthRecordData: 'api/records/getMonthInfo/{0}/{1}',
   getSingleRecordInfo: 'api/records/getRecordData/{0}',
   getRecordCategories: 'api/records/getRecordsCategories/{0}',
   deleteRecord: 'api/records/deleteRecord/{0}',

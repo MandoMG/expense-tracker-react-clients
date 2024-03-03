@@ -1,5 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {
+  GetMonthRecordParams,
   RecordService,
   SaveUpdateRecordParams,
   SingleRecordsParams,
@@ -8,6 +9,13 @@ import {
 export const getRecordsInfo = createAsyncThunk('records/getInfo', async () => {
   return await RecordService.getInstance().getRecordInfo();
 });
+
+export const getMonthRecordsData = createAsyncThunk(
+  'records/getMonthRecordsData',
+  async ({year, month}: GetMonthRecordParams) => {
+    return await RecordService.getInstance().getMonthRecordsData({year, month});
+  },
+);
 
 export const getRecordById = createAsyncThunk(
   'records/getRecordById',

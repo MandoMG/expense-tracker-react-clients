@@ -4,9 +4,10 @@ import {
   Record,
   PreviousMonthsRecordInfo,
   SummaryData,
-  BudgetSummaryItem,
+  BudgetSummaryItem, RecordsInfo,
 } from '../../types';
 import {
+  getMonthRecordsData,
   getPreviousMonthsInfo,
   getRecordById,
   getRecordsInfo, saveRecord,
@@ -22,6 +23,7 @@ export interface RecordState {
   previousMonthsInfo: PreviousMonthsRecordInfo[] | null;
   recordItemData: Record[];
   summaryData: SummaryData | null;
+  selectedMonthRecordData: RecordsInfo | null;
 }
 
 const initialState: RecordState = {
@@ -33,6 +35,7 @@ const initialState: RecordState = {
   previousMonthsInfo: null,
   recordItemData: [],
   summaryData: null,
+  selectedMonthRecordData: null
 };
 
 export const recordSlice = createSlice({
@@ -54,6 +57,10 @@ export const recordSlice = createSlice({
       .addCase(getRecordById.fulfilled, (state, action) => {
         state.isRecordsLoading = false;
         state.currentRecord = action.payload;
+      })
+      .addCase(getMonthRecordsData.fulfilled, (state, action) => {
+        state.isRecordsLoading = false;
+        state.selectedMonthRecordData = action.payload;
       })
       .addCase(getPreviousMonthsInfo.fulfilled, (state, action) => {
         state.isRecordsLoading = false;
@@ -144,5 +151,12 @@ export const selectPreviousMonthsData = createSelector(
     };
   },
 );
+
+export const selectSelectedMonthRecords = createSelector(
+  (state: RootState) => state.record,
+  record => {
+    return record.selectedMonthRecordData?.recordItemData ?? [];
+  },
+)
 
 export default recordSlice.reducer;

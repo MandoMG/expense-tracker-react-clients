@@ -10,7 +10,7 @@ export default class TextUtil {
    static formatCurrency(amount: number, precision: number = 2, currencyType?: string) {
       if (amount === undefined) {
          return 'Undef number';
-      };
+      }
 
       let isNegativeNumber = false;
       let formattedValue;

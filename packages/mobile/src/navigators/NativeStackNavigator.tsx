@@ -8,11 +8,13 @@ import {
 } from '@react-navigation/native-stack';
 import WelcomeScreen from '../screens/Welcome/Welcome';
 import PreviousMonthData from "../screens/Records/screens/PreviousMonthData";
+import PreviousMonthRecords from "../screens/Records/screens/PreviousMonthRecords";
 
 type NativeStackParamList = {
   Dashboard: undefined;
   Records: undefined;
   PreviousMonths: undefined;
+  PreviousMonthsRecords: undefined;
   Budgets: undefined;
   AddEditRecord: undefined;
   SignIn: undefined;
@@ -51,6 +53,7 @@ const NativeStackNavigator = () => {
           />
           <Stack.Screen name="Records" component={Records} />
           <Stack.Screen name="PreviousMonths" component={PreviousMonthData} />
+          <Stack.Screen name="PreviousMonthsRecords" component={PreviousMonthRecords} />
           <Stack.Screen name="Budgets" component={Budgets} />
         </>
       ) : (
