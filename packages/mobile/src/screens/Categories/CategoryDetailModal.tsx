@@ -1,4 +1,4 @@
-import React, {useMemo, useState, useRef} from 'react';
+import React, {useMemo, useState, useRef, useEffect} from 'react';
 import {Modal, SafeAreaView, Switch, Text, View} from 'react-native';
 import Colors from '../../common/Colors';
 import commonStyles from '../../common/CommonStyles';
@@ -7,9 +7,10 @@ import LineSeparator from '../../components/lineSeparator/LineSeparator';
 import TextInputField from '../../components/textInputField/TextInputField';
 import {Category} from '../../types';
 import CategoryDetailStyles from './styles/CategoryDetailModal.styles';
+import {useAppSelector as useSelector} from '../../redux/hooks';
+import {selectCategoryInFocus} from '../../redux/slices/categorySlice';
 
 interface CategoryDetailModalProps {
-  category?: Category;
   handleClose: () => void;
   handleSave: (category: Category, isEdit: boolean) => void;
 }
@@ -20,27 +21,26 @@ enum FieldTypes {
 }
 
 const CategoryDetailModal = ({
-  category,
   handleClose,
   handleSave,
 }: CategoryDetailModalProps) => {
-  const [isExpense, setIsExpense] = useState<boolean>(
-    !category?.isIncome || false,
+  const category = useSelector(selectCategoryInFocus);
+  const [isIncome, setIsIncome] = useState<boolean>(
+    category?.isIncome || false,
   );
   const [hasBudget, setHasBudget] = useState<boolean>(
     category?.hasBudget || false,
   );
 
-  const isEditRef = useRef<boolean>(!!category);
   const nameRef = useRef<string>('');
   const budgetRef = useRef<string>('');
 
   const title = useMemo(() => {
-    return isEditRef.current ? 'Edit Category' : 'Add Category';
-  }, [isEditRef]);
+    return !!category ? 'Edit Category' : 'Add Category';
+  }, [category]);
 
   const handleExpenseSwitchChange = (value: boolean) => {
-    setIsExpense(value);
+    setIsIncome(value);
   };
 
   const handleBudgetSwitchChange = (value: boolean) => {
@@ -66,14 +66,22 @@ const CategoryDetailModal = ({
 
   const onSave = () => {
     const newCategory: Category = {
-      name: nameRef.current,
+      _id: category?._id,
+      name: nameRef.current ?? category?.name,
       budget: Number(budgetRef.current),
       hasBudget: hasBudget,
-      isExpense,
+      isIncome: isIncome,
     };
 
-    handleSave(newCategory, isEditRef.current);
+    handleSave(newCategory, !!category);
   };
+
+  useEffect(() => {
+    if (category) {
+      handleExpenseSwitchChange(category.isIncome);
+      handleBudgetSwitchChange(category.hasBudget);
+    }
+  }, [category]);
 
   return (
     <Modal animationType="slide">
@@ -96,7 +104,7 @@ const CategoryDetailModal = ({
         </View>
         <View style={CategoryDetailStyles.sliderWrapper}>
           <View style={commonStyles.flexOne}>
-            <Text style={CategoryDetailStyles.sliderText}>Is Expense</Text>
+            <Text style={CategoryDetailStyles.sliderText}>Is Income</Text>
           </View>
           <View style={CategoryDetailStyles.sliderItemWrapper}>
             <Switch
@@ -106,7 +114,7 @@ const CategoryDetailModal = ({
                 true: Colors.expenseOrange,
               }}
               onValueChange={handleExpenseSwitchChange}
-              value={isExpense}
+              value={isIncome}
             />
           </View>
         </View>

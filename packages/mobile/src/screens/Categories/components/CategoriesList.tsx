@@ -1,21 +1,21 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
-import { Category } from '../../../types';
+import {BudgetSummaryItem} from '../../../types';
 import CategoryStyles from '../styles/CategoryStyles';
 import CategoryListItem from './CategoryListItem';
 
 interface CategoriesListProps {
-  categoryList: Category[];
-  handleOnPress: (selectedItem: Category) => void;
-  onDelete: (categoryId: number) => void;
+  budgetList: BudgetSummaryItem[];
+  handleOnPress: (selectedItem: BudgetSummaryItem) => void;
+  onDelete: (categoryId: string) => void;
 }
 
-const CategoriesList = ({ categoryList, handleOnPress, onDelete }: CategoriesListProps) => {
+const CategoriesList = ({ budgetList, handleOnPress, onDelete }: CategoriesListProps) => {
   return (
     <View style={CategoryStyles.categoryListWrapper}>
       <FlatList
-        data={categoryList}
-        renderItem={({ item }: { item: Category }) => (
+        data={budgetList}
+        renderItem={({ item }: { item: BudgetSummaryItem }) => (
           <CategoryListItem item={item} handleOnPress={handleOnPress} onDelete={onDelete} />
         )}
       />

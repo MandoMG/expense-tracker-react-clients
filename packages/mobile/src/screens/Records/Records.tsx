@@ -15,20 +15,33 @@ import RecordList from './components/RecordList';
 import RecordsGraphs from './components/RecordsGraphs';
 import useRecords from './hooks/useRecords';
 import {Record} from '../../types';
-import {useAppSelector as useSelector} from '../../redux/hooks';
-import {selectIsRecordLoading} from '../../redux/slices/recordSlice';
+import {
+  useAppDispatch as useDispatch,
+  useAppSelector as useSelector,
+} from '../../redux/hooks';
+import {
+  resetSelectedRecord,
+  selectDashboardInfo,
+  selectIsRecordLoading,
+} from '../../redux/slices/recordSlice';
 import ScreenWrapper from '../../components/screenWrapper/ScreenWrapper';
 import Summary from '../Home/components/Summary';
 import {useNavigation} from '@react-navigation/native';
 import {RecordScreenNavigationProp} from '../../navigators/NativeStackNavigator';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {getRecordsInfo} from '../../redux/thunks/recordsThunks';
 
 const isAndroid = Platform.OS === 'android';
 
+const BUDGET_LABEL = 'Budgets';
+const ACTIVITY_LABEL = 'Activity';
+
 const Records = () => {
   const navigation = useNavigation<RecordScreenNavigationProp>();
-  const {getRecordsInfo, recordsInfo, saveRecord, deleteRecord} = useRecords();
+  const {saveRecord, deleteRecord} = useRecords();
+  const dispatch = useDispatch();
   const isLoading = useSelector(selectIsRecordLoading);
+  const recordsInfo = useSelector(selectDashboardInfo);
   const [shouldOpenModal, setShouldOpenModal] = useState(false);
   const [isBudgetSelected, setIsBudgetSelected] = useState<boolean>(true);
   const selectedRecord = useRef<Record>();
@@ -54,26 +67,26 @@ const Records = () => {
 
   const onRecordDelete = async (recordId: number) => {
     await deleteRecord(recordId);
-    await getRecordsInfo();
   };
 
   const handleClose = () => {
     setShouldOpenModal(false);
     selectedRecord.current = undefined;
+    dispatch(resetSelectedRecord());
   };
 
   const handleOnSave = async (record: Record, recordId?: number) => {
     await saveRecord(record, recordId);
     setShouldOpenModal(false);
+    dispatch(resetSelectedRecord());
     selectedRecord.current = undefined;
-    await getRecordsInfo();
   };
 
   const onPreviousMonthsTap = () => {
     navigation.navigate('PreviousMonths');
   };
 
-  useEffect(() => {
+  const initializeHeader = () => {
     navigation.setOptions({
       headerRight: () => {
         return (
@@ -87,6 +100,15 @@ const Records = () => {
         );
       },
     });
+  };
+
+  const fetchRecordsInfo = async () => {
+    dispatch(getRecordsInfo());
+  };
+
+  useEffect(() => {
+    initializeHeader();
+    (async () => await fetchRecordsInfo())();
   }, []);
 
   return (
@@ -94,9 +116,9 @@ const Records = () => {
       <View>
         <CurrentDateSubtitle isTouchable />
         <Summary
-          balance={recordsInfo?.pillsData.currentBalance}
-          income={recordsInfo?.pillsData.income}
-          expenses={recordsInfo?.pillsData.expenses}
+          balance={recordsInfo?.summaryData?.currentBalance}
+          income={recordsInfo?.summaryData?.income}
+          expenses={recordsInfo?.summaryData?.expenses}
         />
         <ScrollView contentInsetAdjustmentBehavior="automatic">
           {!isLoading ? (
@@ -137,7 +159,7 @@ const Records = () => {
                           : Colors.black,
                       },
                     ]}>
-                    {recordsInfo?.featureLabels.budgets}
+                    {BUDGET_LABEL}
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -152,7 +174,7 @@ const Records = () => {
                           : Colors.expenseOrange,
                       },
                     ]}>
-                    {recordsInfo?.featureLabels.activity}
+                    {ACTIVITY_LABEL}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -186,7 +208,7 @@ const Records = () => {
         </ScrollView>
         {shouldOpenModal && (
           <AddEditRecordModal
-            record={selectedRecord.current}
+            recordId={String(selectedRecord.current?._id ?? '') ?? ''}
             handleClose={handleClose}
             handleSave={handleOnSave}
           />

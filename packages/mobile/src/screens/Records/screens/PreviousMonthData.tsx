@@ -1,4 +1,4 @@
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, Text, TouchableOpacity, View} from 'react-native';
 import ScreenWrapper from '../../../components/screenWrapper/ScreenWrapper';
 import commonStyles from '../../../common/CommonStyles';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -10,21 +10,41 @@ import {
   useAppSelector as useSelector,
 } from '../../../redux/hooks';
 import {selectPreviousMonthsData} from '../../../redux/slices/recordSlice';
-import {getPreviousMonthsInfo} from '../../../redux/thunks/recordsThunks';
+import {
+  getMonthRecordsData,
+  getPreviousMonthsInfo,
+} from '../../../redux/thunks/recordsThunks';
 import {useDateUtil} from 'mandomg-expensetracker-common/src/hooks';
+import {getNumberOfMonth} from '../../../utils/DateUtil';
+import {useNavigation} from '@react-navigation/native';
+import {RecordScreenNavigationProp} from '../../../navigators/NativeStackNavigator';
 
 interface PreviousMonthItemProps {
   monthYear: string;
   balance: number;
   income: number;
-  expense: number;
+  expenses: number;
 }
 
 const PreviousMonthItem = (props: PreviousMonthItemProps) => {
-  const {balance, expense, income, monthYear} = props;
+  const dispatch = useDispatch();
+  const navigation = useNavigation<RecordScreenNavigationProp>();
+  const {balance, expenses, income, monthYear} = props;
+
+  const onPress = () => {
+    const monthYearArray = monthYear.split(' ');
+    const month = monthYearArray[0];
+    const year = monthYearArray[1];
+    const monthNum = TextUtil.padNumber(getNumberOfMonth(month));
+
+    dispatch(getMonthRecordsData({year, month: String(monthNum)}));
+    navigation.navigate('PreviousMonthsRecords');
+  };
 
   return (
-    <View style={[commonStyles.listItemWrapper, {flexDirection: 'column'}]}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[commonStyles.listItemWrapper, {flexDirection: 'column'}]}>
       <Text style={commonStyles.listItemMainText}>{monthYear}</Text>
       <View style={{paddingTop: 8}}>
         <View style={{flex: 1, flexDirection: 'row'}}>
@@ -66,11 +86,11 @@ const PreviousMonthItem = (props: PreviousMonthItemProps) => {
             Expense
           </Text>
           <Text style={{flex: 1, textAlign: 'right'}}>
-            {TextUtil.formatCurrency(expense, 0)}
+            {TextUtil.formatCurrency(expenses, 0)}
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
