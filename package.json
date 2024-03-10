@@ -9,6 +9,8 @@
     "nohoist": [
       "**/@react-navigation/bottom-tabs",
       "**/@react-navigation/native",
+      "**/@react-navigation/native-stack",
+      "**/@react-native-picker/picker",
       "**/bootstrap",
       "**/bootstrap/**",
       "**/react-bootstrap",
