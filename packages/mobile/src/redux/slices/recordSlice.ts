@@ -74,16 +74,9 @@ export const recordSlice = createSlice({
         },
       )
       .addMatcher(
-        action => action.type.endsWith('/fulfilled'),
-        (state, action) => {
-          console.log(action.type);
-        },
-      )
-      .addMatcher(
         action => action.type.endsWith('/rejected'),
-        (state, action) => {
+        (state, _action) => {
           state.isRecordsLoading = false;
-          console.log(action.type);
         },
       )
       .addMatcher(

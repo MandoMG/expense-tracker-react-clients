@@ -129,7 +129,7 @@ const AddEditRecordModal = ({
   }, [record]);
 
   useEffect(() => {
-    if(!!recordId) {
+    if (!!recordId) {
       dispatch(getRecordById({recordId: recordId}));
     }
   }, []);

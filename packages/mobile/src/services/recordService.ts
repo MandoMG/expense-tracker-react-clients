@@ -57,7 +57,6 @@ export class RecordService {
       [month, year],
     );
 
-    console.log('AM - getMonthRecordDataEndpoint: ', getMonthRecordDataEndpoint);
     return await AxiosClient.getInstance().getRequest<RecordsInfo>(
       getMonthRecordDataEndpoint,
     );

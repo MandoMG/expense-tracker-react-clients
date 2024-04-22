@@ -40,15 +40,13 @@ export const categorySlice = createSlice({
       })
       .addMatcher(
         action => action.type.endsWith('/fulfilled'),
-        (state, action) => {
-          console.log(action.type);
+        (state, _action) => {
           state.isLoading = false;
         },
       )
       .addMatcher(
         action => action.type.endsWith('/rejected'),
-        (state, action) => {
-          console.log(action.type);
+        (state, _action) => {
           state.isLoading = false;
         },
       )
