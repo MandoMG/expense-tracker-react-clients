@@ -45,10 +45,16 @@ const RecordSummary = ({summaryData}: RecordSummaryProps) => {
           <Text style={commonStyles.sectionTitle}> Last 7 Days </Text>
           <NavigationLink label="Go to Records" route="Records" />
         </View>
-        <FlatList
-          data={summaryData}
-          renderItem={({item}) => <RecordSummaryItem item={item} />}
-        />
+        {!!summaryData?.length ? (
+          <FlatList
+            data={summaryData}
+            renderItem={({item}) => <RecordSummaryItem item={item} />}
+          />
+        ) : (
+          <View style={{ paddingVertical: 24, alignItems: "center"}}>
+            <Text style={commonStyles.listItemMainText}>{`No Records this month ...yet`}</Text>
+          </View>
+        )}
       </View>
     </View>
   );
