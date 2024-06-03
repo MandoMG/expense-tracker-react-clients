@@ -1,11 +1,11 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Colors from './Colors';
 
 const commonStyles = StyleSheet.create({
-  flexOne: {flex: 1},
-  flexRow: {flexDirection: 'row'},
-  androidHeaderText: {fontSize: 20, color: Colors.black},
-  iosHeaderText: {fontSize: 16, color: '#327af5'},
+  flexOne: { flex: 1 },
+  flexRow: { flexDirection: 'row' },
+  androidHeaderText: { fontSize: 20, color: Colors.black },
+  iosHeaderText: { fontSize: 16, color: '#327af5' },
   headerTitle: {
     color: Colors.black,
     fontSize: 18,
@@ -56,8 +56,8 @@ const commonStyles = StyleSheet.create({
     marginHorizontal: 15,
     marginBottom: 70,
   },
-  listItemMainText: {color: Colors.black, fontWeight: 'bold', fontSize: 14},
-  listItemSubText: {color: Colors.subTextGray},
+  listItemMainText: { color: Colors.black, fontWeight: 'bold', fontSize: 14 },
+  listItemSubText: { color: Colors.subTextGray },
   sectionTitle: {
     flex: 1,
     color: Colors.black,
