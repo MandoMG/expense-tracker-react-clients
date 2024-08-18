@@ -83,7 +83,7 @@ const Records = () => {
   };
 
   const onPreviousMonthsTap = () => {
-    navigation.navigate('PreviousMonths');
+    navigation.navigate('History');
   };
 
   const initializeHeader = () => {
@@ -130,7 +130,6 @@ const Records = () => {
                     backgroundColor: Colors.incomePurple,
                     flex: 1,
                     marginTop: 12,
-                    marginHorizontal: 16,
                     paddingVertical: 12,
                     borderRadius: 12,
                     elevation: 50,
@@ -142,13 +141,13 @@ const Records = () => {
                       color: Colors.white,
                       fontSize: 16,
                     }}>
-                    View Previous Months Data
+                    View Data History
                   </Text>
                 </TouchableOpacity>
               </View>
               <View style={commonStyles.flexRow}>
                 <TouchableOpacity
-                  style={{flex: 1, marginHorizontal: 20, marginTop: 20}}
+                  style={{flex: 1, marginTop: 20}}
                   onPress={() => onTouchableTitlePress(true)}>
                   <Text
                     style={[
@@ -163,7 +162,7 @@ const Records = () => {
                   </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={{marginHorizontal: 20, marginTop: 20}}
+                  style={{marginTop: 20}}
                   onPress={() => onTouchableTitlePress(false)}>
                   <Text
                     style={[

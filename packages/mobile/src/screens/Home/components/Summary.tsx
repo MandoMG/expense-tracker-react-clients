@@ -15,7 +15,7 @@ const Summary = ({
   expenses = 0,
 }: BudgetSummaryProps) => {
   return (
-    <View style={{flexDirection: 'row', marginHorizontal: 10, marginTop: 10}}>
+    <View style={{flexDirection: 'row', marginHorizontal: -10, marginTop: 10}}>
       <Tile
         label="Balance"
         value={balance}

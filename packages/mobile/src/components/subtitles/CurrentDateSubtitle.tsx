@@ -12,11 +12,11 @@ const CurrentDateSubtitle = ({ isTouchable, onPress }: CurrentDateSubtitleProps)
   const { getCurrentMonthYear } = useDateUtil();
 
   return isTouchable ? (
-    <TouchableOpacity onPress={onPress} style={{ marginHorizontal: 20, marginTop: 10 }}>
+    <TouchableOpacity onPress={onPress}>
       <Text style={commonStyles.subheaderTitle}>{getCurrentMonthYear()}</Text>
     </TouchableOpacity>
   ) : (
-    <View style={{ marginHorizontal: 20, marginTop: 10 }}>
+    <View>
       <Text style={commonStyles.subheaderTitle}>{getCurrentMonthYear()}</Text>
     </View>
   );

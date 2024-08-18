@@ -7,9 +7,7 @@ interface ScreenWrapperProps {
 
 const ScreenWrapper = (props: ScreenWrapperProps) => {
   return (
-    <SafeAreaView style={styles.safeAreaWrapper}>
-      {props.children}
-    </SafeAreaView>
+    <SafeAreaView style={styles.safeAreaWrapper}>{props.children}</SafeAreaView>
   );
 };
 
@@ -17,6 +15,8 @@ const styles = StyleSheet.create({
   safeAreaWrapper: {
     flex: 1,
     backgroundColor: Colors.appBackground,
+    marginHorizontal: 20,
+    marginTop: 10,
   },
 });
 

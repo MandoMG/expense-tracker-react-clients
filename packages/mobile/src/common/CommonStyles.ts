@@ -27,6 +27,14 @@ const commonStyles = StyleSheet.create({
   listBottomPadding: {
     paddingBottom: 10,
   },
+  listItemWrapperNoFlex: {
+    backgroundColor: Colors.pillBackground,
+    borderRadius: 10,
+    marginTop: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    shadowOpacity: 0.1,
+  },
   listItemWrapper: {
     flex: 1,
     flexDirection: 'row',
@@ -53,7 +61,6 @@ const commonStyles = StyleSheet.create({
   },
   listWrapper: {
     marginTop: 10,
-    marginHorizontal: 15,
     marginBottom: 70,
   },
   listItemMainText: { color: Colors.black, fontWeight: 'bold', fontSize: 14 },

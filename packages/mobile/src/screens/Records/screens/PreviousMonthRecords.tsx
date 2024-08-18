@@ -7,7 +7,8 @@ import {
   selectSelectedMonthRecords,
 } from '../../../redux/slices/recordSlice';
 import Colors from '../../../common/Colors';
-import commonStyles from "../../../common/CommonStyles";
+import commonStyles from '../../../common/CommonStyles';
+import ScreenWrapper from '../../../components/screenWrapper/ScreenWrapper';
 
 const PreviousMonthRecords = () => {
   const isLoading = useSelector(selectIsRecordLoading);
@@ -24,15 +25,17 @@ const PreviousMonthRecords = () => {
       <ActivityIndicator size="large" color={Colors.expenseOrange} />
     </View>
   ) : (
-    <ScrollView contentInsetAdjustmentBehavior="automatic">
-      <View style={commonStyles.listWrapper}>
-        <RecordList
-          activityData={monthRecords}
-          onPress={() => {}}
-          onDelete={() => {}}
-        />
-      </View>
-    </ScrollView>
+    <ScreenWrapper>
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <View>
+          <RecordList
+            activityData={monthRecords}
+            onPress={() => {}}
+            onDelete={() => {}}
+          />
+        </View>
+      </ScrollView>
+    </ScreenWrapper>
   );
 };
 

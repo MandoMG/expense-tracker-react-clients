@@ -9,14 +9,16 @@ import {
 import WelcomeScreen from '../screens/Welcome/Welcome';
 import PreviousMonthData from '../screens/Records/screens/PreviousMonthData';
 import PreviousMonthRecords from '../screens/Records/screens/PreviousMonthRecords';
+import History from "../screens/History/History";
 
 type NativeStackParamList = {
+  AddEditRecord: undefined;
+  Budgets: undefined;
   Dashboard: undefined;
-  Records: undefined;
+  History: undefined;
   PreviousMonths: undefined;
   PreviousMonthsRecords: undefined;
-  Budgets: undefined;
-  AddEditRecord: undefined;
+  Records: undefined;
   SignIn: undefined;
 };
 
@@ -55,9 +57,11 @@ const NativeStackNavigator = () => {
           <Stack.Screen name="PreviousMonths" component={PreviousMonthData} />
           <Stack.Screen
             name="PreviousMonthsRecords"
+            options={{title: "Previous Months Records"}}
             component={PreviousMonthRecords}
           />
           <Stack.Screen name="Budgets" component={Budgets} />
+          <Stack.Screen name="History" component={History} />
         </>
       ) : (
         <>

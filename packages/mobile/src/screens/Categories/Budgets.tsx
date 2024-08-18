@@ -57,8 +57,6 @@ const Budgets = () => {
         <View
           style={{
             flexDirection: 'row',
-            marginHorizontal: 20,
-            paddingVertical: 10,
           }}>
           <View style={commonStyles.listItemLeftColumn}>
             <Text style={commonStyles.boldText}>Total Budget</Text>
