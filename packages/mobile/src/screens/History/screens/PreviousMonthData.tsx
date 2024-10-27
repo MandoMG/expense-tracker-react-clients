@@ -107,7 +107,7 @@ const PreviousMonthData = () => {
 
   return (
     <ScreenWrapper>
-      <View style={{marginHorizontal: 20}}>
+      <View>
         <FlatList
           data={previousMonthsInfo}
           renderItem={({item}) => <PreviousMonthItem {...item} />}

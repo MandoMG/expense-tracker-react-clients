@@ -1,6 +1,6 @@
 import React from 'react';
 import {ActivityIndicator, ScrollView, View} from 'react-native';
-import RecordList from '../components/RecordList';
+import RecordList from '../../Records/components/RecordList';
 import {useAppSelector as useSelector} from '../../../redux/hooks';
 import {
   selectIsRecordLoading,

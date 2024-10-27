@@ -7,9 +7,10 @@ import {
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
 import WelcomeScreen from '../screens/Welcome/Welcome';
-import PreviousMonthData from '../screens/Records/screens/PreviousMonthData';
-import PreviousMonthRecords from '../screens/Records/screens/PreviousMonthRecords';
-import History from "../screens/History/History";
+import PreviousMonthData from '../screens/History/screens/PreviousMonthData';
+import PreviousMonthRecords from '../screens/History/screens/PreviousMonthRecords';
+import History from '../screens/History/History';
+import PreviousCategoryComparison from '../screens/History/screens/PreviousCategoryComparison';
 
 type NativeStackParamList = {
   AddEditRecord: undefined;
@@ -18,6 +19,7 @@ type NativeStackParamList = {
   History: undefined;
   PreviousMonths: undefined;
   PreviousMonthsRecords: undefined;
+  PreviousCategoryComparison: undefined;
   Records: undefined;
   SignIn: undefined;
 };
@@ -54,11 +56,20 @@ const NativeStackNavigator = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen name="Records" component={Records} />
-          <Stack.Screen name="PreviousMonths" component={PreviousMonthData} />
+          <Stack.Screen
+            name="PreviousMonths"
+            options={{title: 'Previous Record Summary'}}
+            component={PreviousMonthData}
+          />
           <Stack.Screen
             name="PreviousMonthsRecords"
-            options={{title: "Previous Months Records"}}
+            options={{title: 'Previous Months Records'}}
             component={PreviousMonthRecords}
+          />
+          <Stack.Screen
+            name="PreviousCategoryComparison"
+            options={{title: 'Previous Category Comparison'}}
+            component={PreviousCategoryComparison}
           />
           <Stack.Screen name="Budgets" component={Budgets} />
           <Stack.Screen name="History" component={History} />

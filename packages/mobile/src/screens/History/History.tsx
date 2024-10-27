@@ -9,7 +9,11 @@ const History = () => {
   const navigation = useNavigation<RecordScreenNavigationProp>();
 
   const onPreviousMonthsTap = () => {
-    navigation.navigate('PreviousMonthsRecords');
+    navigation.navigate('PreviousMonths');
+  };
+
+  const onCategoryComparisonTap = () => {
+    navigation.navigate('PreviousCategoryComparison');
   };
 
   return (
@@ -23,7 +27,7 @@ const History = () => {
             Displays the records entered for previous months up to 12 months
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={commonStyles.listItemWrapperNoFlex}>
+        <TouchableOpacity style={commonStyles.listItemWrapperNoFlex} onPress={onCategoryComparisonTap}>
           <Text style={commonStyles.listItemMainText}>
             Previous Category Comparison
           </Text>
