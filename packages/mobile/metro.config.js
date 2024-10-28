@@ -5,8 +5,11 @@
  * @format
  */
 
-const exclusionList = require("metro-config/src/defaults/exclusionList");
-const { getMetroTools, getMetroAndroidAssetsResolutionFix } = require("react-native-monorepo-tools");
+const exclusionList = require('metro-config/src/defaults/exclusionList');
+const {
+  getMetroTools,
+  getMetroAndroidAssetsResolutionFix,
+} = require('react-native-monorepo-tools');
 
 const monorepoMetroTools = getMetroTools();
 
@@ -43,7 +46,7 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 
 /**
  * Metro configuration
- * https://facebook.github.io/metro/docs/configuration
+ * https://reactnative.dev/docs/metro
  *
  * @type {import('metro-config').MetroConfig}
  */
@@ -60,7 +63,7 @@ const config = {
   },
   server: {
     // ...and to the server middleware.
-    enhanceMiddleware: (middleware) => {
+    enhanceMiddleware: middleware => {
       return androidAssetsResolutionFix.applyMiddleware(middleware);
     },
   },

@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "main": "src",
   "dependencies": {
-    "react-native": "0.71.10"
+    "react-native": "0.76.0"
   },
   "peerDependencies": {
     "react": "*"
   },
   "devDependencies": {
-    "@types/react": "^18.0.24"
+    "@types/react": "^18.2.6"
   },
   "license": "MIT"
 }

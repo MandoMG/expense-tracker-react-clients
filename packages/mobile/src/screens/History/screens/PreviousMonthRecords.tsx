@@ -7,7 +7,6 @@ import {
   selectSelectedMonthRecords,
 } from '../../../redux/slices/recordSlice';
 import Colors from '../../../common/Colors';
-import commonStyles from '../../../common/CommonStyles';
 import ScreenWrapper from '../../../components/screenWrapper/ScreenWrapper';
 
 const PreviousMonthRecords = () => {

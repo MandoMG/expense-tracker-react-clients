@@ -10,7 +10,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "mandomg-expensetracker-common": "1.0.0",
+    "mandomg-expensetracker-common": "../common",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-native-web": "^0.17.5",
@@ -43,7 +43,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react-native-web": "npm:@types/react-native",
+    "@types/react-native-web": "^0.19.0",
     "url-loader": "^4.1.1"
   }
 }
